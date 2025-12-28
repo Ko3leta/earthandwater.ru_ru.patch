@@ -1,5 +1,6 @@
 package potatowolfie.earth_and_water.block.entity.custom;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -11,18 +12,18 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.world.MobSpawnerLogic;
 import net.minecraft.world.World;
 import potatowolfie.earth_and_water.EarthWater;
 import potatowolfie.earth_and_water.block.custom.ReinforcedSpawnerBlock;
 import potatowolfie.earth_and_water.block.entity.ModBlockEntities;
 import potatowolfie.earth_and_water.item.custom.ReinforcedKeyItem;
+import potatowolfie.earth_and_water.sound.ModSounds;
 
 import java.util.*;
 
@@ -40,6 +41,12 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
 
     private static final int ACTIVATION_PARTICLE_DURATION = 5;
     private static final int WAVE_PARTICLE_DURATION = 5;
+
+    private final MobSpawnerLogic logic = new MobSpawnerLogic() {
+        @Override
+        public void sendStatus(World world, BlockPos pos, int status) {
+        }
+    };
 
     private EntityType<?> entityType = null;
     private boolean isActive = false;
@@ -60,7 +67,6 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     private double lastRotation = 0.0;
 
     private long lastKeyUsageTime = 0;
-    private boolean wasInCooldown = false;
 
     private int activationParticleTimer = 0;
     private boolean isActivating = false;
@@ -71,6 +77,10 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
 
     public ReinforcedSpawnerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.REINFORCED_SPAWNER_BLOCK_ENTITY, pos, state);
+    }
+
+    public MobSpawnerLogic getLogic() {
+        return this.logic;
     }
 
     public static void serverTick(World world, BlockPos pos, BlockState state, ReinforcedSpawnerBlockEntity spawner) {
@@ -119,6 +129,7 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     public static void clientTick(World world, BlockPos pos, BlockState state, ReinforcedSpawnerBlockEntity spawner) {
         if (world.isClient()) {
             spawner.updateDisplayRotation();
+            spawner.logic.clientTick(world, pos);
 
             if (state.get(ReinforcedSpawnerBlock.ACTIVE)) {
                 spawner.tickClient(world, pos);
@@ -153,28 +164,19 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     }
 
     private void checkForNearbyKeyHolders(World world, BlockPos pos, BlockState state) {
-        long currentTime = world.getTime();
-        boolean isInCooldown = (currentTime - lastKeyUsageTime) < KEY_USAGE_COOLDOWN;
-
-        if (wasInCooldown && !isInCooldown) {
-            wasInCooldown = false;
-        } else if (isInCooldown) {
-            wasInCooldown = true;
-            return;
-        } else {
-            wasInCooldown = false;
-        }
-
         Box detectionBox = new Box(pos).expand(KEY_DETECTION_RADIUS);
         List<PlayerEntity> nearbyPlayers = world.getEntitiesByClass(PlayerEntity.class, detectionBox,
                 player -> player.isAlive() && !player.isSpectator());
 
         boolean hasKeyHolder = false;
-        for (PlayerEntity player : nearbyPlayers) {
-            if (player.getMainHandStack().getItem() instanceof ReinforcedKeyItem ||
-                    player.getOffHandStack().getItem() instanceof ReinforcedKeyItem) {
-                hasKeyHolder = true;
-                break;
+
+        if (this.entityType != null && canUseKey(world)) {
+            for (PlayerEntity player : nearbyPlayers) {
+                if (player.getMainHandStack().getItem() instanceof ReinforcedKeyItem ||
+                        player.getOffHandStack().getItem() instanceof ReinforcedKeyItem) {
+                    hasKeyHolder = true;
+                    break;
+                }
             }
         }
 
@@ -183,10 +185,10 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
             world.setBlockState(pos, state.with(ReinforcedSpawnerBlock.KEYHOLE, hasKeyHolder));
 
             if (hasKeyHolder) {
-                world.playSound(null, pos, SoundEvents.BLOCK_VAULT_ACTIVATE,
+                world.playSound(null, pos, ModSounds.BLOCK_VAULT_ACTIVATE,
                         SoundCategory.BLOCKS, 1.0f, 1.0f);
             } else {
-                world.playSound(null, pos, SoundEvents.BLOCK_VAULT_DEACTIVATE,
+                world.playSound(null, pos, ModSounds.BLOCK_VAULT_DEACTIVATE,
                         SoundCategory.BLOCKS, 1.0f, 1.0f);
             }
         }
@@ -206,7 +208,7 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
 
         if (random.nextFloat() <= 0.02F) {
             world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-                    SoundEvents.BLOCK_TRIAL_SPAWNER_AMBIENT, SoundCategory.BLOCKS,
+                    ModSounds.TRIAL_SPAWNER_AMBIENT, SoundCategory.BLOCKS,
                     1.0f, 1.0f, false);
         }
     }
@@ -331,7 +333,7 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
             waveDelayCounter = WAVE_DELAY;
             currentWaveNumber++;
 
-            world.playSound(null, pos, SoundEvents.BLOCK_TRIAL_SPAWNER_SPAWN_MOB,
+            world.playSound(null, pos, ModSounds.TRIAL_SPAWNER_SPAWN_MOB,
                     SoundCategory.BLOCKS, 1.0f, 1.5f);
         }
 
@@ -372,7 +374,7 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
             waveParticleTimer = WAVE_PARTICLE_DURATION;
         }
 
-        world.playSound(null, pos, SoundEvents.BLOCK_TRIAL_SPAWNER_AMBIENT,
+        world.playSound(null, pos, ModSounds.TRIAL_SPAWNER_AMBIENT,
                 SoundCategory.BLOCKS, 1.0f, 0.8f);
 
         spawnDelay = SPAWN_DELAY;
@@ -397,12 +399,12 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
                 if (entity instanceof MobEntity mob) {
                     mob.refreshPositionAndAngles(x, y, z, random.nextFloat() * 360, 0);
                     mob.initialize(world, world.getLocalDifficulty(spawnPos),
-                            SpawnReason.SPAWNER, null);
+                            SpawnReason.SPAWNER, null, null);
 
                     if (world.spawnEntity(mob)) {
                         currentWaveMobs.add(mob.getUuid());
 
-                        world.playSound(null, spawnPos, SoundEvents.BLOCK_TRIAL_SPAWNER_SPAWN_MOB,
+                        world.playSound(null, spawnPos, ModSounds.TRIAL_SPAWNER_SPAWN_MOB,
                                 SoundCategory.BLOCKS, 1.0f, 1.0f);
 
                         return true;
@@ -445,11 +447,16 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     public void setEntityType(EntityType<?> entityType) {
         this.entityType = entityType;
         this.cachedDisplayEntity = null;
-        markDirty();
 
-        if (world != null && !world.isClient()) {
-            world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+        if (this.world != null) {
+            this.logic.setEntityId(entityType, this.world, this.world.getRandom(), this.pos);
+
+            if (!this.world.isClient()) {
+                this.world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
+            }
         }
+
+        markDirty();
     }
 
     public EntityType<?> getEntityType() {
@@ -491,13 +498,15 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
-        return createNbt(registries);
+    public NbtCompound toInitialChunkDataNbt() {
+        return createNbt();
     }
 
     @Override
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
+
+        this.logic.readNbt(this.world, this.pos, nbt);
 
         if (nbt.contains("EntityType")) {
             String entityTypeId = nbt.getString("EntityType");
@@ -508,8 +517,8 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
         this.spawnDelay = nbt.getInt("SpawnDelay");
         this.rotation = nbt.getDouble("Rotation");
         this.lastRotation = nbt.getDouble("LastRotation");
-        this.lastKeyUsageTime = nbt.getLong("LastKeyUsageTime");
-        this.wasInCooldown = nbt.getBoolean("WasInCooldown");
+
+        this.lastKeyUsageTime = 0;
 
         this.isWaveActive = nbt.getBoolean("IsWaveActive");
         this.currentWaveSize = nbt.getInt("CurrentWaveSize");
@@ -543,8 +552,10 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeNbt(NbtCompound nbt) {
+        super.writeNbt(nbt);
+
+        this.logic.writeNbt(nbt);
 
         if (this.entityType != null) {
             Identifier entityTypeId = Registries.ENTITY_TYPE.getId(this.entityType);
@@ -556,7 +567,6 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
         nbt.putDouble("Rotation", this.rotation);
         nbt.putDouble("LastRotation", this.lastRotation);
         nbt.putLong("LastKeyUsageTime", this.lastKeyUsageTime);
-        nbt.putBoolean("WasInCooldown", this.wasInCooldown);
 
         nbt.putBoolean("IsWaveActive", this.isWaveActive);
         nbt.putInt("CurrentWaveSize", this.currentWaveSize);

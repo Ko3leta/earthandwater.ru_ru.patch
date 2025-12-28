@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "find_conduit_monument": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "location": {
+            "structure": "earth-and-water:conduit_monument"
+          }
+        }
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "item": "minecraft:conduit"
+    },
+    "title": {
+      "translate": "advancement.earth-and-water.atlantean_eye.title"
+    },
+    "description": {
+      "translate": "advancement.earth-and-water.atlantean_eye.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "find_conduit_monument"
+    ]
+  ]
+}

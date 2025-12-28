@@ -7,6 +7,10 @@
     {
       "type": "single",
       "resource": "entity/shield/spiked_shield_base_nopattern"
+    },
+    {
+      "type": "single",
+      "resource": "minecraft:entity/shield/base"
     }
   ]
 }

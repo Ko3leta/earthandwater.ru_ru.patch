@@ -3,23 +3,19 @@
   "category": "building",
   "group": "mixed_prismarine_tiles",
   "key": {
-    "#": [
-      {
-        "item": "earth-and-water:prismarine_tiles"
-      }
-    ],
-    "X": [
-      {
-        "item": "minecraft:dark_prismarine"
-      }
-    ]
+    "#": {
+      "item": "earth-and-water:prismarine_tiles"
+    },
+    "X": {
+      "item": "minecraft:dark_prismarine"
+    }
   },
   "pattern": [
     "X#",
     "#X"
   ],
   "result": {
-    "count": 4,
-    "id": "earth-and-water:mixed_prismarine_tiles"
+    "item": "earth-and-water:mixed_prismarine_tiles",
+    "count": 4
   }
 }

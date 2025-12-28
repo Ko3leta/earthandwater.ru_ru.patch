@@ -1,13 +1,13 @@
 package potatowolfie.earth_and_water.item.custom;
 
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.component.DataComponentTypes;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
@@ -33,12 +33,15 @@ public class SpikedShieldItem extends ShieldItem {
 
     @Override
     public String getTranslationKey(ItemStack stack) {
-        DyeColor dyeColor = stack.get(DataComponentTypes.BASE_COLOR);
-        return dyeColor != null ? this.getTranslationKey() + "." + dyeColor.getName() : super.getTranslationKey(stack);
+        if (BlockItem.getBlockEntityNbt(stack) != null) {
+            return this.getTranslationKey() + "." + getColor(stack).getName();
+        } else {
+            return super.getTranslationKey(stack);
+        }
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         BannerItem.appendBannerTooltip(stack, tooltip);
     }
 
@@ -48,7 +51,7 @@ public class SpikedShieldItem extends ShieldItem {
     }
 
     @Override
-    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
+    public int getMaxUseTime(ItemStack stack) {
         return 72000;
     }
 
@@ -69,6 +72,11 @@ public class SpikedShieldItem extends ShieldItem {
         return EquipmentSlot.OFFHAND;
     }
 
+    public static DyeColor getColor(ItemStack stack) {
+        NbtCompound nbtCompound = BlockItem.getBlockEntityNbt(stack);
+        return nbtCompound != null ? DyeColor.byId(nbtCompound.getInt("Base")) : DyeColor.WHITE;
+    }
+
     public boolean handleExplosiveDamage(LivingEntity user, DamageSource damageSource, float amount) {
         if (!user.isBlocking()) {
             return false;
@@ -82,7 +90,7 @@ public class SpikedShieldItem extends ShieldItem {
                     DamageSource spikedShieldDamage = new DamageSource(
                             serverWorld.getRegistryManager()
                                     .get(RegistryKeys.DAMAGE_TYPE)
-                                    .getEntry(ModDamageTypes.SPIKED_SHIELD.getValue()).get(),
+                                    .entryOf(ModDamageTypes.SPIKED_SHIELD),
                             user
                     );
                     attacker.damage(spikedShieldDamage, amount);

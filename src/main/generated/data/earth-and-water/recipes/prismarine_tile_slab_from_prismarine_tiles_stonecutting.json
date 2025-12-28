@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "earth-and-water:prismarine_tiles"
+  },
+  "result": "earth-and-water:prismarine_tile_slab"
+}

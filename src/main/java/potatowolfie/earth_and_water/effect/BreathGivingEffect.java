@@ -24,9 +24,10 @@ public class BreathGivingEffect extends StatusEffect {
         return duration % UPDATE_INTERVAL == 0;
     }
 
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+    @Override
+    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         if (entity == null) {
-            return false;
+            return;
         }
 
         int currentAir = entity.getAir();
@@ -61,12 +62,8 @@ public class BreathGivingEffect extends StatusEffect {
             if (currentAir + wholeAirToAdd >= maxAir && !isCreativeOrSpectator) {
                 partialAirValues.remove(entityId);
             }
-
-            return true;
         } else {
             partialAirValues.remove(entity.getUuid());
         }
-
-        return false;
     }
 }

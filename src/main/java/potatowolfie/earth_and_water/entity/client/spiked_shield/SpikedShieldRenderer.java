@@ -1,26 +1,33 @@
 package potatowolfie.earth_and_water.entity.client.spiked_shield;
 
+import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BannerBlockEntity;
+import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
-import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BannerPatternsComponent;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.math.BlockPos;
 import potatowolfie.earth_and_water.EarthWaterClient;
 
 import java.util.List;
-import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class SpikedShieldRenderer {
+
     private final SpikedShieldEntityModel model;
+    private BannerBlockEntity banner;
 
     public SpikedShieldRenderer(SpikedShieldEntityModel model) {
         this.model = model;
@@ -28,59 +35,60 @@ public class SpikedShieldRenderer {
 
     public void render(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices,
                        VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        BannerPatternsComponent bannerPatternsComponent = stack.getOrDefault(
-                DataComponentTypes.BANNER_PATTERNS,
-                BannerPatternsComponent.DEFAULT
-        );
-        DyeColor dyeColor = stack.get(DataComponentTypes.BASE_COLOR);
-        boolean hasPattern = !bannerPatternsComponent.layers().isEmpty() || dyeColor != null;
+        NbtCompound nbt = BlockItem.getBlockEntityNbt(stack);
+        boolean hasPattern = nbt != null;
         boolean hasGlint = stack.hasGlint();
 
         matrices.push();
         matrices.scale(1.0F, -1.0F, -1.0F);
 
-        SpriteIdentifier spriteIdentifier = hasPattern ?
+        VertexConsumer vertexConsumer = (hasPattern ?
                 EarthWaterClient.SPIKED_SHIELD_BASE :
-                EarthWaterClient.SPIKED_SHIELD_BASE_NO_PATTERN;
-
-        VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(
-                vertexConsumers,
-                RenderLayer::getEntityCutoutNoCull
-        );
+                EarthWaterClient.SPIKED_SHIELD_BASE_NO_PATTERN)
+                .getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutoutNoCull);
 
         this.model.getHandle().render(matrices, vertexConsumer, light, overlay);
 
         if (hasPattern) {
             this.model.getPlate().render(matrices, vertexConsumer, light, overlay);
 
-            DyeColor baseColor = Objects.requireNonNullElse(dyeColor, DyeColor.WHITE);
-            List<BannerPatternsComponent.Layer> layers = bannerPatternsComponent.layers();
+            DyeColor baseColor = DyeColor.WHITE;
+            if (nbt != null && nbt.contains("Base")) {
+                baseColor = DyeColor.byId(nbt.getInt("Base"));
+            }
 
-            VertexConsumer baseConsumer = TexturedRenderLayers.SHIELD_BASE.getVertexConsumer(
-                    vertexConsumers, RenderLayer::getEntityNoOutline);
-            this.model.getPlate().render(matrices, baseConsumer, light, overlay, baseColor.getEntityColor());
+            if (banner == null) {
+                banner = new BannerBlockEntity(BlockPos.ORIGIN, Blocks.WHITE_BANNER.getDefaultState());
+            }
+            banner.readFrom(stack, baseColor);
 
-            for (int i = 0; i < 17 && i < layers.size(); i++) {
-                BannerPatternsComponent.Layer layer = layers.get(i);
-                SpriteIdentifier patternSprite = TexturedRenderLayers.getShieldPatternTextureId(layer.pattern());
-                VertexConsumer patternConsumer = patternSprite.getVertexConsumer(
-                        vertexConsumers, RenderLayer::getEntityNoOutline);
-                this.model.getPlate().render(matrices, patternConsumer, light, overlay, layer.color().getEntityColor());
+            List<Pair<RegistryEntry<BannerPattern>, DyeColor>> patterns = banner.getPatterns();
+
+            for (int i = 0; i < 17 && i < patterns.size(); i++) {
+                Pair<RegistryEntry<BannerPattern>, DyeColor> pair = patterns.get(i);
+                float[] colors = pair.getSecond().getColorComponents();
+
+                pair.getFirst().getKey().map(TexturedRenderLayers::getShieldPatternTextureId
+                ).ifPresent(sprite -> {
+                    VertexConsumer patternConsumer = sprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntityNoOutline);
+                    this.model.getPlate().render(matrices, patternConsumer, light, overlay, colors[0], colors[1], colors[2], 1.0F);
+                });
             }
 
             if (hasGlint) {
-                VertexConsumer glintConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityGlint());
-                this.model.getPlate().render(matrices, glintConsumer, light, overlay);
+                this.model.getPlate().render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityGlint()), light, overlay);
             }
         } else {
             this.model.getPlate().render(matrices, vertexConsumer, light, overlay);
-
             if (hasGlint) {
-                VertexConsumer glintConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityGlint());
-                this.model.getPlate().render(matrices, glintConsumer, light, overlay);
+                this.model.getPlate().render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityGlint()), light, overlay);
             }
         }
-        this.model.getSpikes().render(matrices, vertexConsumer, light, overlay);
+
+        // Render spikes with their own vertex consumer
+        VertexConsumer spikeConsumer = EarthWaterClient.SPIKED_SHIELD_BASE
+                .getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutoutNoCull);
+        this.model.getSpikes().render(matrices, spikeConsumer, light, overlay);
 
         matrices.pop();
     }

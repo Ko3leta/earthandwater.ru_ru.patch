@@ -37,7 +37,7 @@ public class EarthChargeProjectileRenderer extends EntityRenderer <EarthChargePr
 
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutout(TEXTURE));
             this.model.setAngles(earthChargeProjectileEntity, 0.0F, 0.0F, 0, 0.0F, 0.0F);
-            this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
+            this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 
             matrixStack.pop();
             super.render(earthChargeProjectileEntity, f, g, matrixStack, vertexConsumerProvider, i);

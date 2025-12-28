@@ -86,7 +86,7 @@ public class ExplosionUtil {
                     }
 
                     if (entity instanceof LivingEntity livingEntity) {
-                        knockbackStrength *= (1.0 - livingEntity.getAttributeValue(EntityAttributes.GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE));
+                        knockbackStrength *= (1.0 - livingEntity.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
                     }
 
                     Vec3d knockback = direction.multiply(knockbackStrength);
@@ -97,8 +97,6 @@ public class ExplosionUtil {
                             affectedPlayers.put(player, knockback);
                         }
                     }
-
-                    entity.onExplodedBy(sourceEntity);
                 }
             }
         }

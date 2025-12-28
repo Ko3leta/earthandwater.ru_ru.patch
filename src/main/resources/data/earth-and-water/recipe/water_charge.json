@@ -7,20 +7,15 @@
     " K "
   ],
   "key": {
-    "K": [
-      {
-        "item": "minecraft:kelp"
-      }
-    ],
-    "B": [
-      {
-        "item": "earth-and-water:oxygen_block"
-      }
-    ]
+    "K": {
+      "item": "minecraft:kelp"
+    },
+    "B": {
+      "item": "earth-and-water:oxygen_block"
+    }
   },
   "result": {
-    "id": "earth-and-water:water_charge",
+    "item": "earth-and-water:water_charge",
     "count": 4
-  },
-  "show_notification": true
+  }
 }

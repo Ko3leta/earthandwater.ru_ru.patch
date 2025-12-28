@@ -17,7 +17,7 @@ import potatowolfie.earth_and_water.structure.ModStructureTypes;
 import java.util.Optional;
 
 public class AncientRuinsStructure extends Structure {
-    public static final MapCodec<AncientRuinsStructure> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+    public static final Codec<AncientRuinsStructure> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(
                 configCodecBuilder(instance),
                 Codec.floatRange(0.0F, 1.0F).fieldOf("small_probability").forGetter((structure) -> {

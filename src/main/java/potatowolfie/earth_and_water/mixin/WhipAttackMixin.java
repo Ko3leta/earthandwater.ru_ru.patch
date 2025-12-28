@@ -1,6 +1,7 @@
 package potatowolfie.earth_and_water.mixin;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,7 +35,7 @@ public abstract class WhipAttackMixin {
         DamageSource damageSource = player.getDamageSources().playerAttack(player);
         float damage = player.isSubmergedIn(FluidTags.WATER) ? 7.0f : 3.5f;
         livingTarget.damage(damageSource, damage);
-        stack.damage(1, player, player.getPreferredEquipmentSlot(stack));
+        stack.damage(1, player, (entity) -> entity.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
         stack.getItem().postHit(stack, livingTarget, player);
         player.getLastAttackedTime();
         player.getWorld().playSound(null, player.getX(), player.getY(), player.getZ(),

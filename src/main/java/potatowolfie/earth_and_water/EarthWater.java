@@ -8,12 +8,11 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.entity.SpawnLocationTypes;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ProjectileItem;
-import net.minecraft.particle.SimpleParticleType;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
@@ -28,12 +27,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import potatowolfie.earth_and_water.block.ModBlocks;
 import potatowolfie.earth_and_water.block.entity.ModBlockEntities;
+import potatowolfie.earth_and_water.block.entity.client.ReinforcedSpawnerBlockEntityRenderer;
 import potatowolfie.earth_and_water.datagen.ModLootTableModifier;
 import potatowolfie.earth_and_water.effect.ModEffects;
 import potatowolfie.earth_and_water.entity.ModEntities;
 import potatowolfie.earth_and_water.entity.brine.BrineEntity;
 import potatowolfie.earth_and_water.entity.bore.BoreEntity;
 import potatowolfie.earth_and_water.item.ModItems;
+import potatowolfie.earth_and_water.item.custom.ProjectileItem;
 import potatowolfie.earth_and_water.sound.ModSounds;
 import potatowolfie.earth_and_water.structure.ModStructurePieceTypes;
 import potatowolfie.earth_and_water.structure.ModStructureTypes;
@@ -43,10 +44,11 @@ import potatowolfie.earth_and_water.world.gen.ModWorldGeneration;
 public class EarthWater implements ModInitializer {
 	public static final String MOD_ID = "earth-and-water";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static final SimpleParticleType LIGHT_UP = FabricParticleTypes.simple();
-	public static final SimpleParticleType REINFORCED_SPAWNER_DETECTION = FabricParticleTypes.simple();
-	public static final SimpleParticleType REINFORCED_SPAWNER_DETECTION_OUTWARD = FabricParticleTypes.simple();
-	public static final SimpleParticleType REINFORCED_SPAWNER_DETECTION_INNER = FabricParticleTypes.simple();
+	public static final DefaultParticleType LIGHT_UP = FabricParticleTypes.simple();
+	public static final DefaultParticleType REINFORCED_SPAWNER_DETECTION = FabricParticleTypes.simple();
+	public static final DefaultParticleType REINFORCED_SPAWNER_DETECTION_OUTWARD = FabricParticleTypes.simple();
+	public static final DefaultParticleType REINFORCED_SPAWNER_DETECTION_INNER = FabricParticleTypes.simple();
+	public static final DefaultParticleType DUST_PLUME = FabricParticleTypes.simple();
 
 	@Override
 	public void onInitialize() {
@@ -63,10 +65,16 @@ public class EarthWater implements ModInitializer {
 		ModLootTableModifier.modifyLootTables();
 		registerChunkLoadEvent();
 
-		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "light_up"), LIGHT_UP);
-		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "reinforced_spawner_detection"), REINFORCED_SPAWNER_DETECTION);
-		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "reinforced_spawner_detection_outward"), REINFORCED_SPAWNER_DETECTION_OUTWARD);
-		Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MOD_ID, "reinforced_spawner_detection_inner"), REINFORCED_SPAWNER_DETECTION_INNER);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "light_up"), LIGHT_UP);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "reinforced_spawner_detection"), REINFORCED_SPAWNER_DETECTION);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "reinforced_spawner_detection_outward"), REINFORCED_SPAWNER_DETECTION_OUTWARD);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "reinforced_spawner_detection_inner"), REINFORCED_SPAWNER_DETECTION_INNER);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(MOD_ID, "dust_plume"), DUST_PLUME);
+
+		BlockEntityRendererFactories.register(
+				ModBlockEntities.REINFORCED_SPAWNER_BLOCK_ENTITY,
+				ReinforcedSpawnerBlockEntityRenderer::new
+		);
 
 		registerDispenserBehaviors();
 
@@ -75,7 +83,7 @@ public class EarthWater implements ModInitializer {
 
 		SpawnRestriction.register(
 				ModEntities.BRINE,
-				SpawnLocationTypes.IN_WATER,
+				SpawnRestriction.Location.IN_WATER,
 				Heightmap.Type.OCEAN_FLOOR,
 				BrineEntity::canSpawn
 		);
@@ -131,11 +139,12 @@ public class EarthWater implements ModInitializer {
 		DispenserBlock.registerBehavior(
 				item,
 				(pointer, stack) -> {
-					World world = pointer.world();
+					World world = pointer.getWorld();
 					Position position = DispenserBlock.getOutputLocation(pointer);
-					Direction direction = pointer.state().get(DispenserBlock.FACING);
+					Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
 
-					ProjectileItem projectileItem = (ProjectileItem) stack.getItem();
+					ProjectileItem projectileItem =
+							(ProjectileItem) stack.getItem();
 					ProjectileEntity projectileEntity = projectileItem.createEntity(world, position, stack, direction);
 
 					projectileEntity.setVelocity(

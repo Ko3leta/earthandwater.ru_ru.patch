@@ -1,6 +1,2 @@
-// 1.21.1	2025-12-26T22:06:18.2636676	Earth & Water/Tags for minecraft:item
-0d1e96cd140480315103e7ea7fd593f49c4fb176 data\minecraft\tags\item\trim_materials.json
-1fe2cddf269f064846e91fd46161e4c65799cfcd data\minecraft\tags\item\enchantable\durability.json
-9199c97148576c5abe7c99eeda0b07901e40206e data\minecraft\tags\item\enchantable\mining.json
-578abe77db4c69e3b52d2072cb582dd46c432c84 data\minecraft\tags\item\enchantable\sharp_weapon.json
-578abe77db4c69e3b52d2072cb582dd46c432c84 data\minecraft\tags\item\enchantable\weapon.json
+// 1.20.1	2025-12-27T15:20:14.1666354	Earth & Water/Tags for minecraft:item
+b7e5c2b0e0cea6898a2a3c2d16bfb79400f335b5 data\minecraft\tags\items\trim_materials.json

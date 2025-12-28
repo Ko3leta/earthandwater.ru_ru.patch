@@ -50,5 +50,302 @@
     "sounds": [
       "earth-and-water:brine_underwater_hurt"
     ]
+  },
+  "block.tuff_bricks.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "earth-and-water:block/tuff_bricks/place1",
+      "earth-and-water:block/tuff_bricks/place2",
+      "earth-and-water:block/tuff_bricks/place3",
+      "earth-and-water:block/tuff_bricks/place4",
+      "earth-and-water:block/tuff_bricks/place5"
+    ]
+  },
+  "block.tuff_bricks.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "earth-and-water:block/tuff_bricks/step1",
+      "earth-and-water:block/tuff_bricks/step2",
+      "earth-and-water:block/tuff_bricks/step3",
+      "earth-and-water:block/tuff_bricks/step4",
+      "earth-and-water:block/tuff_bricks/step5",
+      "earth-and-water:block/tuff_bricks/step6"
+    ]
+  },
+  "block.tuff_bricks.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "earth-and-water:block/tuff_bricks/place1",
+      "earth-and-water:block/tuff_bricks/place2",
+      "earth-and-water:block/tuff_bricks/place3",
+      "earth-and-water:block/tuff_bricks/place4",
+      "earth-and-water:block/tuff_bricks/place5"
+    ]
+  },
+  "block.tuff_bricks.hit": {
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      "earth-and-water:block/tuff_bricks/step1",
+      "earth-and-water:block/tuff_bricks/step2",
+      "earth-and-water:block/tuff_bricks/step3",
+      "earth-and-water:block/tuff_bricks/step4",
+      "earth-and-water:block/tuff_bricks/step5",
+      "earth-and-water:block/tuff_bricks/step6"
+    ]
+  },
+  "block.tuff_bricks.fall": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "earth-and-water:block/tuff_bricks/step1",
+      "earth-and-water:block/tuff_bricks/step2",
+      "earth-and-water:block/tuff_bricks/step3",
+      "earth-and-water:block/tuff_bricks/step4",
+      "earth-and-water:block/tuff_bricks/step5",
+      "earth-and-water:block/tuff_bricks/step6"
+    ]
+  },
+  "block.trial_spawner.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/break1",
+      "earth-and-water:block/trial_spawner/break2",
+      "earth-and-water:block/trial_spawner/break3"
+    ]
+  },
+  "block.trial_spawner.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/step1",
+      "earth-and-water:block/trial_spawner/step2",
+      "earth-and-water:block/trial_spawner/step3",
+      "earth-and-water:block/trial_spawner/step4",
+      "earth-and-water:block/trial_spawner/step5",
+      "earth-and-water:block/trial_spawner/step6"
+    ]
+  },
+  "block.trial_spawner.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/place1",
+      "earth-and-water:block/trial_spawner/place2",
+      "earth-and-water:block/trial_spawner/place3"
+    ]
+  },
+  "block.trial_spawner.hit": {
+    "subtitle": "subtitles.earth-and-water.block.trial_spawner.close_shutter",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/close_shutter"
+    ]
+  },
+  "block.trial_spawner.fall": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/step1",
+      "earth-and-water:block/trial_spawner/step2",
+      "earth-and-water:block/trial_spawner/step3",
+      "earth-and-water:block/trial_spawner/step4",
+      "earth-and-water:block/trial_spawner/step5",
+      "earth-and-water:block/trial_spawner/step6"
+    ]
+  },
+  "block.trial_spawner.about_to_spawn_item": {
+    "subtitle": "subtitles.earth-and-water.block.trial_spawner.about_to_spawn_item",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/about_to_spawn_item"
+    ]
+  },
+  "block.trial_spawner.ambient": {
+    "subtitle": "subtitles.earth-and-water.block.trial_spawner.ambient",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/ambient1",
+      "earth-and-water:block/trial_spawner/ambient2",
+      "earth-and-water:block/trial_spawner/ambient3",
+      "earth-and-water:block/trial_spawner/ambient4",
+      "earth-and-water:block/trial_spawner/ambient5"
+    ]
+  },
+  "block.trial_spawner.ambient_ominous": {
+    "subtitle": "subtitles.earth-and-water.block.trial_spawner.ambient_ominous",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/ambient_ominous1",
+      "earth-and-water:block/trial_spawner/ambient_ominous2",
+      "earth-and-water:block/trial_spawner/ambient_ominous3",
+      "earth-and-water:block/trial_spawner/ambient_ominous4",
+      "earth-and-water:block/trial_spawner/ambient_ominous5"
+    ]
+  },
+  "block.trial_spawner.close_shutter": {
+    "subtitle": "subtitles.earth-and-water.block.trial_spawner.close_shutter",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/close_shutter"
+    ]
+  },
+  "block.trial_spawner.detect_player": {
+    "subtitle": "subtitles.earth-and-water.block.trial_spawner.detect_player",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/detect_player1",
+      "earth-and-water:block/trial_spawner/detect_player2",
+      "earth-and-water:block/trial_spawner/detect_player3"
+    ]
+  },
+  "block.trial_spawner.eject_item": {
+    "subtitle": "subtitles.earth-and-water.block.trial_spawner.eject_item",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/eject_item"
+    ]
+  },
+  "block.trial_spawner.ominous_activate": {
+    "subtitle": "subtitles.earth-and-water.block.trial_spawner.ominous_activate",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/ominous_activate"
+    ]
+  },
+  "block.trial_spawner.open_shutter": {
+    "subtitle": "subtitles.earth-and-water.block.trial_spawner.open_shutter",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/open_shutter"
+    ]
+  },
+  "block.trial_spawner.spawn_mob": {
+    "subtitle": "subtitles.earth-and-water.block.trial_spawner.spawn_mob",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/spawn1",
+      "earth-and-water:block/trial_spawner/spawn2",
+      "earth-and-water:block/trial_spawner/spawn3",
+      "earth-and-water:block/trial_spawner/spawn4"
+    ]
+  },
+  "block.trial_spawner.spawn_item": {
+    "subtitle": "subtitles.earth-and-water.block.trial_spawner.spawn_item",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/spawn_item1",
+      "earth-and-water:block/trial_spawner/spawn_item2",
+      "earth-and-water:block/trial_spawner/spawn_item3"
+    ]
+  },
+  "block.trial_spawner.spawn_item_begin": {
+    "subtitle": "subtitles.earth-and-water.block.trial_spawner.spawn_item_begin",
+    "sounds": [
+      "earth-and-water:block/trial_spawner/spawn_item_begin1",
+      "earth-and-water:block/trial_spawner/spawn_item_begin2",
+      "earth-and-water:block/trial_spawner/spawn_item_begin3"
+    ]
+  },
+  "block.vault.activate": {
+    "subtitle": "subtitles.earth-and-water.block.vault.activate",
+    "sounds": [
+      "earth-and-water:block/vault/activate"
+    ]
+  },
+  "block.vault.ambient": {
+    "subtitle": "subtitles.earth-and-water.block.vault.ambient",
+    "sounds": [
+      "earth-and-water:block/vault/ambient1",
+      "earth-and-water:block/vault/ambient2",
+      "earth-and-water:block/vault/ambient3"
+    ]
+  },
+  "block.vault.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "earth-and-water:block/vault/break1",
+      "earth-and-water:block/vault/break2",
+      "earth-and-water:block/vault/break3",
+      "earth-and-water:block/vault/break4"
+    ]
+  },
+  "block.vault.deactivate": {
+    "subtitle": "subtitles.earth-and-water.block.vault.deactivate",
+    "sounds": [
+      "earth-and-water:block/vault/deactivate"
+    ]
+  },
+  "block.vault.eject_item": {
+    "subtitle": "subtitles.earth-and-water.block.vault.eject_item",
+    "sounds": [
+      "earth-and-water:block/vault/eject1",
+      "earth-and-water:block/vault/eject2",
+      "earth-and-water:block/vault/eject3"
+    ]
+  },
+  "block.vault.insert_item": {
+    "subtitle": "subtitles.earth-and-water.block.vault.insert_item",
+    "sounds": [
+      "earth-and-water:block/vault/insert"
+    ]
+  },
+  "block.vault.insert_item_fail": {
+    "subtitle": "subtitles.earth-and-water.block.vault.insert_item_fail",
+    "sounds": [
+      "earth-and-water:block/vault/insert_fail"
+    ]
+  },
+  "block.vault.open_shutter": {
+    "subtitle": "subtitles.earth-and-water.block.vault.open_shutter",
+    "sounds": [
+      "earth-and-water:block/vault/open_shutter"
+    ]
+  },
+  "block.vault.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "earth-and-water:block/vault/place1",
+      "earth-and-water:block/vault/place2",
+      "earth-and-water:block/vault/place3",
+      "earth-and-water:block/vault/place4"
+    ]
+  },
+  "block.vault.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "earth-and-water:block/vault/step1",
+      "earth-and-water:block/vault/step2",
+      "earth-and-water:block/vault/step3",
+      "earth-and-water:block/vault/step4",
+      "earth-and-water:block/vault/step5",
+      "earth-and-water:block/vault/step6",
+      "earth-and-water:block/vault/step7",
+      "earth-and-water:block/vault/step8"
+    ]
+  },
+  "block.vault.hit": {
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      "earth-and-water:block/vault/step1",
+      "earth-and-water:block/vault/step2",
+      "earth-and-water:block/vault/step3",
+      "earth-and-water:block/vault/step4",
+      "earth-and-water:block/vault/step5",
+      "earth-and-water:block/vault/step6",
+      "earth-and-water:block/vault/step7",
+      "earth-and-water:block/vault/step8"
+    ]
+  },
+  "block.vault.fall": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "earth-and-water:block/vault/step1",
+      "earth-and-water:block/vault/step2",
+      "earth-and-water:block/vault/step3",
+      "earth-and-water:block/vault/step4",
+      "earth-and-water:block/vault/step5",
+      "earth-and-water:block/vault/step6",
+      "earth-and-water:block/vault/step7",
+      "earth-and-water:block/vault/step8"
+    ]
+  },
+  "block.vault.reject_rewarded_player": {
+    "subtitle": "subtitles.earth-and-water.block.vault.reject_rewarded_player",
+    "sounds": [
+      "earth-and-water:block/vault/reject_rewarded_player"
+    ]
+  },
+  "entity.wind_charge.throw": {
+    "subtitle": "subtitles.earth-and-water.entity.wind_charge.throw",
+    "sounds": [
+      "earth-and-water:entity/wind_charge/wind_burst1",
+      "earth-and-water:entity/wind_charge/wind_burst2",
+      "earth-and-water:entity/wind_charge/wind_burst3"
+    ]
   }
 }

@@ -4,12 +4,12 @@
   "ingredients": [
     [
       {
-        "item": "earth-and-water:earth_charge"
+        "item": "earth-and-water:bore_rod"
       }
     ]
   ],
   "result": {
-    "count": 2,
-    "id": "earth-and-water:earth_charge"
+    "item": "earth-and-water:earth_charge",
+    "count": 2
   }
 }

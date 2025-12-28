@@ -1,10 +1,10 @@
 package potatowolfie.earth_and_water.item.custom;
 
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -34,16 +34,16 @@ public class BattleAxeItem extends AxeItem {
     private static final float MAX_HORIZONTAL_MULTIPLIER = 1.414f;
     private static final float MAX_VERTICAL_MULTIPLIER = 0.5f;
 
-    public BattleAxeItem(ToolMaterial toolMaterial, Settings settings) {
-        super(toolMaterial, settings);
+    public BattleAxeItem(ToolMaterial toolMaterial, float attackDamage, float attackSpeed, Settings settings) {
+        super(toolMaterial, attackDamage, attackSpeed, settings);
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         tooltip.add(Text.translatable("tooltip.earth-and-water.tooltipempty"));
         tooltip.add(Text.translatable("tooltip.earth-and-water.battle_axe.tooltip1"));
         tooltip.add(Text.translatable("tooltip.earth-and-water.battle_axe.tooltip2"));
-        super.appendTooltip(stack, context, tooltip, type);
+        super.appendTooltip(stack, world, tooltip, context);
     }
 
     @Override

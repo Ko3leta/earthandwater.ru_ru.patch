@@ -12,9 +12,9 @@ import java.util.function.Supplier;
 
 public enum ModToolMaterials implements ToolMaterial {
     STEEL(ModTags.Blocks.INCORRECT_FOR_STEEL_TOOL, 250, 7.0f,
-            2.0f, 22, () -> Ingredient.ofItems(ModItems.STEEL_INGOT)),
+            2.0f, 15, () -> Ingredient.ofItems(ModItems.STEEL_INGOT)),
     PRISMARINE(ModTags.Blocks.INCORRECT_FOR_PRISMARINE_TOOL, 250, 7.0f,
-            2.0f, 22, () -> Ingredient.ofItems(Items.PRISMARINE_CRYSTALS));
+            2.0f, 15, () -> Ingredient.ofItems(Items.PRISMARINE_CRYSTALS));
     
     private final TagKey<Block> inverseTag;
     private final int itemDurability;
@@ -48,8 +48,8 @@ public enum ModToolMaterials implements ToolMaterial {
     }
 
     @Override
-    public TagKey<Block> getInverseTag() {
-        return this.inverseTag;
+    public int getMiningLevel() {
+        return 0;
     }
 
     @Override

@@ -64,13 +64,13 @@ public class ModModelProvider extends FabricModelProvider {
         limestoneBricksTexturePool.wall(ModBlocks.LIMESTONE_BRICK_WALL);
 
         blockStateModelGenerator.registerAxisRotated(ModBlocks.LIMESTONE_PILLAR, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
-        blockStateModelGenerator.registerGeneric(ModBlocks.CHISELED_LIMESTONE_BRICKS);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CHISELED_LIMESTONE_BRICKS);
 
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.STEEL_BLOCK);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.OXYGEN_BLOCK);
 
-        blockStateModelGenerator.registerGeneric(ModBlocks.MIXED_PRISMARINE_TILES);
-        blockStateModelGenerator.registerGeneric(ModBlocks.POLISHED_DRIPSTONE_TILES);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.MIXED_PRISMARINE_TILES);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.POLISHED_DRIPSTONE_TILES);
 
         BlockStateModelGenerator.BlockTexturePool prismarinetilesTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.PRISMARINE_TILES);
         prismarinetilesTexturePool.stairs(ModBlocks.PRISMARINE_TILE_STAIRS);

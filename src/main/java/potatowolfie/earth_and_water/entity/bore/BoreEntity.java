@@ -73,7 +73,8 @@ public class BoreEntity extends HostileEntity {
     private static final int STUCK_TIME_THRESHOLD = 60;
     private static final double STUCK_AREA_SIZE = 2.5;
 
-    protected int getXpToDrop() {
+    @Override
+    public int getXpToDrop() {
         return 8 + this.random.nextInt(5);
     }
 
@@ -141,7 +142,7 @@ public class BoreEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8.0)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
-                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 0.42);
+                .add(EntityAttributes.HORSE_JUMP_STRENGTH, 0.42);
     }
 
     @Override
@@ -227,10 +228,10 @@ public class BoreEntity extends HostileEntity {
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(DATA_ID_TYPE_VARIANT, 0);
-        builder.add(DATA_ID_STATE, BoreState.IDLE.ordinal());
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(DATA_ID_TYPE_VARIANT, 0);
+        this.dataTracker.startTracking(DATA_ID_STATE, BoreState.IDLE.ordinal());
     }
 
     private void updateCombatState() {
@@ -1344,10 +1345,10 @@ public class BoreEntity extends HostileEntity {
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         BoreVariant variant = world.getRandom().nextFloat() < 0.005f ? BoreVariant.DARK : BoreVariant.NORMAL;
         setVariant(variant);
-        return super.initialize(world, difficulty, spawnReason, entityData);
+        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
     @Override

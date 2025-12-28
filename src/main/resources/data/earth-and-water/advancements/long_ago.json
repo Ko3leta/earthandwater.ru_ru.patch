@@ -1,0 +1,67 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "earth-and-water:brine_rod"
+    },
+    "title": {
+      "translate": "advancement.earth-and-water.long_ago.title"
+    },
+    "description": {
+      "translate": "advancement.earth-and-water.long_ago.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_blaze_rod": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:blaze_rod"
+            ]
+          }
+        ]
+      }
+    },
+    "has_bore_rod": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "earth-and-water:bore_rod"
+            ]
+          }
+        ]
+      }
+    },
+    "has_brine_rod": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "earth-and-water:brine_rod"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_blaze_rod"
+    ],
+    [
+      "has_bore_rod"
+    ],
+    [
+      "has_brine_rod"
+    ]
+  ]
+}

@@ -1,6 +1,5 @@
 package potatowolfie.earth_and_water.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -19,15 +18,19 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
+import potatowolfie.earth_and_water.EarthWater;
 import potatowolfie.earth_and_water.advancement.MobLockHandler;
 import potatowolfie.earth_and_water.block.entity.ModBlockEntities;
 import potatowolfie.earth_and_water.block.entity.custom.ReinforcedSpawnerBlockEntity;
 import potatowolfie.earth_and_water.item.custom.ReinforcedKeyItem;
+import potatowolfie.earth_and_water.sound.ModSounds;
 
 public class ReinforcedSpawnerBlock extends BlockWithEntity implements Waterloggable {
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
@@ -81,19 +84,25 @@ public class ReinforcedSpawnerBlock extends BlockWithEntity implements Waterlogg
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.REINFORCED_SPAWNER_BLOCK_ENTITY,
+        return checkType(type, ModBlockEntities.REINFORCED_SPAWNER_BLOCK_ENTITY,
                 world.isClient() ? ReinforcedSpawnerBlockEntity::clientTick : ReinforcedSpawnerBlockEntity::serverTick);
     }
 
+    @Nullable
+    protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> checkType(
+            BlockEntityType<A> givenType, BlockEntityType<E> expectedType, BlockEntityTicker<? super E> ticker) {
+        return expectedType == givenType ? (BlockEntityTicker<A>) ticker : null;
+    }
+
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player,
-                                 BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player,
+                              Hand hand, BlockHitResult hit) {
         if (world.isClient()) return ActionResult.SUCCESS;
-        ItemStack stack = player.getMainHandStack();
+        ItemStack stack = player.getStackInHand(hand);
 
         if (world.getBlockEntity(pos) instanceof ReinforcedSpawnerBlockEntity spawner) {
             if (stack.getItem() instanceof SpawnEggItem spawnEggItem) {
-                EntityType<?> entityType = spawnEggItem.getEntityType(stack);
+                EntityType<?> entityType = spawnEggItem.getEntityType(null);
 
                 spawner.setEntityType(entityType);
 
@@ -101,7 +110,7 @@ public class ReinforcedSpawnerBlock extends BlockWithEntity implements Waterlogg
                     stack.decrement(1);
                 }
 
-                world.playSound(null, pos, SoundEvents.BLOCK_TRIAL_SPAWNER_SPAWN_MOB,
+                world.playSound(null, pos, ModSounds.TRIAL_SPAWNER_SPAWN_MOB,
                         SoundCategory.BLOCKS, 1.0f, 1.0f);
 
                 return ActionResult.SUCCESS;
@@ -124,7 +133,7 @@ public class ReinforcedSpawnerBlock extends BlockWithEntity implements Waterlogg
                             stack.decrement(1);
                         }
 
-                        world.playSound(null, pos, SoundEvents.BLOCK_VAULT_DEACTIVATE,
+                        world.playSound(null, pos, ModSounds.BLOCK_VAULT_DEACTIVATE,
                                 SoundCategory.BLOCKS, 1.0f, 1.0f);
 
                         return ActionResult.SUCCESS;
@@ -140,7 +149,7 @@ public class ReinforcedSpawnerBlock extends BlockWithEntity implements Waterlogg
                         stack.decrement(1);
                     }
 
-                    world.playSound(null, pos, SoundEvents.BLOCK_VAULT_DEACTIVATE,
+                    world.playSound(null, pos, ModSounds.BLOCK_VAULT_DEACTIVATE,
                             SoundCategory.BLOCKS, 1.0f, 1.0f);
 
                     if (player instanceof ServerPlayerEntity serverPlayer) {
@@ -158,10 +167,5 @@ public class ReinforcedSpawnerBlock extends BlockWithEntity implements Waterlogg
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
-    }
-
-    @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return null;
     }
 }

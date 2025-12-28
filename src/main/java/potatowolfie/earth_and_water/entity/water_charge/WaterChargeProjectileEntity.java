@@ -2,11 +2,13 @@ package potatowolfie.earth_and_water.entity.water_charge;
 
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.DispenserBehavior;
+import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -69,7 +71,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
     }
 
     public WaterChargeProjectileEntity(World world, PlayerEntity player) {
-        super(ModEntities.WATER_CHARGE, player, world, new ItemStack(ModItems.WATER_CHARGE), null);
+        super(ModEntities.WATER_CHARGE, player, world);
 
         this.setPosition(player.getX(), player.getEyeY() - 0.3, player.getZ());
 
@@ -101,11 +103,6 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
         this.setNoClip(false);
         this.setDamage(0);
         this.setNoGravity(false);
-    }
-
-    @Override
-    protected ItemStack getDefaultItemStack() {
-        return new ItemStack(ModItems.WATER_CHARGE);
     }
 
     public float getRenderingRotation() {
@@ -164,7 +161,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
             DamageSource waterChargeDamage = new DamageSource(
                     serverWorld.getRegistryManager()
                             .get(RegistryKeys.DAMAGE_TYPE)
-                            .getEntry(ModDamageTypes.WATER_CHARGE.getValue()).get(),
+                            .entryOf(ModDamageTypes.EARTH_CHARGE),
                     this,
                     this.getOwner()
             );
@@ -274,10 +271,10 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
                     if (entity instanceof LivingEntity livingEntity) {
                         float damage = distanceFactor * EXPLOSION_DAMAGE_FACTOR * MAX_EXPLOSION_DAMAGE;
                         if (damage > 0.5f && world instanceof ServerWorld) {
-                            new DamageSource(
+                            DamageSource waterCharge = new DamageSource(
                                     serverWorld.getRegistryManager()
                                             .get(RegistryKeys.DAMAGE_TYPE)
-                                            .getEntry(ModDamageTypes.WATER_CHARGE.getValue()).get(),
+                                            .entryOf(ModDamageTypes.WATER_CHARGE),
                                     this,
                                     this.getOwner()
                             );
@@ -314,7 +311,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
                 DamageSource waterChargeDamage = new DamageSource(
                         serverWorld.getRegistryManager()
                                 .get(RegistryKeys.DAMAGE_TYPE)
-                                .getEntry(ModDamageTypes.WATER_CHARGE.getValue()).get(),
+                                .entryOf(ModDamageTypes.EARTH_CHARGE),
                         this,
                         this.getOwner()
                 );
@@ -322,7 +319,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
             }
 
             int durationTicks = (int)(WATER_BREATHING_DURATION * 20);
-            StatusEffectInstance breathEffect = new StatusEffectInstance(ModEffects.BREATH_GIVING, durationTicks, 1);
+            StatusEffectInstance breathEffect = new StatusEffectInstance(ModEffects.BREATH_GIVING.value(), durationTicks, 1);
             livingEntity.addStatusEffect(breathEffect);
 
             restoreOxygen(livingEntity);
@@ -522,7 +519,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
                 DamageSource waterChargeDamage = new DamageSource(
                         serverWorld.getRegistryManager()
                                 .get(RegistryKeys.DAMAGE_TYPE)
-                                .getEntry(ModDamageTypes.WATER_CHARGE.getValue()).get(),
+                                .entryOf(ModDamageTypes.EARTH_CHARGE),
                         this,
                         this.getOwner()
                 );
@@ -530,7 +527,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
             }
 
             int durationTicks = (int)(WATER_BREATHING_DURATION * 20);
-            StatusEffectInstance breathEffect = new StatusEffectInstance(ModEffects.BREATH_GIVING, durationTicks, 1);
+            StatusEffectInstance breathEffect = new StatusEffectInstance(ModEffects.BREATH_GIVING.value(), durationTicks, 1);
             livingEntity.addStatusEffect(breathEffect);
 
             restoreOxygen(livingEntity);
@@ -591,6 +588,11 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
 
     @Override
     public void onPlayerCollision(PlayerEntity player) {
+    }
+
+    @Override
+    protected ItemStack asItemStack() {
+        return new ItemStack(ModItems.WATER_CHARGE);
     }
 
     public PersistentProjectileEntity.PickupPermission getPickupType() {
@@ -796,12 +798,12 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
     }
 
     public static void registerDispenserBehavior() {
-        DispenserBehavior behavior = new DispenserBehavior() {
+        DispenserBlock.registerBehavior(ModItems.WATER_CHARGE, new ItemDispenserBehavior() {
             @Override
-            public ItemStack dispense(BlockPointer pointer, ItemStack stack) {
-                World world = pointer.world();
-                BlockPos pos = pointer.pos();
-                Direction direction = pointer.state().get(Properties.FACING);
+            public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+                World world = pointer.getWorld();
+                BlockPos pos = pointer.getPos();
+                Direction direction = pointer.getBlockState().get(Properties.FACING);
 
                 double x = pos.getX() + 0.5 + direction.getOffsetX() * 0.5;
                 double y = pos.getY() + 0.5 + direction.getOffsetY() * 0.5;
@@ -823,9 +825,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
                 stack.decrement(1);
                 return stack;
             }
-        };
-
-        DispenserBlock.registerBehavior(ModItems.WATER_CHARGE, behavior);
+        });
     }
 
     @Override

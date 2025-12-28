@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "earth-and-water:limestone_bricks"
+  },
+  "result": "earth-and-water:limestone_brick_wall"
+}

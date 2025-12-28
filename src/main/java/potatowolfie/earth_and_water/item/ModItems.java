@@ -2,14 +2,11 @@ package potatowolfie.earth_and_water.item;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import potatowolfie.earth_and_water.EarthWater;
@@ -48,30 +45,28 @@ public class ModItems {
             new ReinforcedKeyItem(new Item.Settings()));
 
     public static final Item STEEL_UPGRADE_SMITHING_TEMPLATE = registerItem("steel_upgrade_smithing_template",
-            SmithingTemplateItem.of(Identifier.of(EarthWater.MOD_ID, "steel"), FeatureFlags.VANILLA));
+            SmithingTemplateItem.of(new Identifier(EarthWater.MOD_ID, "steel")));
     public static final Item BLOCK_ARMOR_TRIM_SMITHING_TEMPLATE = registerItem("block_armor_trim_smithing_template",
-            SmithingTemplateItem.of(Identifier.of(EarthWater.MOD_ID, "dripstone"), FeatureFlags.VANILLA));
+            SmithingTemplateItem.of(new Identifier(EarthWater.MOD_ID, "dripstone")));
     public static final Item GUARD_ARMOR_TRIM_SMITHING_TEMPLATE = registerItem("guard_armor_trim_smithing_template",
-            SmithingTemplateItem.of(Identifier.of(EarthWater.MOD_ID, "prismarine"), FeatureFlags.VANILLA));
+            SmithingTemplateItem.of(new Identifier(EarthWater.MOD_ID, "prismarine")));
 
     public static final Item WHIP = registerItem("whip",
-            new WhipItem(ModToolMaterials.PRISMARINE,
+            new WhipItem(ModToolMaterials.PRISMARINE, 4, -2.8F,
                     new Item.Settings()
-                            .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.PRISMARINE, 4, -2.8F))
                             .rarity(Rarity.UNCOMMON)
             )
     );
 
     public static final Item BATTLE_AXE = registerItem("battle_axe",
-            new BattleAxeItem(ModToolMaterials.STEEL,
+            new BattleAxeItem(ModToolMaterials.STEEL, 5.0F, -3.2F,
                     new Item.Settings()
-                            .attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.STEEL, 5.0F, -3.2F))
                             .rarity(Rarity.UNCOMMON)
             ));
 
     public static final Item SPIKED_SHIELD = Registry.register(Registries.ITEM,
-            Identifier.of(EarthWater.MOD_ID, "spiked_shield"),
-            new SpikedShieldItem(new Item.Settings().maxCount(1).maxDamage(556).component(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT))
+            new Identifier(EarthWater.MOD_ID, "spiked_shield"),
+            new SpikedShieldItem(new Item.Settings().maxCount(1).maxDamage(556))
     );
 
     private static RegistryKey<Item> createItemRegistryKey(String name) {
@@ -88,21 +83,21 @@ public class ModItems {
         entries.addAfter(Items.IRON_INGOT, STEEL_INGOT);
         entries.addAfter(Items.IRON_NUGGET, STEEL_NUGGET);
         entries.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, STEEL_UPGRADE_SMITHING_TEMPLATE);
-        entries.addAfter(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE, BLOCK_ARMOR_TRIM_SMITHING_TEMPLATE);
+        entries.addAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, BLOCK_ARMOR_TRIM_SMITHING_TEMPLATE);
         entries.addAfter(BLOCK_ARMOR_TRIM_SMITHING_TEMPLATE, GUARD_ARMOR_TRIM_SMITHING_TEMPLATE);
-        entries.addAfter(Items.OMINOUS_TRIAL_KEY, REINFORCED_KEY);
+        entries.addAfter(Items.EXPERIENCE_BOTTLE, REINFORCED_KEY);
     }
 
     private static void customCombat(FabricItemGroupEntries entries) {
         entries.addAfter(Items.TRIDENT, WHIP);
         entries.addAfter(WHIP, BATTLE_AXE);
         entries.addAfter(Items.SHIELD, SPIKED_SHIELD);
-        entries.addAfter(Items.WIND_CHARGE, WATER_CHARGE);
+        entries.addAfter(Items.EGG, WATER_CHARGE);
         entries.addAfter(WATER_CHARGE, EARTH_CHARGE);
     }
 
     private static void customSpawnEggs(FabricItemGroupEntries entries) {
-        entries.addAfter(Items.BREEZE_SPAWN_EGG, BORE_SPAWN_EGG);
+        entries.addAfter(Items.BLAZE_SPAWN_EGG, BORE_SPAWN_EGG);
         entries.addAfter(BORE_SPAWN_EGG, BRINE_SPAWN_EGG);
     }
 

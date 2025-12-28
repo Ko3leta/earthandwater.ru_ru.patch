@@ -5,7 +5,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Identifier;
 import java.util.UUID;
 
 public class UnderwaterStunEffect extends StatusEffect {
@@ -16,22 +15,22 @@ public class UnderwaterStunEffect extends StatusEffect {
         super(category, color);
 
         this.addAttributeModifier(
-            EntityAttributes.GENERIC_MOVEMENT_SPEED,
-                Identifier.of(MOVEMENT_SPEED_MODIFIER_ID.toString()),
-            -0.8,
-            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                EntityAttributes.GENERIC_MOVEMENT_SPEED,
+                MOVEMENT_SPEED_MODIFIER_ID.toString(),
+                -0.8,
+                EntityAttributeModifier.Operation.MULTIPLY_TOTAL
         );
 
         this.addAttributeModifier(
-            EntityAttributes.GENERIC_MOVEMENT_SPEED,
-                Identifier.of(ATTACK_DAMAGE_MODIFIER_ID.toString()),
-            -0.65,
-            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                ATTACK_DAMAGE_MODIFIER_ID.toString(),
+                -0.65,
+                EntityAttributeModifier.Operation.MULTIPLY_TOTAL
         );
     }
 
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
-        return true;
+    @Override
+    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
     }
 
     @Override

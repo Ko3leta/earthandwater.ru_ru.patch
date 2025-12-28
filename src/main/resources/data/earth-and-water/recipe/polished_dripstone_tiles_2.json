@@ -3,23 +3,19 @@
   "category": "building",
   "group": "polished_dripstone_tiles",
   "key": {
-    "#": [
-      {
-        "item": "earth-and-water:polished_dripstone"
-      }
-    ],
-    "X": [
-      {
-        "item": "earth-and-water:polished_dark_dripstone"
-      }
-    ]
+    "#": {
+      "item": "earth-and-water:polished_dripstone"
+    },
+    "X": {
+      "item": "earth-and-water:polished_dark_dripstone"
+    }
   },
   "pattern": [
     "X#",
     "#X"
   ],
   "result": {
-    "count": 4,
-    "id": "earth-and-water:polished_dripstone_tiles"
+    "item": "earth-and-water:polished_dripstone_tiles",
+    "count": 4
   }
 }

@@ -1,6 +1,5 @@
 package potatowolfie.earth_and_water.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -13,24 +12,17 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
 import potatowolfie.earth_and_water.block.ModBlocks;
 
 public class OxygenBlock extends Block {
-    public static final MapCodec<OxygenBlock> CODEC = createCodec(OxygenBlock::new);
     private static final int SCHEDULED_TICK_DELAY = 2;
-    private static final int PARTICLE_HEIGHT = 2; 
-    private static final int BUBBLE_HEIGHT = 3; 
+    private static final int PARTICLE_HEIGHT = 2;
+    private static final int BUBBLE_HEIGHT = 3;
     private static final float BUBBLE_BASE_SPEED = 0.2f;
     private static final float BUBBLE_RANDOM_SPEED = 0.1f;
 
     public OxygenBlock(Settings settings) {
         super(settings);
-    }
-
-    @Override
-    public MapCodec<OxygenBlock> getCodec() {
-        return CODEC;
     }
 
     @Override
@@ -50,16 +42,16 @@ public class OxygenBlock extends Block {
                     double offsetX = random.nextDouble() * 0.6 - 0.3;
                     double offsetZ = random.nextDouble() * 0.6 - 0.3;
                     world.addParticle(ParticleTypes.BUBBLE_COLUMN_UP,
-                        xPos + offsetX, yPos, zPos + offsetZ, 
-                        0.0, upwardSpeed, 0.0);
+                            xPos + offsetX, yPos, zPos + offsetZ,
+                            0.0, upwardSpeed, 0.0);
                 }
 
                 if (y == PARTICLE_HEIGHT && random.nextInt(5) == 0) {
                     world.addParticle(ParticleTypes.BUBBLE_POP,
-                        xPos + (random.nextDouble() - 0.5) * 0.6,
-                        yPos + 0.5,
-                        zPos + (random.nextDouble() - 0.5) * 0.6,
-                        0.0, 0.0, 0.0);
+                            xPos + (random.nextDouble() - 0.5) * 0.6,
+                            yPos + 0.5,
+                            zPos + (random.nextDouble() - 0.5) * 0.6,
+                            0.0, 0.0, 0.0);
                 }
             }
         }
@@ -97,7 +89,7 @@ public class OxygenBlock extends Block {
 
         Box blockBox = new Box(pos).expand(0.3, 0, 0.3);
         world.getEntitiesByClass(LivingEntity.class, blockBox, Entity::isSubmergedInWater)
-            .forEach(this::replenishAir);
+                .forEach(this::replenishAir);
 
         world.scheduleBlockTick(pos, this, SCHEDULED_TICK_DELAY);
     }

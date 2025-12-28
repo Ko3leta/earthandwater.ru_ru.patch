@@ -19,7 +19,8 @@ public class ModTrimMaterials {
             Identifier.of(EarthWater.MOD_ID, "steel"));
 
     public static void bootstrap(Registerable<ArmorTrimMaterial> registerable) {
-        register(registerable, STEEL, Registries.ITEM.getEntry(ModItems.STEEL_INGOT), Style.EMPTY.withColor(TextColor.parse("#afc9c9").getOrThrow()),
+        register(registerable, STEEL, Registries.ITEM.getEntry(ModItems.STEEL_INGOT),
+                Style.EMPTY.withColor(TextColor.parse("#afc9c9")),
                 0.2f);
     }
 

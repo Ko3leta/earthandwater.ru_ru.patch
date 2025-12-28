@@ -20,6 +20,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -40,7 +41,6 @@ import org.jetbrains.annotations.Nullable;
 import potatowolfie.earth_and_water.block.ModBlocks;
 
 public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Waterloggable {
-    public static final MapCodec<PointedDarkDripstoneBlock> CODEC = createCodec(potatowolfie.earth_and_water.block.custom.PointedDarkDripstoneBlock::new);
     public static final DirectionProperty VERTICAL_DIRECTION = Properties.VERTICAL_DIRECTION;
     public static final EnumProperty<Thickness> THICKNESS = Properties.THICKNESS;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
@@ -71,11 +71,6 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     private static final float field_31204 = 0.125F;
     private static final VoxelShape DRIP_COLLISION_SHAPE = Block.createCuboidShape(6.0, 0.0, 6.0, 10.0, 16.0, 10.0);
 
-    @Override
-    public MapCodec<potatowolfie.earth_and_water.block.custom.PointedDarkDripstoneBlock> getCodec() {
-        return CODEC;
-    }
-
     public PointedDarkDripstoneBlock(AbstractBlock.Settings settings) {
         super(settings);
         this.setDefaultState(
@@ -89,12 +84,12 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     @Override
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         return canPlaceAtWithDirection(world, pos, state.get(VERTICAL_DIRECTION));
     }
 
     @Override
-    protected BlockState getStateForNeighborUpdate(
+    public BlockState getStateForNeighborUpdate(
             BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos
     ) {
         if ((Boolean)state.get(WATERLOGGED)) {
@@ -124,11 +119,10 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     @Override
-    protected void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
+    public void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
         if (!world.isClient) {
             BlockPos blockPos = hit.getBlockPos();
             if (projectile.canModifyAt(world, blockPos)
-                    && projectile.canBreakBlocks(world)
                     && projectile instanceof TridentEntity
                     && projectile.getVelocity().length() > 0.6) {
                 world.breakBlock(blockPos, true);
@@ -156,7 +150,7 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     @Override
-    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (isPointingUp(state) && !this.canPlaceAt(state, world, pos)) {
             world.breakBlock(pos, true);
         } else {
@@ -165,7 +159,7 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         dripTick(state, world, pos, random.nextFloat());
         if (random.nextFloat() < 0.011377778F && isHeldByDarkPointedDripstone(state, world, pos)) {
             tryGrow(state, world, pos, random);
@@ -200,11 +194,11 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
                                         ((potatowolfie.earth_and_water.block.custom.PointedDarkDripstoneBlock.DrippingFluid)optional.get()).sourceState, blockState, world, ((potatowolfie.earth_and_water.block.custom.PointedDarkDripstoneBlock.DrippingFluid)optional.get()).pos
                                 );
                                 world.emitGameEvent(GameEvent.BLOCK_CHANGE, ((potatowolfie.earth_and_water.block.custom.PointedDarkDripstoneBlock.DrippingFluid)optional.get()).pos, GameEvent.Emitter.of(blockState));
-                                world.syncWorldEvent(WorldEvents.POINTED_DRIPSTONE_DRIPS, blockPos, 0);
+                                world.syncWorldEvent(1504, blockPos, 0);
                             } else {
                                 BlockPos blockPos2 = getCauldronPos(world, blockPos, fluid);
                                 if (blockPos2 != null) {
-                                    world.syncWorldEvent(WorldEvents.POINTED_DRIPSTONE_DRIPS, blockPos, 0);
+                                    world.syncWorldEvent(1504, blockPos, 0);
                                     int i = blockPos.getY() - blockPos2.getY();
                                     int j = 50 + i;
                                     BlockState blockState2 = world.getBlockState(blockPos2);
@@ -240,17 +234,17 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     @Override
-    protected FluidState getFluidState(BlockState state) {
+    public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
     @Override
-    protected VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
+    public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
         return VoxelShapes.empty();
     }
 
     @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Thickness thickness = state.get(THICKNESS);
         VoxelShape voxelShape;
         if (thickness == Thickness.TIP_MERGE) {
@@ -274,19 +268,19 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     @Override
-    protected boolean isShapeFullCube(BlockState state, BlockView world, BlockPos pos) {
+    public boolean isShapeFullCube(BlockState state, BlockView world, BlockPos pos) {
         return false;
     }
 
     @Override
-    protected float getMaxHorizontalModelOffset() {
+    public float getMaxHorizontalModelOffset() {
         return 0.125F;
     }
 
     @Override
     public void onDestroyedOnLanding(World world, BlockPos pos, FallingBlockEntity fallingBlockEntity) {
         if (!fallingBlockEntity.isSilent()) {
-            world.syncWorldEvent(WorldEvents.POINTED_DRIPSTONE_LANDS, pos, 0);
+            world.syncWorldEvent(1045, pos, 0);
         }
     }
 
@@ -403,7 +397,7 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
         double f = (double)((float)(pos.getY() + 1) - 0.6875F) - 0.0625;
         double g = (double)pos.getZ() + 0.5 + vec3d.z;
         Fluid fluid2 = getDripFluid(world, fluid);
-        ParticleEffect particleEffect = fluid2.matchesType(Fluids.LAVA) ? ParticleTypes.DRIPPING_DRIPSTONE_LAVA : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
+        ParticleEffect particleEffect = fluid2.isIn(FluidTags.LAVA) ? ParticleTypes.DRIPPING_DRIPSTONE_LAVA : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
         world.addParticle(particleEffect, e, f, g, 0.0, 0.0, 0.0);
     }
 
@@ -505,7 +499,7 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     @Override
-    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
+    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
         return false;
     }
 
@@ -559,7 +553,7 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     private static boolean canGrow(BlockState dripstoneBlockState, BlockState waterState) {
-        return dripstoneBlockState.isOf(ModBlocks.POINTED_DARK_DRIPSTONE) && waterState.isOf(Blocks.WATER) && waterState.getFluidState().isStill();
+        return dripstoneBlockState.isOf(ModBlocks.DARK_DRIPSTONE_BLOCK) && waterState.isOf(Blocks.WATER) && waterState.getFluidState().isStill();
     }
 
     private static Fluid getDripFluid(World world, Fluid fluid) {

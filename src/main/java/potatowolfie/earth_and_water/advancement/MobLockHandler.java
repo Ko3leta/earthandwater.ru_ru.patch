@@ -1,6 +1,6 @@
 package potatowolfie.earth_and_water.advancement;
 
-import net.minecraft.advancement.AdvancementEntry;
+import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementProgress;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
@@ -13,7 +13,7 @@ public class MobLockHandler {
         if (server == null) return;
 
         Identifier advId = Identifier.of("earth-and-water", "mob_lock");
-        AdvancementEntry advancement = server.getAdvancementLoader().get(advId);
+        Advancement advancement = server.getAdvancementLoader().get(advId);
 
         if (advancement != null) {
             AdvancementProgress progress = player.getAdvancementTracker().getProgress(advancement);

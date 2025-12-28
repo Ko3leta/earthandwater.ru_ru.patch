@@ -3,7 +3,7 @@ package potatowolfie.earth_and_water.block;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.NoteBlockInstrument;
+import net.minecraft.block.enums.Instrument;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -16,6 +16,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import potatowolfie.earth_and_water.EarthWater;
 import potatowolfie.earth_and_water.block.custom.*;
+import potatowolfie.earth_and_water.sound.ModBlockSoundGroup;
 
 import static net.minecraft.block.Blocks.*;
 
@@ -24,7 +25,7 @@ public class ModBlocks {
             new Block(
                     AbstractBlock.Settings.create()
                             .mapColor(MapColor.LIGHT_GRAY)
-                            .instrument(NoteBlockInstrument.IRON_XYLOPHONE)
+                            .instrument(Instrument.IRON_XYLOPHONE)
                             .requiresTool()
                             .strength(5.0F, 6.0F)
                             .sounds(BlockSoundGroup.METAL)
@@ -71,7 +72,7 @@ public class ModBlocks {
     public static final Block CHISELED_DRIPSTONE_BRICKS = registerBlock("chiseled_dripstone_bricks",
             new ChiseledDripstoneBricksBlock(AbstractBlock.Settings.create()
                     .mapColor(MapColor.TERRACOTTA_BROWN)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .instrument(Instrument.BASEDRUM)
                     .sounds(BlockSoundGroup.DRIPSTONE_BLOCK)
                     .requiresTool()
                     .strength(1.5F, 1.0F)
@@ -79,7 +80,7 @@ public class ModBlocks {
     public static final Block CHISELED_DARK_DRIPSTONE_BRICKS = registerBlock("chiseled_dark_dripstone_bricks",
             new ChiseledDarkDripstoneBricksBlock(AbstractBlock.Settings.create()
                     .mapColor(MapColor.DIAMOND_BLUE)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .instrument(Instrument.BASEDRUM)
                     .requiresTool()
                     .strength(1.5F, 6.0F)
                     .luminance(state -> state.get(ChiseledDarkDripstoneBricksBlock.POWERED) ? 12 : 0)));
@@ -119,7 +120,7 @@ public class ModBlocks {
                     .mapColor(MapColor.TERRACOTTA_BROWN)
                     .solid()
                     .requiresTool()
-                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .instrument(Instrument.BASEDRUM)
                     .nonOpaque()
                     .sounds(BlockSoundGroup.POINTED_DRIPSTONE)
                     .ticksRandomly()
@@ -131,7 +132,7 @@ public class ModBlocks {
 
     public static final Block CHISELED_PRISMARINE_BRICKS = registerBlock("chiseled_prismarine_bricks",
             new ChiseledPrismarineBricksBlock(AbstractBlock.Settings.create().mapColor(MapColor.CYAN)
-                    .instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 6.0F)
+                    .instrument(Instrument.BASEDRUM).requiresTool().strength(1.5F, 6.0F)
                     .luminance(state -> state.get(ChiseledPrismarineBricksBlock.ACTIVE) ? 12 : 0)));
     public static final Block PRISMARINE_TILES = registerBlock("prismarine_tiles",
             new Block(AbstractBlock.Settings.copy(PRISMARINE)));
@@ -149,7 +150,7 @@ public class ModBlocks {
             new Block(AbstractBlock.Settings.copy(POLISHED_DARK_DRIPSTONE)));
     public static final Block CHISELED_DARK_PRISMARINE = registerBlock("chiseled_dark_prismarine",
             new ChiseledDarkPrismarineBlock(AbstractBlock.Settings.create().mapColor(MapColor.DIAMOND_BLUE)
-                    .instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 6.0F)));
+                    .instrument(Instrument.BASEDRUM).requiresTool().strength(1.5F, 6.0F)));
     public static final Block DARK_PRISMARINE_WALL = registerBlock("dark_prismarine_wall",
             new WallBlock(AbstractBlock.Settings.copy(DARK_PRISMARINE)));
 
@@ -163,23 +164,23 @@ public class ModBlocks {
     public static final Block LIMESTONE_WALL = registerBlock("limestone_wall",
             new WallBlock(AbstractBlock.Settings.copy(TUFF)));
     public static final Block POLISHED_LIMESTONE = registerBlock("polished_limestone",
-            new Block(AbstractBlock.Settings.copy(POLISHED_TUFF)));
+            new Block(AbstractBlock.Settings.copy(TUFF).sounds(BlockSoundGroup.TUFF)));
     public static final Block POLISHED_LIMESTONE_STAIRS = registerBlock("polished_limestone_stairs",
             new StairsBlock(ModBlocks.POLISHED_LIMESTONE.getDefaultState(),
-                    AbstractBlock.Settings.copy(POLISHED_TUFF)));
+                    AbstractBlock.Settings.copy(POLISHED_LIMESTONE).sounds(BlockSoundGroup.TUFF)));
     public static final Block POLISHED_LIMESTONE_SLAB = registerBlock("polished_limestone_slab",
-            new SlabBlock(AbstractBlock.Settings.copy(POLISHED_TUFF)));
+            new SlabBlock(AbstractBlock.Settings.copy(POLISHED_LIMESTONE).sounds(BlockSoundGroup.TUFF)));
     public static final Block POLISHED_LIMESTONE_WALL = registerBlock("polished_limestone_wall",
-            new WallBlock(AbstractBlock.Settings.copy(POLISHED_TUFF)));
+            new WallBlock(AbstractBlock.Settings.copy(POLISHED_LIMESTONE).sounds(BlockSoundGroup.TUFF)));
     public static final Block LIMESTONE_BRICKS = registerBlock("limestone_bricks",
-            new Block(AbstractBlock.Settings.copy(TUFF_BRICKS)));
+            new Block(AbstractBlock.Settings.copy(POLISHED_LIMESTONE).sounds(ModBlockSoundGroup.TUFF_BRICKS)));
     public static final Block LIMESTONE_BRICK_STAIRS = registerBlock("limestone_brick_stairs",
             new StairsBlock(ModBlocks.LIMESTONE_BRICKS.getDefaultState(),
-                    AbstractBlock.Settings.copy(TUFF_BRICKS)));
+                    AbstractBlock.Settings.copy(POLISHED_LIMESTONE).sounds(ModBlockSoundGroup.TUFF_BRICKS)));
     public static final Block LIMESTONE_BRICK_SLAB = registerBlock("limestone_brick_slab",
-            new SlabBlock(AbstractBlock.Settings.copy(TUFF_BRICKS)));
+            new SlabBlock(AbstractBlock.Settings.copy(POLISHED_LIMESTONE).sounds(ModBlockSoundGroup.TUFF_BRICKS)));
     public static final Block LIMESTONE_BRICK_WALL = registerBlock("limestone_brick_wall",
-            new WallBlock(AbstractBlock.Settings.copy(TUFF_BRICKS)));
+            new WallBlock(AbstractBlock.Settings.copy(POLISHED_LIMESTONE).sounds(ModBlockSoundGroup.TUFF_BRICKS)));
     public static final Block LIMESTONE_PILLAR = registerBlock("limestone_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(LIMESTONE)));
     public static final Block CHISELED_LIMESTONE_BRICKS = registerBlock("chiseled_limestone_bricks",
@@ -188,7 +189,7 @@ public class ModBlocks {
     public static final Block OXYGEN_BLOCK = registerBlock("oxygen_block",
             new OxygenBlock(AbstractBlock.Settings.create()
                     .mapColor(MapColor.DARK_RED)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .instrument(Instrument.BASEDRUM)
                     .requiresTool()
                     .luminance(state -> 3)
                     .strength(0.5F)
@@ -209,9 +210,9 @@ public class ModBlocks {
     public static final Block REINFORCED_SPAWNER = registerBlock("reinforced_spawner",
             new ReinforcedSpawnerBlock(AbstractBlock.Settings.create()
                     .mapColor(MapColor.STONE_GRAY)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .instrument(Instrument.BASEDRUM)
                     .strength(50.0F)
-                    .sounds(BlockSoundGroup.TRIAL_SPAWNER)
+                    .sounds(ModBlockSoundGroup.TRIAL_SPAWNER)
                     .blockVision(Blocks::never)
                     .nonOpaque()
                     .pistonBehavior(PistonBehavior.BLOCK)
@@ -230,7 +231,7 @@ public class ModBlocks {
 
     private static void customBuildingBlocks(FabricItemGroupEntries entries) {
         entries.addBefore(CHAIN, STEEL_BLOCK);
-        entries.addAfter(CHISELED_TUFF_BRICKS, DRIPSTONE_BLOCK);
+        entries.addAfter(REINFORCED_DEEPSLATE, DRIPSTONE_BLOCK);
         entries.addAfter(DRIPSTONE_BLOCK, DRIPSTONE_STAIRS);
         entries.addAfter(DRIPSTONE_STAIRS, DRIPSTONE_SLAB);
         entries.addAfter(DRIPSTONE_SLAB, DRIPSTONE_WALL);
@@ -293,7 +294,7 @@ public class ModBlocks {
     }
 
     private static void customSpawnEggs(FabricItemGroupEntries entries) {
-        entries.addAfter(TRIAL_SPAWNER, REINFORCED_SPAWNER);
+        entries.addAfter(SPAWNER, REINFORCED_SPAWNER);
     }
 
     private static void registerBlockItem(String name, Block block) {

@@ -1,9 +1,11 @@
 package potatowolfie.earth_and_water.mixin;
 
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,13 +31,12 @@ public class ShieldBlockingMixin {
                 if (source.getAttacker() instanceof LivingEntity attacker) {
                     attacker.damage(entity.getDamageSources().thorns(entity), 3.5F);
 
-                    activeItem.damage(Math.max((int)amount, 1), entity, entity.getActiveHand() == null ?
-                            (entity.getMainHandStack() == activeItem ?
-                                    net.minecraft.entity.EquipmentSlot.MAINHAND :
-                                    net.minecraft.entity.EquipmentSlot.OFFHAND) :
-                            (entity.getActiveHand() == net.minecraft.util.Hand.MAIN_HAND ?
-                                    net.minecraft.entity.EquipmentSlot.MAINHAND :
-                                    net.minecraft.entity.EquipmentSlot.OFFHAND));
+                    Hand activeHand = entity.getActiveHand();
+                    EquipmentSlot slot = activeHand == Hand.MAIN_HAND ?
+                            EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+
+                    activeItem.damage(Math.max((int)amount, 1), entity,
+                            (e) -> e.sendEquipmentBreakStatus(slot));
                 }
             }
         }

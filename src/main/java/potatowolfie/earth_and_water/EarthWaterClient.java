@@ -29,6 +29,7 @@ import potatowolfie.earth_and_water.entity.earth_charge.EarthChargeProjectileRen
 import potatowolfie.earth_and_water.entity.water_charge.WaterChargeProjectileModel;
 import potatowolfie.earth_and_water.entity.water_charge.WaterChargeProjectileRenderer;
 import potatowolfie.earth_and_water.item.ModItems;
+import potatowolfie.earth_and_water.particle.DustPlumeParticle;
 import potatowolfie.earth_and_water.particle.ReinforcedSpawnerDetectionParticle;
 import potatowolfie.earth_and_water.particle.ReinforcedSpawnerDetectionParticleInner;
 import potatowolfie.earth_and_water.particle.ReinforcedSpawnerOutwardParticle;
@@ -36,17 +37,22 @@ import potatowolfie.earth_and_water.particle.ReinforcedSpawnerOutwardParticle;
 public class EarthWaterClient implements ClientModInitializer {
 
     public static final EntityModelLayer SPIKED_SHIELD_MODEL_LAYER = new EntityModelLayer(
-            Identifier.of(EarthWater.MOD_ID, "spiked_shield"), "main"
+            new Identifier(EarthWater.MOD_ID, "spiked_shield"), "main"
     );
 
     public static final SpriteIdentifier SPIKED_SHIELD_BASE = new SpriteIdentifier(
             TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE,
-            Identifier.of(EarthWater.MOD_ID, "entity/shield/spiked_shield_base")
+            new Identifier(EarthWater.MOD_ID, "entity/shield/spiked_shield_base")
     );
 
     public static final SpriteIdentifier SPIKED_SHIELD_BASE_NO_PATTERN = new SpriteIdentifier(
             TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE,
-            Identifier.of(EarthWater.MOD_ID, "entity/shield/spiked_shield_base_nopattern")
+            new Identifier(EarthWater.MOD_ID, "entity/shield/spiked_shield_base_nopattern")
+    );
+
+    public static final SpriteIdentifier SHIELD_BASE = new SpriteIdentifier(
+            TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE,
+            new Identifier("minecraft", "entity/shield/base")
     );
 
     public static SpikedShieldEntityModel spikedShieldModel;
@@ -60,6 +66,7 @@ public class EarthWaterClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(EarthWater.REINFORCED_SPAWNER_DETECTION, ReinforcedSpawnerDetectionParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(EarthWater.REINFORCED_SPAWNER_DETECTION_OUTWARD, ReinforcedSpawnerOutwardParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(EarthWater.REINFORCED_SPAWNER_DETECTION_INNER, ReinforcedSpawnerDetectionParticleInner.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(EarthWater.DUST_PLUME, DustPlumeParticle.Factory::new);
 
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.EARTH_CHARGE, EarthChargeProjectileModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.EARTH_CHARGE, EarthChargeProjectileRenderer::new);
@@ -73,7 +80,7 @@ public class EarthWaterClient implements ClientModInitializer {
 
         ModelPredicateProviderRegistry.register(
                 ModItems.SPIKED_SHIELD,
-                Identifier.of("minecraft", "blocking"),
+                new Identifier("minecraft", "blocking"),
                 (stack, world, entity, seed) -> entity instanceof LivingEntity && entity.isUsingItem() &&
                         entity.getActiveItem() == stack ? 1.0F : 0.0F
         );

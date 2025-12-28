@@ -13,7 +13,7 @@ import potatowolfie.earth_and_water.entity.brine.BrineSpectatorOverlayRenderer;
 public class BrineSpectatorMixin {
 
     @Inject(method = "render", at = @At("TAIL"))
-    private void renderBrineSpectatorVision(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+    private void renderBrineSpectatorVision(DrawContext context, float tickDelta, CallbackInfo ci) {
         BrineSpectatorOverlayRenderer.renderBrineVision(context, 1.0f);
     }
 }

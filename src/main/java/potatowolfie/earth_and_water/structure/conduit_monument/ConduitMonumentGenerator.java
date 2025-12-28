@@ -312,10 +312,7 @@ public class ConduitMonumentGenerator {
                 if (state.isOf(Blocks.CHEST)) {
                     BlockEntity blockEntity = world.getBlockEntity(chestPos);
                     if (blockEntity instanceof ChestBlockEntity chestEntity) {
-                        chestEntity.setLootTable(
-                                RegistryKey.of(RegistryKeys.LOOT_TABLE, lootTable),
-                                random.nextLong()
-                        );
+                        chestEntity.setLootTable(lootTable, random.nextLong());
                         return;
                     }
                 }
@@ -501,7 +498,7 @@ public class ConduitMonumentGenerator {
                     BrineEntity brine = new BrineEntity(ModEntities.BRINE, world.toServerWorld());
                     if (brine != null) {
                         brine.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
-                        brine.initialize(world, world.getLocalDifficulty(spawnPos), SpawnReason.STRUCTURE, null);
+                        brine.initialize(world, world.getLocalDifficulty(spawnPos), SpawnReason.STRUCTURE, null, null);
                         brine.setHomePosition(structureCenter);
                         world.spawnEntity(brine);
                     }

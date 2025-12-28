@@ -2,21 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": [
-      {
-        "item": "minecraft:diamond"
-      }
-    ],
-    "C": [
-      {
-        "item": "minecraft:prismarine"
-      }
-    ],
-    "S": [
-      {
-        "item": "earth-and-water:guard_armor_trim_smithing_template"
-      }
-    ]
+    "#": {
+      "item": "minecraft:diamond"
+    },
+    "C": {
+      "item": "minecraft:prismarine"
+    },
+    "S": {
+      "item": "earth-and-water:guard_armor_trim_smithing_template"
+    }
   },
   "pattern": [
     "#S#",
@@ -24,7 +18,7 @@
     "###"
   ],
   "result": {
-    "count": 2,
-    "id": "earth-and-water:guard_armor_trim_smithing_template"
+    "item": "earth-and-water:guard_armor_trim_smithing_template",
+    "count": 2
   }
 }

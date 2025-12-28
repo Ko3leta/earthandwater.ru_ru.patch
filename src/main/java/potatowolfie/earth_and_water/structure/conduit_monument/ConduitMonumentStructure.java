@@ -14,7 +14,7 @@ import potatowolfie.earth_and_water.structure.ModStructureTypes;
 import java.util.Optional;
 
 public class ConduitMonumentStructure extends Structure {
-    public static final MapCodec<ConduitMonumentStructure> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+    public static final Codec<ConduitMonumentStructure> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(
                 configCodecBuilder(instance),
                 Codec.floatRange(0.0F, 1.0F).fieldOf("medium_probability").forGetter((structure) -> {

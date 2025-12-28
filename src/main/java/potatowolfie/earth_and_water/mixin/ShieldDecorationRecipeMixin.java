@@ -1,14 +1,16 @@
 package potatowolfie.earth_and_water.mixin;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BannerPatternsComponent;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.BannerItem;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.ShieldDecorationRecipe;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,18 +23,18 @@ import potatowolfie.earth_and_water.util.ModTags;
 @Mixin(ShieldDecorationRecipe.class)
 public abstract class ShieldDecorationRecipeMixin extends SpecialCraftingRecipe {
 
-    public ShieldDecorationRecipeMixin(CraftingRecipeCategory category) {
-        super(category);
+    public ShieldDecorationRecipeMixin(Identifier id, CraftingRecipeCategory category) {
+        super(id, category);
     }
 
-    @Inject(method = "matches", at = @At("HEAD"), cancellable = true)
-    private void injectedMatches(CraftingRecipeInput input, World world, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "matches(Lnet/minecraft/inventory/RecipeInputInventory;Lnet/minecraft/world/World;)Z", at = @At("HEAD"), cancellable = true)
+    private void injectedMatches(RecipeInputInventory input, World world, CallbackInfoReturnable<Boolean> cir) {
         ItemStack shield = ItemStack.EMPTY;
         ItemStack banner = ItemStack.EMPTY;
         boolean hasSpikedShield = false;
 
-        for (int i = 0; i < input.getSize(); ++i) {
-            ItemStack stack = input.getStackInSlot(i);
+        for (int i = 0; i < input.size(); ++i) {
+            ItemStack stack = input.getStack(i);
             if (stack.isEmpty()) continue;
 
             if (stack.isIn(ModTags.Item.SPIKED_SHIELD)) {
@@ -45,8 +47,8 @@ public abstract class ShieldDecorationRecipeMixin extends SpecialCraftingRecipe 
             return;
         }
 
-        for (int i = 0; i < input.getSize(); ++i) {
-            ItemStack stack = input.getStackInSlot(i);
+        for (int i = 0; i < input.size(); ++i) {
+            ItemStack stack = input.getStack(i);
             if (stack.isEmpty()) continue;
 
             if (stack.getItem() instanceof BannerItem) {
@@ -61,8 +63,7 @@ public abstract class ShieldDecorationRecipeMixin extends SpecialCraftingRecipe 
                     return;
                 }
 
-                BannerPatternsComponent patterns = stack.getOrDefault(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT);
-                if (!patterns.layers().isEmpty()) {
+                if (BlockItem.getBlockEntityNbt(stack) != null) {
                     cir.setReturnValue(false);
                     return;
                 }
@@ -74,24 +75,25 @@ public abstract class ShieldDecorationRecipeMixin extends SpecialCraftingRecipe 
             }
         }
 
-        cir.setReturnValue(!shield.isEmpty() && !banner.isEmpty());
+        boolean result = !shield.isEmpty() && !banner.isEmpty();
+        cir.setReturnValue(result);
     }
 
-    @Inject(method = "craft", at = @At("HEAD"), cancellable = true)
-    private void injectedCraft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup, CallbackInfoReturnable<ItemStack> cir) {
+    @Inject(method = "craft(Lnet/minecraft/inventory/RecipeInputInventory;Lnet/minecraft/registry/DynamicRegistryManager;)Lnet/minecraft/item/ItemStack;", at = @At("HEAD"), cancellable = true)
+    private void injectedCraft(RecipeInputInventory input, DynamicRegistryManager registryManager, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack banner = ItemStack.EMPTY;
         ItemStack shield = ItemStack.EMPTY;
         boolean hasSpikedShield = false;
 
-        for (int i = 0; i < input.getSize(); ++i) {
-            ItemStack stack = input.getStackInSlot(i);
+        for (int i = 0; i < input.size(); ++i) {
+            ItemStack stack = input.getStack(i);
             if (stack.isEmpty()) continue;
 
-            if (stack.isIn(ModTags.Item.SPIKED_SHIELD)) {
+            if (stack.getItem() instanceof BannerItem) {
+                banner = stack;
+            } else if (stack.isIn(ModTags.Item.SPIKED_SHIELD)) {
                 hasSpikedShield = true;
                 shield = stack.copy();
-            } else if (stack.getItem() instanceof BannerItem) {
-                banner = stack;
             }
         }
 
@@ -100,12 +102,15 @@ public abstract class ShieldDecorationRecipeMixin extends SpecialCraftingRecipe 
         }
 
         if (shield.isEmpty()) {
-            cir.setReturnValue(ItemStack.EMPTY);
+            cir.setReturnValue(shield);
             return;
         }
 
-        shield.set(DataComponentTypes.BANNER_PATTERNS, banner.get(DataComponentTypes.BANNER_PATTERNS));
-        shield.set(DataComponentTypes.BASE_COLOR, ((BannerItem) banner.getItem()).getColor());
+        NbtCompound bannerNbt = BlockItem.getBlockEntityNbt(banner);
+        NbtCompound shieldNbt = bannerNbt == null ? new NbtCompound() : bannerNbt.copy();
+        shieldNbt.putInt("Base", ((BannerItem) banner.getItem()).getColor().getId());
+        BlockItem.setBlockEntityNbt(shield, BlockEntityType.BANNER, shieldNbt);
+
         cir.setReturnValue(shield);
     }
 }

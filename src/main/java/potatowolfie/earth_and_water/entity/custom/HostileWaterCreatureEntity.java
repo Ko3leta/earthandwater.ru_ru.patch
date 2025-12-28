@@ -7,6 +7,7 @@ import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
@@ -35,7 +36,8 @@ public abstract class HostileWaterCreatureEntity extends HostileEntity {
         return 120;
     }
 
-    protected int getXpToDrop() {
+    @Override
+    public int getXpToDrop() {
         return 1 + this.getEntityWorld().random.nextInt(3);
     }
 
@@ -226,7 +228,7 @@ public abstract class HostileWaterCreatureEntity extends HostileEntity {
     }
 
     @Override
-    public boolean canBeLeashed() {
+    public boolean canBeLeashedBy(PlayerEntity player) {
         return false;
     }
 

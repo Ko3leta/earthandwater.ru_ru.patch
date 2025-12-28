@@ -2,21 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": [
-      {
-        "item": "earth-and-water:steel_ingot"
-      }
-    ],
-    "C": [
-      {
-        "item": "earth-and-water:steel_nugget"
-      }
-    ],
-    "S": [
-      {
-        "item": "earth-and-water:reinforced_key"
-      }
-    ]
+    "#": {
+      "item": "earth-and-water:steel_ingot"
+    },
+    "C": {
+      "item": "earth-and-water:steel_nugget"
+    },
+    "S": {
+      "item": "earth-and-water:reinforced_key"
+    }
   },
   "pattern": [
     "#C#",
@@ -24,7 +18,7 @@
     "#C#"
   ],
   "result": {
-    "count": 2,
-    "id": "earth-and-water:reinforced_key"
+    "item": "earth-and-water:reinforced_key",
+    "count": 2
   }
 }

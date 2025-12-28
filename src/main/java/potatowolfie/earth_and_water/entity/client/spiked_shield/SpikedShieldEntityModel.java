@@ -58,13 +58,6 @@ public class SpikedShieldEntityModel extends Model {
 		return TexturedModelData.of(modelData, 64, 64);
 	}
 
-	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-		this.plate.render(matrices, vertices, light, overlay, color);
-		this.handle.render(matrices, vertices, light, overlay, color);
-		this.spikes.render(matrices, vertices, light, overlay, color);
-	}
-
 	public ModelPart getPlate() {
 		return this.plate;
 	}
@@ -79,5 +72,12 @@ public class SpikedShieldEntityModel extends Model {
 
 	public ModelPart getRoot() {
 		return this.root;
+	}
+
+	@Override
+	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+		this.plate.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+		this.handle.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+		this.spikes.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 	}
 }

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "earth-and-water:dripstone_bricks"
+  },
+  "result": "earth-and-water:dripstone_brick_slab"
+}

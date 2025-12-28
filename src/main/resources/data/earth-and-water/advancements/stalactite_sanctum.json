@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "find_ancient_ruins": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "location": {
+            "biome": "earth-and-water:ancient_ruins"
+          }
+        }
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "item": "earth-and-water:chiseled_dripstone_bricks"
+    },
+    "title": {
+      "translate": "advancement.earth-and-water.stalactite_sanctum.title"
+    },
+    "description": {
+      "translate": "advancement.earth-and-water.stalactite_sanctum.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "find_ancient_ruins"
+    ]
+  ]
+}

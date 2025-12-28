@@ -537,19 +537,14 @@ public class BrineEntity extends HostileWaterCreatureEntity {
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(DATA_ID_STATE, BrineState.UNDERWATER_IDLE.ordinal());
-        builder.add(MOVING, false);
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(DATA_ID_STATE, BrineState.UNDERWATER_IDLE.ordinal());
+        this.dataTracker.startTracking(MOVING, false);
     }
 
     @Override
     public boolean isPushedByFluids() {
-        return false;
-    }
-
-    @Override
-    public boolean canBeLeashed() {
         return false;
     }
 
@@ -582,7 +577,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
     }
 
     @Override
-    protected int getXpToDrop() {
+    public int getXpToDrop() {
         return 8 + this.random.nextInt(5);
     }
 

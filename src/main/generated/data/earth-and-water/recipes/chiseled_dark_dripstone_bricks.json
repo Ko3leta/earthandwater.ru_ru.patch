@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "earth-and-water:dark_dripstone_brick_slab"
+    }
+  },
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "result": {
+    "item": "earth-and-water:chiseled_dark_dripstone_bricks"
+  },
+  "show_notification": true
+}

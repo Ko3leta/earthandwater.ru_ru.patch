@@ -17,6 +17,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import potatowolfie.earth_and_water.EarthWater;
 import potatowolfie.earth_and_water.damage.ModDamageTypes;
 import potatowolfie.earth_and_water.entity.ModEntities;
 import potatowolfie.earth_and_water.item.ModItems;
@@ -62,11 +63,6 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
         this.setVelocity(owner, owner.getPitch(), owner.getYaw(), 0.0f, 1.0f, 1.0f);
     }
 
-    @Override
-    protected ItemStack getDefaultItemStack() {
-        return new ItemStack(ModItems.EARTH_CHARGE);
-    }
-
     public float getRenderingRotation() {
         return 0.0f;
     }
@@ -81,7 +77,7 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
                 DamageSource earthChargeDamage = new DamageSource(
                         serverWorld.getRegistryManager()
                                 .get(RegistryKeys.DAMAGE_TYPE)
-                                .getEntry(ModDamageTypes.EARTH_CHARGE.getValue()).get(),
+                                .entryOf(ModDamageTypes.EARTH_CHARGE),
                         this,
                         this.getOwner()
                 );
@@ -111,7 +107,7 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
                 DamageSource earthChargeDamage = new DamageSource(
                         serverWorld.getRegistryManager()
                                 .get(RegistryKeys.DAMAGE_TYPE)
-                                .getEntry(ModDamageTypes.EARTH_CHARGE.getValue()).get(),
+                                .entryOf(ModDamageTypes.EARTH_CHARGE),
                         this,
                         this.getOwner()
                 );
@@ -139,10 +135,10 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
                 SoundCategory.BLOCKS, 1.0F, 0.8F);
 
         if (!world.isClient() && world instanceof ServerWorld serverWorld) {
-            DamageSource waterChargeDamage = new DamageSource(
+            DamageSource earthChargeDamage = new DamageSource(
                     serverWorld.getRegistryManager()
                             .get(RegistryKeys.DAMAGE_TYPE)
-                            .getEntry(ModDamageTypes.WATER_CHARGE.getValue()).get(),
+                            .entryOf(ModDamageTypes.EARTH_CHARGE),
                     this,
                     this.getOwner()
             );
@@ -153,7 +149,7 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
                     3.0f,
                     this,
                     null,
-                    waterChargeDamage,
+                    earthChargeDamage,
                     13.0f,
                     2.0f
             );
@@ -164,7 +160,7 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
                 double offsetX = Math.cos(angle) * distance;
                 double offsetZ = Math.sin(angle) * distance;
                 serverWorld.spawnParticles(
-                        ParticleTypes.DUST_PLUME,
+                        EarthWater.DUST_PLUME,
                         pos.x + offsetX, pos.y + 0.03, pos.z + offsetZ,
                         5,
                         0.05, 0.02, 0.05,
@@ -178,7 +174,7 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
                 double offsetX = Math.cos(angle) * distance;
                 double offsetZ = Math.sin(angle) * distance;
                 serverWorld.spawnParticles(
-                        ParticleTypes.DUST_PLUME,
+                        EarthWater.DUST_PLUME,
                         pos.x + offsetX * 0.3, pos.y + 0.05, pos.z + offsetZ * 0.3,
                         3,
                         0.03, 0.02, 0.03,
@@ -222,12 +218,22 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
     }
 
     @Override
+    protected ItemStack asItemStack() {
+        return new ItemStack(ModItems.EARTH_CHARGE);
+    }
+
+    @Override
     public void tick() {
         if (!this.getEntityWorld().isClient() && !this.isRemoved()) {
             if (this.isTouchingWater()) {
                 Vec3d currentVelocity = this.getVelocity();
                 this.setVelocity(currentVelocity.multiply(0.9));
             }
+        }
+
+        if (!this.inGround && !this.hasNoGravity()) {
+            Vec3d velocity = this.getVelocity();
+            this.setVelocity(velocity.x, velocity.y - 0.05, velocity.z);
         }
 
         super.tick();
@@ -266,8 +272,7 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
         return 0.8F;
     }
 
-    @Override
-    protected double getGravity() {
+    protected float getGravity() {
         return 0.05F;
     }
 }

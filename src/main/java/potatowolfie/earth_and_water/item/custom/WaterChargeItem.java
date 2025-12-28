@@ -5,9 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ProjectileItem;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -16,6 +14,7 @@ import net.minecraft.util.math.Position;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import potatowolfie.earth_and_water.entity.water_charge.WaterChargeProjectileEntity;
+import potatowolfie.earth_and_water.sound.ModSounds;
 
 public class WaterChargeItem extends Item implements ProjectileItem {
     private static final int COOLDOWN = 100;
@@ -47,7 +46,7 @@ public class WaterChargeItem extends Item implements ProjectileItem {
                     user.getX(),
                     user.getY(),
                     user.getZ(),
-                    SoundEvents.ENTITY_WIND_CHARGE_THROW,
+                    ModSounds.ENTITY_WIND_CHARGE_THROW,
                     SoundCategory.NEUTRAL,
                     0.5F,
                     0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F)
@@ -57,7 +56,9 @@ public class WaterChargeItem extends Item implements ProjectileItem {
         ItemStack itemStack = user.getStackInHand(hand);
         user.getItemCooldownManager().set(this, COOLDOWN);
         user.incrementStat(Stats.USED.getOrCreateStat(this));
-        itemStack.decrementUnlessCreative(1, user);
+        if (!user.getAbilities().creativeMode) {
+            itemStack.decrement(1);
+        }
         return TypedActionResult.success(itemStack, world.isClient());
     }
 
@@ -90,7 +91,7 @@ public class WaterChargeItem extends Item implements ProjectileItem {
     @Override
     public ProjectileItem.Settings getProjectileSettings() {
         return ProjectileItem.Settings.builder()
-                .positionFunction((pointer, facing) -> DispenserBlock.getOutputLocation(pointer, 1.0, Vec3d.ZERO))
+                .positionFunction((pointer, facing) -> DispenserBlock.getOutputLocation(pointer))
                 .uncertainty(0.1F)
                 .power(1.5F)
                 .overrideDispenseEvent(1051)

@@ -1,6 +1,5 @@
 package potatowolfie.earth_and_water.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +21,6 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
 public class OxygenBubbleBlock extends Block implements Waterloggable {
-    public static final MapCodec<OxygenBubbleBlock> CODEC = createCodec(OxygenBubbleBlock::new);
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     private static final int SCHEDULED_TICK_DELAY = 2;
 
@@ -34,11 +32,6 @@ public class OxygenBubbleBlock extends Block implements Waterloggable {
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED);
-    }
-
-    @Override
-    public MapCodec<OxygenBubbleBlock> getCodec() {
-        return CODEC;
     }
 
     @Override

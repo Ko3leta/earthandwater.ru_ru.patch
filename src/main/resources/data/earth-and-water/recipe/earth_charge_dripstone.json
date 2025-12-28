@@ -7,20 +7,15 @@
     " D "
   ],
   "key": {
-    "D": [
-      {
-        "item": "minecraft:pointed_dripstone"
-      }
-    ],
-    "B": [
-      {
-        "item": "minecraft:dripstone_block"
-      }
-    ]
+    "D": {
+      "item": "minecraft:pointed_dripstone"
+    },
+    "B": {
+      "item": "minecraft:dripstone_block"
+    }
   },
   "result": {
-    "id": "earth-and-water:earth_charge",
+    "item": "earth-and-water:earth_charge",
     "count": 4
-  },
-  "show_notification": true
+  }
 }

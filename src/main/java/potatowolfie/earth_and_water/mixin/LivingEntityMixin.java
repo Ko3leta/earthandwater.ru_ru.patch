@@ -44,7 +44,7 @@ public class LivingEntityMixin {
                     return new DamageSource(
                             serverWorld.getRegistryManager()
                                     .get(RegistryKeys.DAMAGE_TYPE)
-                                    .getEntry(ModDamageTypes.SPIKED_SHIELD.getValue()).get(),
+                                    .entryOf(ModDamageTypes.SPIKED_SHIELD),
                             player
                     );
                 }
@@ -54,7 +54,7 @@ public class LivingEntityMixin {
                 return new DamageSource(
                         serverWorld.getRegistryManager()
                                 .get(RegistryKeys.DAMAGE_TYPE)
-                                .getEntry(ModDamageTypes.WHIP.getValue()).get(),
+                                .entryOf(ModDamageTypes.WHIP),
                         player
                 );
             }
@@ -63,7 +63,7 @@ public class LivingEntityMixin {
                 return new DamageSource(
                         serverWorld.getRegistryManager()
                                 .get(RegistryKeys.DAMAGE_TYPE)
-                                .getEntry(ModDamageTypes.BATTLE_AXE.getValue()).get(),
+                                .entryOf(ModDamageTypes.BATTLE_AXE),
                         player
                 );
             }
