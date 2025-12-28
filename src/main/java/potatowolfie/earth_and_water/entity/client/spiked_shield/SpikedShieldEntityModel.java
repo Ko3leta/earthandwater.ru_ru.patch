@@ -68,7 +68,7 @@ public class SpikedShieldEntityModel extends ShieldEntityModel {
 		SpriteIdentifier spriteToUse = (noPatternSprite != null) ? noPatternSprite : baseSprite;
 
 		VertexConsumer vertexConsumer = spriteHolder.getSprite(spriteToUse).getTextureSpecificVertexConsumer(
-				vertexConsumers.getBuffer(RenderLayers.entityCutoutNoCull(spriteToUse.getAtlasId()))
+				vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(spriteToUse.getAtlasId()))
 		);
 
 		this.plate.render(matrices, vertexConsumer, light, overlay);

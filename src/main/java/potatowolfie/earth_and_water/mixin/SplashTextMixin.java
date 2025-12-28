@@ -20,8 +20,6 @@ public class SplashTextMixin {
     @Inject(method = "apply*",
             at = @At("TAIL"))
     private void addEANDWSplashes(CallbackInfo ci) {
-        splashTexts = new ArrayList<>(splashTexts);
-
         splashTexts.add(Text.translatable("splash.earth-and-water.sticks_stone").getString());
         splashTexts.add(Text.translatable("splash.earth-and-water.herobrine").getString());
         splashTexts.add(Text.translatable("splash.earth-and-water.september").getString());

@@ -11,7 +11,7 @@ import potatowolfie.earth_and_water.EarthWater;
 
 @Environment(EnvType.CLIENT)
 public class BrineEntityEyesFeatureRenderer extends EyesFeatureRenderer<BrineEntityRenderState, BrineEntityModel> {
-    private static final RenderLayer SKIN = RenderLayers.eyes(Identifier.of(EarthWater.MOD_ID, "textures/entity/brine/brine_eyes.png"));
+    private static final RenderLayer SKIN = RenderLayer.getEyes(Identifier.of(EarthWater.MOD_ID, "textures/entity/brine/brine_eyes.png"));
 
     public BrineEntityEyesFeatureRenderer(FeatureRendererContext<BrineEntityRenderState, BrineEntityModel> featureRendererContext) {
         super(featureRendererContext);

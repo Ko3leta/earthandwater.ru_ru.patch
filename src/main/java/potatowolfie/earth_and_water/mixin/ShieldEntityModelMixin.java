@@ -22,6 +22,6 @@ public class ShieldEntityModelMixin {
             index = 1
     )
     private static Function<Identifier, RenderLayer> useEntityCutoutForSpikedShield(Function<Identifier, RenderLayer> layerFactory) {
-        return RenderLayers::entityCutoutNoCull;
+        return RenderLayer::getEntityCutoutNoCull;
     }
 }

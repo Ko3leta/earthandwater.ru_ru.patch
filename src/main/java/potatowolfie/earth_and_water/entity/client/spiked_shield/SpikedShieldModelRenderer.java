@@ -3,6 +3,7 @@ package potatowolfie.earth_and_water.entity.client.spiked_shield;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
@@ -17,10 +18,12 @@ import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import potatowolfie.earth_and_water.EarthWaterClient;
 
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
@@ -55,7 +58,7 @@ public class SpikedShieldModelRenderer implements SpecialModelRenderer<Component
         orderedRenderCommandQueue.submitModelPart(
                 this.model.getHandle(),
                 matrixStack,
-                RenderLayers.entityCutoutNoCull(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE),
+                RenderLayer.getEntityCutoutNoCull(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE),
                 i,
                 j,
                 this.spriteHolder.getSprite(spriteIdentifier),
@@ -69,7 +72,7 @@ public class SpikedShieldModelRenderer implements SpecialModelRenderer<Component
         orderedRenderCommandQueue.submitModelPart(
                 this.model.getPlate(),
                 matrixStack,
-                RenderLayers.entityCutoutNoCull(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE),
+                RenderLayer.getEntityCutoutNoCull(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE),
                 i,
                 j,
                 this.spriteHolder.getSprite(spriteIdentifier),
@@ -87,7 +90,7 @@ public class SpikedShieldModelRenderer implements SpecialModelRenderer<Component
             orderedRenderCommandQueue.submitModelPart(
                     this.model.getPlate(),
                     matrixStack,
-                    RenderLayers.entityCutoutNoCull(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE),
+                    RenderLayer.getEntityCutoutNoCull(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE),
                     i,
                     j,
                     this.spriteHolder.getSprite(baseLayerSprite),
@@ -105,7 +108,7 @@ public class SpikedShieldModelRenderer implements SpecialModelRenderer<Component
                 orderedRenderCommandQueue.submitModelPart(
                         this.model.getPlate(),
                         matrixStack,
-                        RenderLayers.entityCutoutNoCull(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE),
+                        RenderLayer.getEntityCutoutNoCull(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE),
                         i,
                         j,
                         this.spriteHolder.getSprite(patternSprite),
@@ -121,7 +124,7 @@ public class SpikedShieldModelRenderer implements SpecialModelRenderer<Component
                 orderedRenderCommandQueue.submitModelPart(
                         this.model.getPlate(),
                         matrixStack,
-                        RenderLayers.entityGlint(),
+                        RenderLayer.getEntityGlint(),
                         i,
                         j,
                         this.spriteHolder.getSprite(spriteIdentifier),
@@ -137,7 +140,7 @@ public class SpikedShieldModelRenderer implements SpecialModelRenderer<Component
         orderedRenderCommandQueue.submitModelPart(
                 this.model.getSpikes(),
                 matrixStack,
-                RenderLayers.entityCutoutNoCull(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE),
+                RenderLayer.getEntityCutoutNoCull(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE),
                 i,
                 j,
                 this.spriteHolder.getSprite(spriteIdentifier),
@@ -151,11 +154,10 @@ public class SpikedShieldModelRenderer implements SpecialModelRenderer<Component
         matrixStack.pop();
     }
 
-    @Override
-    public void collectVertices(Consumer<Vector3fc> consumer) {
+    public void collectVertices(Set<Vector3f> vertices) {
         MatrixStack matrixStack = new MatrixStack();
         matrixStack.scale(1.0F, -1.0F, -1.0F);
-        this.model.getRootPart().collectVertices(matrixStack, consumer);
+        this.model.getRootPart().collectVertices(matrixStack, vertices);
     }
 
     @Environment(EnvType.CLIENT)
