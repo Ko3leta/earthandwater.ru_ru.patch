@@ -128,7 +128,7 @@ public class ModBlocks {
                     .dynamicBounds()
                     .offset(AbstractBlock.OffsetType.XZ)
                     .pistonBehavior(PistonBehavior.DESTROY)
-                    .solidBlock(Blocks::never)));
+                    .solidBlock((state, world, pos) -> false)));
 
     public static final Block CHISELED_PRISMARINE_BRICKS = registerBlock("chiseled_prismarine_bricks",
             new ChiseledPrismarineBricksBlock(AbstractBlock.Settings.create().mapColor(MapColor.CYAN)
@@ -194,8 +194,8 @@ public class ModBlocks {
                     .luminance(state -> 3)
                     .strength(0.5F)
                     .allowsSpawning((state, world, pos, entityType) -> entityType.isFireImmune())
-                    .postProcess(Blocks::always)
-                    .emissiveLighting(Blocks::always)));
+                    .postProcess((state, world, pos) -> true)
+                    .emissiveLighting((state, world, pos) -> true)));
 
     public static final Block OXYGEN_BUBBLE = registerBlock("oxygen_bubble",
             new OxygenBubbleBlock(AbstractBlock.Settings.create()
@@ -205,7 +205,7 @@ public class ModBlocks {
                     .dropsNothing()
                     .pistonBehavior(PistonBehavior.DESTROY)
                     .liquid()
-                    .sounds(BlockSoundGroup.INTENTIONALLY_EMPTY)));
+                    .sounds(ModBlockSoundGroup.EMPTY)));
 
     public static final Block REINFORCED_SPAWNER = registerBlock("reinforced_spawner",
             new ReinforcedSpawnerBlock(AbstractBlock.Settings.create()
@@ -213,7 +213,7 @@ public class ModBlocks {
                     .instrument(Instrument.BASEDRUM)
                     .strength(50.0F)
                     .sounds(ModBlockSoundGroup.TRIAL_SPAWNER)
-                    .blockVision(Blocks::never)
+                    .blockVision((state, world, pos) -> false)
                     .nonOpaque()
                     .pistonBehavior(PistonBehavior.BLOCK)
                     .luminance(state -> state.get(ReinforcedSpawnerBlock.ACTIVE) ? 4 : 0)

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "earth-and-water:reinforced_key"
+            "items": ["earth-and-water:reinforced_key"]
           }
         ]
       },
