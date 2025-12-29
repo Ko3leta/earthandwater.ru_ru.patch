@@ -7,5 +7,7 @@
   "ingredient": {
     "item": "earth-and-water:steel_ingot"
   },
-  "result": "earth-and-water:steel_nugget"
+  "result": {
+    "id": "earth-and-water:steel_nugget"
+  }
 }

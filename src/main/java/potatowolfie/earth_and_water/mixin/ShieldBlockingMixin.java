@@ -31,12 +31,13 @@ public class ShieldBlockingMixin {
                 if (source.getAttacker() instanceof LivingEntity attacker) {
                     attacker.damage(entity.getDamageSources().thorns(entity), 3.5F);
 
-                    Hand activeHand = entity.getActiveHand();
-                    EquipmentSlot slot = activeHand == Hand.MAIN_HAND ?
-                            EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
-
-                    activeItem.damage(Math.max((int)amount, 1), entity,
-                            (e) -> e.sendEquipmentBreakStatus(slot));
+                    activeItem.damage(Math.max((int)amount, 1), entity, entity.getActiveHand() == null ?
+                            (entity.getMainHandStack() == activeItem ?
+                                    net.minecraft.entity.EquipmentSlot.MAINHAND :
+                                    net.minecraft.entity.EquipmentSlot.OFFHAND) :
+                            (entity.getActiveHand() == net.minecraft.util.Hand.MAIN_HAND ?
+                                    net.minecraft.entity.EquipmentSlot.MAINHAND :
+                                    net.minecraft.entity.EquipmentSlot.OFFHAND));
                 }
             }
         }

@@ -1,7 +1,8 @@
 package potatowolfie.earth_and_water.item.custom;
 
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -33,15 +34,17 @@ public class SpikedShieldItem extends ShieldItem {
 
     @Override
     public String getTranslationKey(ItemStack stack) {
-        if (BlockItem.getBlockEntityNbt(stack) != null) {
-            return this.getTranslationKey() + "." + getColor(stack).getName();
+        DyeColor dyeColor = (DyeColor)stack.get(DataComponentTypes.BASE_COLOR);
+        if (dyeColor != null) {
+            String var10000 = this.getTranslationKey();
+            return var10000 + "." + dyeColor.getName();
         } else {
             return super.getTranslationKey(stack);
         }
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
         BannerItem.appendBannerTooltip(stack, tooltip);
     }
 
@@ -70,11 +73,6 @@ public class SpikedShieldItem extends ShieldItem {
     @Override
     public EquipmentSlot getSlotType() {
         return EquipmentSlot.OFFHAND;
-    }
-
-    public static DyeColor getColor(ItemStack stack) {
-        NbtCompound nbtCompound = BlockItem.getBlockEntityNbt(stack);
-        return nbtCompound != null ? DyeColor.byId(nbtCompound.getInt("Base")) : DyeColor.WHITE;
     }
 
     public boolean handleExplosiveDamage(LivingEntity user, DamageSource damageSource, float amount) {

@@ -48,8 +48,8 @@ public enum ModToolMaterials implements ToolMaterial {
     }
 
     @Override
-    public int getMiningLevel() {
-        return 0;
+    public TagKey<Block> getInverseTag() {
+        return this.inverseTag;
     }
 
     @Override

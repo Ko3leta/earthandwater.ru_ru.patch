@@ -18,7 +18,7 @@ public class ModEffects {
                     .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED,
                             UUID.nameUUIDFromBytes("earth-and-water:underwater_stun".getBytes()).toString(),
                             -0.25f,
-                            EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
     public static final RegistryEntry<StatusEffect> BREATH_GIVING = registerStatusEffect("breath_giving",
             new BreathGivingEffect());
 

@@ -100,14 +100,14 @@ public class ReinforcedSpawnerBlock extends BlockWithEntity implements Waterlogg
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player,
-                              Hand hand, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player,
+                                 BlockHitResult hit) {
         if (world.isClient()) return ActionResult.SUCCESS;
-        ItemStack stack = player.getStackInHand(hand);
+        ItemStack stack = player.getMainHandStack();
 
         if (world.getBlockEntity(pos) instanceof ReinforcedSpawnerBlockEntity spawner) {
             if (stack.getItem() instanceof SpawnEggItem spawnEggItem) {
-                EntityType<?> entityType = spawnEggItem.getEntityType(null);
+                EntityType<?> entityType = spawnEggItem.getEntityType(stack);
 
                 spawner.setEntityType(entityType);
 

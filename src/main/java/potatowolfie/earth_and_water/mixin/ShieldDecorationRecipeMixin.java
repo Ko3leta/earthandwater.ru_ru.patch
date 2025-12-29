@@ -1,16 +1,14 @@
 package potatowolfie.earth_and_water.mixin;
 
-import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.BannerItem;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.ShieldDecorationRecipe;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.util.Identifier;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -63,7 +61,8 @@ public abstract class ShieldDecorationRecipeMixin extends SpecialCraftingRecipe 
                     return;
                 }
 
-                if (BlockItem.getBlockEntityNbt(stack) != null) {
+                BannerPatternsComponent patterns = stack.getOrDefault(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT);
+                if (!patterns.layers().isEmpty()) {
                     cir.setReturnValue(false);
                     return;
                 }
@@ -79,8 +78,8 @@ public abstract class ShieldDecorationRecipeMixin extends SpecialCraftingRecipe 
         cir.setReturnValue(result);
     }
 
-    @Inject(method = "craft(Lnet/minecraft/inventory/RecipeInputInventory;Lnet/minecraft/registry/DynamicRegistryManager;)Lnet/minecraft/item/ItemStack;", at = @At("HEAD"), cancellable = true)
-    private void injectedCraft(RecipeInputInventory input, DynamicRegistryManager registryManager, CallbackInfoReturnable<ItemStack> cir) {
+    @Inject(method = "craft(Lnet/minecraft/inventory/RecipeInputInventory;Lnet/minecraft/registry/RegistryWrapper$WrapperLookup;)Lnet/minecraft/item/ItemStack;", at = @At("HEAD"), cancellable = true)
+    private void injectedCraft(RecipeInputInventory input, RegistryWrapper.WrapperLookup lookup, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack banner = ItemStack.EMPTY;
         ItemStack shield = ItemStack.EMPTY;
         boolean hasSpikedShield = false;
@@ -106,10 +105,8 @@ public abstract class ShieldDecorationRecipeMixin extends SpecialCraftingRecipe 
             return;
         }
 
-        NbtCompound bannerNbt = BlockItem.getBlockEntityNbt(banner);
-        NbtCompound shieldNbt = bannerNbt == null ? new NbtCompound() : bannerNbt.copy();
-        shieldNbt.putInt("Base", ((BannerItem) banner.getItem()).getColor().getId());
-        BlockItem.setBlockEntityNbt(shield, BlockEntityType.BANNER, shieldNbt);
+        shield.set(DataComponentTypes.BANNER_PATTERNS, banner.get(DataComponentTypes.BANNER_PATTERNS));
+        shield.set(DataComponentTypes.BASE_COLOR, ((BannerItem) banner.getItem()).getColor());
 
         cir.setReturnValue(shield);
     }

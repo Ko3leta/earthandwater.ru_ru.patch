@@ -1,6 +1,7 @@
 package potatowolfie.earth_and_water.mixin;
 
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SmithingTemplateItem;
 import net.minecraft.screen.ScreenTexts;
@@ -8,7 +9,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -40,9 +40,7 @@ public class SmithingTemplateItemMixin {
             .formatted(Formatting.GRAY);
 
     @Inject(method = "appendTooltip", at = @At("HEAD"), cancellable = true)
-    private void injectSteelUpgradeTooltip(ItemStack stack, World world,
-                                           List<Text> tooltip, TooltipContext context,
-                                           CallbackInfo ci) {
+    private void injectSteelUpgradeTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type, CallbackInfo ci) {
 
         if (stack.getItem() == ModItems.STEEL_UPGRADE_SMITHING_TEMPLATE) {
             tooltip.add(STEEL_UPGRADE_TEXT);

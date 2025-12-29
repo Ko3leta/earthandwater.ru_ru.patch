@@ -499,7 +499,7 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     @Override
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
         return false;
     }
 

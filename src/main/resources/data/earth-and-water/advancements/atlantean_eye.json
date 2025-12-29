@@ -6,7 +6,9 @@
       "conditions": {
         "player": {
           "location": {
-            "structure": "earth-and-water:conduit_monument"
+            "structures": [
+              "earth-and-water:conduit_monument"
+            ]
           }
         }
       }
@@ -14,7 +16,7 @@
   },
   "display": {
     "icon": {
-      "item": "minecraft:conduit"
+      "id": "minecraft:conduit"
     },
     "title": {
       "translate": "advancement.earth-and-water.atlantean_eye.title"

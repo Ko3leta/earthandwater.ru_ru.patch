@@ -13,6 +13,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
@@ -398,7 +399,7 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
                 if (entity instanceof MobEntity mob) {
                     mob.refreshPositionAndAngles(x, y, z, random.nextFloat() * 360, 0);
                     mob.initialize(world, world.getLocalDifficulty(spawnPos),
-                            SpawnReason.SPAWNER, null, null);
+                            SpawnReason.SPAWNER, null);
 
                     if (world.spawnEntity(mob)) {
                         currentWaveMobs.add(mob.getUuid());
@@ -492,13 +493,13 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
+        return createNbt(registries);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
         if (nbt.contains("EntityType")) {
             String entityTypeId = nbt.getString("EntityType");
@@ -509,8 +510,7 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
         this.spawnDelay = nbt.getInt("SpawnDelay");
         this.rotation = nbt.getDouble("Rotation");
         this.lastRotation = nbt.getDouble("LastRotation");
-
-        this.lastKeyUsageTime = 0;
+        this.lastKeyUsageTime = nbt.getLong("LastKeyUsageTime");
 
         this.isWaveActive = nbt.getBoolean("IsWaveActive");
         this.currentWaveSize = nbt.getInt("CurrentWaveSize");
@@ -544,8 +544,8 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.writeNbt(nbt, registries);
 
         if (this.entityType != null) {
             Identifier entityTypeId = Registries.ENTITY_TYPE.getId(this.entityType);

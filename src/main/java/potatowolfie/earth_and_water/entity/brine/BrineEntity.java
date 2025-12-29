@@ -537,10 +537,10 @@ public class BrineEntity extends HostileWaterCreatureEntity {
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(DATA_ID_STATE, BrineState.UNDERWATER_IDLE.ordinal());
-        this.dataTracker.startTracking(MOVING, false);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(DATA_ID_STATE, BrineState.UNDERWATER_IDLE.ordinal());
+        builder.add(MOVING, false);
     }
 
     @Override

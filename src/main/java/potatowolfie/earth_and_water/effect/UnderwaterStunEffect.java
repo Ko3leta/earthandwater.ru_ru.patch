@@ -18,19 +18,20 @@ public class UnderwaterStunEffect extends StatusEffect {
                 EntityAttributes.GENERIC_MOVEMENT_SPEED,
                 MOVEMENT_SPEED_MODIFIER_ID.toString(),
                 -0.8,
-                EntityAttributeModifier.Operation.MULTIPLY_TOTAL
+                EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
         );
 
         this.addAttributeModifier(
                 EntityAttributes.GENERIC_ATTACK_DAMAGE,
                 ATTACK_DAMAGE_MODIFIER_ID.toString(),
                 -0.65,
-                EntityAttributeModifier.Operation.MULTIPLY_TOTAL
+                EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
         );
     }
 
     @Override
-    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+        return true;
     }
 
     @Override

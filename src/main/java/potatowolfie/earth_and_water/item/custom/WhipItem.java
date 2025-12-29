@@ -1,6 +1,6 @@
 package potatowolfie.earth_and_water.item.custom;
 
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -11,7 +11,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.world.World;
 import potatowolfie.earth_and_water.damage.ModDamageTypes;
 import potatowolfie.earth_and_water.effect.ModEffects;
 
@@ -20,13 +19,13 @@ import java.util.List;
 public class WhipItem extends SwordItem {
 
     public WhipItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
+        super(toolMaterial, settings.attributeModifiers(SwordItem.createAttributeModifiers(toolMaterial, attackDamage, attackSpeed)));
     }
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (target.isSubmergedIn(FluidTags.WATER)) {
-            target.addStatusEffect(new StatusEffectInstance(ModEffects.STUN.value(), 40, 1));
+            target.addStatusEffect(new StatusEffectInstance(ModEffects.STUN, 40, 1));
 
             if (attacker.getEntityWorld() instanceof ServerWorld serverWorld) {
                 DamageSource whipDamage = new DamageSource(
@@ -42,13 +41,13 @@ public class WhipItem extends SwordItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.translatable("tooltip.earth-and-water.tooltipempty"));
         tooltip.add(Text.translatable("tooltip.earth-and-water.whip.tooltip1"));
         tooltip.add(Text.translatable("tooltip.earth-and-water.whip.tooltip2"));
         tooltip.add(Text.translatable("tooltip.earth-and-water.tooltipempty"));
         tooltip.add(Text.translatable("tooltip.earth-and-water.whip.tooltip3"));
         tooltip.add(Text.translatable("tooltip.earth-and-water.whip.tooltip4"));
-        super.appendTooltip(stack, world, tooltip, context);
+        super.appendTooltip(stack, context, tooltip, type);
     }
 }

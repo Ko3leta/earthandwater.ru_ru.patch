@@ -64,6 +64,11 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
         this.setVelocity(owner, owner.getPitch(), owner.getYaw(), 0.0f, 1.0f, 1.0f);
     }
 
+    @Override
+    protected ItemStack getDefaultItemStack() {
+        return new ItemStack(ModItems.EARTH_CHARGE);
+    }
+
     public float getRenderingRotation() {
         return 0.0f;
     }
@@ -273,7 +278,8 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
         return 0.8F;
     }
 
-    protected float getGravity() {
+    @Override
+    protected double getGravity() {
         return 0.05F;
     }
 }

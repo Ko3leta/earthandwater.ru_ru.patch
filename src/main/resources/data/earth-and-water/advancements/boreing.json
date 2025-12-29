@@ -18,7 +18,7 @@
   },
   "display": {
     "icon": {
-      "item": "earth-and-water:bore_rod"
+      "id": "earth-and-water:bore_rod"
     },
     "title": {
       "translate": "advancement.earth-and-water.boreing.title"

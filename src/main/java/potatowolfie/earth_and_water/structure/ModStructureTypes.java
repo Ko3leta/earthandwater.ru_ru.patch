@@ -1,6 +1,6 @@
 package potatowolfie.earth_and_water.structure;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -19,11 +19,11 @@ public class ModStructureTypes {
 
     private static <S extends Structure> StructureType<S> register(
             String id,
-            Codec<S> codec
+            MapCodec<S> codec
     ) {
         return Registry.register(
                 Registries.STRUCTURE_TYPE,
-                new Identifier(EarthWater.MOD_ID, id),
+                Identifier.of(EarthWater.MOD_ID, id),
                 () -> codec
         );
     }

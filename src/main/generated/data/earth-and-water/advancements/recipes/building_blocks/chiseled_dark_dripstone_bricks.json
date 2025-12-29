@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "earth-and-water:dark_dripstone_brick_slab"
-            ]
+            "items": "earth-and-water:dark_dripstone_brick_slab"
           }
         ]
       },

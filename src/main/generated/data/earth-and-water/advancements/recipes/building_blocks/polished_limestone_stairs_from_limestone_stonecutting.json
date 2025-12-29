@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "earth-and-water:limestone"
-            ]
+            "items": "earth-and-water:limestone"
           }
         ]
       },

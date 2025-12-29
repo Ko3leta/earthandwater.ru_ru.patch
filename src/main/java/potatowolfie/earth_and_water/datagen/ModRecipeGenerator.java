@@ -15,11 +15,10 @@ import potatowolfie.earth_and_water.item.ModItems;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
 public class ModRecipeGenerator extends FabricRecipeProvider {
     public ModRecipeGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output);
+        super(output, registriesFuture);
     }
 
     @Override

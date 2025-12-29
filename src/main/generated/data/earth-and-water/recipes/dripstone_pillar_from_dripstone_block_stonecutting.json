@@ -1,8 +1,10 @@
 {
   "type": "minecraft:stonecutting",
-  "count": 1,
   "ingredient": {
     "item": "minecraft:dripstone_block"
   },
-  "result": "earth-and-water:dripstone_pillar"
+  "result": {
+    "count": 1,
+    "id": "earth-and-water:dripstone_pillar"
+  }
 }

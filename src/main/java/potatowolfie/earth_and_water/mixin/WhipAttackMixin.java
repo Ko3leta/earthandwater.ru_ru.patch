@@ -35,7 +35,7 @@ public abstract class WhipAttackMixin {
         DamageSource damageSource = player.getDamageSources().playerAttack(player);
         float damage = player.isSubmergedIn(FluidTags.WATER) ? 7.0f : 3.5f;
         livingTarget.damage(damageSource, damage);
-        stack.damage(1, player, (entity) -> entity.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+        stack.damage(1, player, EquipmentSlot.MAINHAND);
         stack.getItem().postHit(stack, livingTarget, player);
         player.getLastAttackedTime();
         player.getWorld().playSound(null, player.getX(), player.getY(), player.getZ(),

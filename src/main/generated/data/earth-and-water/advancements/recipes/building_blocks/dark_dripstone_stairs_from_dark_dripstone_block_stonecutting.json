@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "earth-and-water:dark_dripstone_block"
-            ]
+            "items": "earth-and-water:dark_dripstone_block"
           }
         ]
       },

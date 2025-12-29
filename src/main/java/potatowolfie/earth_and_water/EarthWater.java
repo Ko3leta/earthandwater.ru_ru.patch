@@ -9,10 +9,11 @@ import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.entity.SpawnLocationTypes;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
@@ -44,11 +45,11 @@ import potatowolfie.earth_and_water.world.gen.ModWorldGeneration;
 public class EarthWater implements ModInitializer {
 	public static final String MOD_ID = "earth-and-water";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static final DefaultParticleType LIGHT_UP = FabricParticleTypes.simple();
-	public static final DefaultParticleType REINFORCED_SPAWNER_DETECTION = FabricParticleTypes.simple();
-	public static final DefaultParticleType REINFORCED_SPAWNER_DETECTION_OUTWARD = FabricParticleTypes.simple();
-	public static final DefaultParticleType REINFORCED_SPAWNER_DETECTION_INNER = FabricParticleTypes.simple();
-	public static final DefaultParticleType DUST_PLUME = FabricParticleTypes.simple();
+	public static final SimpleParticleType LIGHT_UP = FabricParticleTypes.simple();
+	public static final SimpleParticleType REINFORCED_SPAWNER_DETECTION = FabricParticleTypes.simple();
+	public static final SimpleParticleType REINFORCED_SPAWNER_DETECTION_OUTWARD = FabricParticleTypes.simple();
+	public static final SimpleParticleType REINFORCED_SPAWNER_DETECTION_INNER = FabricParticleTypes.simple();
+	public static final SimpleParticleType DUST_PLUME = FabricParticleTypes.simple();
 
 	@Override
 	public void onInitialize() {
@@ -83,7 +84,7 @@ public class EarthWater implements ModInitializer {
 
 		SpawnRestriction.register(
 				ModEntities.BRINE,
-				SpawnRestriction.Location.IN_WATER,
+				SpawnLocationTypes.IN_WATER,
 				Heightmap.Type.OCEAN_FLOOR,
 				BrineEntity::canSpawn
 		);

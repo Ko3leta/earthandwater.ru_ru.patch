@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "earth-and-water:reinforced_key"
+      "id": "earth-and-water:reinforced_key"
     },
     "title": {
       "translate": "advancement.earth-and-water.mob_lock.title"

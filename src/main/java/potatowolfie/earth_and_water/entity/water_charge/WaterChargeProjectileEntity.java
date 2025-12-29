@@ -105,6 +105,11 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
         this.setNoGravity(false);
     }
 
+    @Override
+    protected ItemStack getDefaultItemStack() {
+        return new ItemStack(ModItems.WATER_CHARGE);
+    }
+
     public float getRenderingRotation() {
         if (!isStuck && initialDirection != null) {
             return (float) Math.toDegrees(Math.atan2(initialDirection.x, initialDirection.z));
@@ -319,7 +324,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
             }
 
             int durationTicks = (int)(WATER_BREATHING_DURATION * 20);
-            StatusEffectInstance breathEffect = new StatusEffectInstance(ModEffects.BREATH_GIVING.value(), durationTicks, 1);
+            StatusEffectInstance breathEffect = new StatusEffectInstance(ModEffects.BREATH_GIVING, durationTicks, 1);
             livingEntity.addStatusEffect(breathEffect);
 
             restoreOxygen(livingEntity);
@@ -527,7 +532,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
             }
 
             int durationTicks = (int)(WATER_BREATHING_DURATION * 20);
-            StatusEffectInstance breathEffect = new StatusEffectInstance(ModEffects.BREATH_GIVING.value(), durationTicks, 1);
+            StatusEffectInstance breathEffect = new StatusEffectInstance(ModEffects.BREATH_GIVING, durationTicks, 1);
             livingEntity.addStatusEffect(breathEffect);
 
             restoreOxygen(livingEntity);

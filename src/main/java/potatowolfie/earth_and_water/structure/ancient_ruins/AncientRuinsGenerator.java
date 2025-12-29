@@ -636,7 +636,10 @@ public class AncientRuinsGenerator {
                 if (state.isOf(Blocks.CHEST)) {
                     BlockEntity blockEntity = world.getBlockEntity(chestPos);
                     if (blockEntity instanceof ChestBlockEntity chestEntity) {
-                        chestEntity.setLootTable(lootTable, random.nextLong());
+                        chestEntity.setLootTable(
+                                RegistryKey.of(RegistryKeys.LOOT_TABLE, lootTable),
+                                random.nextLong()
+                        );
                         return;
                     }
                 }

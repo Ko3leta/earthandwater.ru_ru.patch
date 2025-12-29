@@ -5,14 +5,16 @@ import net.minecraft.loot.LootPool;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import potatowolfie.earth_and_water.item.ModItems;
 
 public class ModLootTableModifier {
 
     public static void modifyLootTables() {
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (id.equals(new Identifier("minecraft", "chests/pillager_outpost"))) {
+        LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
+            if (key.equals(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of("minecraft", "chests/pillager_outpost")))) {
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0.0f, 1.0f))
                         .with(ItemEntry.builder(ModItems.STEEL_NUGGET)
@@ -21,8 +23,8 @@ public class ModLootTableModifier {
             }
         });
 
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if (id.equals(new Identifier("minecraft", "datapacks/trade_rebalance/data/minecraft/loot_table/chests/pillager_outpost"))) {
+        LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
+            if (key.equals(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of("minecraft", "datapacks/trade_rebalance/data/minecraft/loot_table/chests/pillager_outpost")))) {
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0.0f, 1.0f))
                         .with(ItemEntry.builder(ModItems.STEEL_NUGGET)

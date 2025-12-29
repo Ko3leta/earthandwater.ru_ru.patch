@@ -16,14 +16,14 @@ public class ModEntities {
     public static final EntityType<EarthChargeProjectileEntity> EARTH_CHARGE = Registry.register(Registries.ENTITY_TYPE,
             Identifier.of(EarthWater.MOD_ID, "earth_charge"),
             EntityType.Builder.<EarthChargeProjectileEntity>create(EarthChargeProjectileEntity::new, SpawnGroup.MISC)
-                    .setDimensions(0.3125F, 0.3125F)
+                    .dimensions(0.3125F, 0.3125F)
                     .makeFireImmune()
                     .build(EarthWater.MOD_ID + ":earth_charge"));
 
     public static final EntityType<WaterChargeProjectileEntity> WATER_CHARGE = Registry.register(Registries.ENTITY_TYPE,
             Identifier.of(EarthWater.MOD_ID, "water_charge"),
             EntityType.Builder.<WaterChargeProjectileEntity>create(WaterChargeProjectileEntity::new, SpawnGroup.MISC)
-                    .setDimensions(0.3125F, 0.3125F)
+                    .dimensions(0.3125F, 0.3125F)
                     .makeFireImmune()
                     .build(EarthWater.MOD_ID + ":water_charge"));
 
@@ -31,14 +31,14 @@ public class ModEntities {
             Identifier.of(EarthWater.MOD_ID, "bore"),
             EntityType.Builder.create(BoreEntity::new, SpawnGroup.MONSTER)
                     .maxTrackingRange(84)
-                    .setDimensions(0.6F, 1.8F)
+                    .dimensions(0.6F, 1.8F)
                     .build(EarthWater.MOD_ID + ":bore"));
 
     public static final EntityType<BrineEntity> BRINE = Registry.register(Registries.ENTITY_TYPE,
             Identifier.of(EarthWater.MOD_ID, "brine"),
             EntityType.Builder.create(BrineEntity::new, SpawnGroup.MONSTER)
                     .maxTrackingRange(64)
-                    .setDimensions(0.8F, 1.8F)
+                    .dimensions(0.8F, 1.8F)
                     .build(EarthWater.MOD_ID + ":brine"));
 
     public static void registerModEntities() {

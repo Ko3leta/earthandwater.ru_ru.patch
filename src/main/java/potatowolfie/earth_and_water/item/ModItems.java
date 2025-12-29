@@ -59,9 +59,10 @@ public class ModItems {
     );
 
     public static final Item BATTLE_AXE = registerItem("battle_axe",
-            new BattleAxeItem(ModToolMaterials.STEEL, 5.0F, -3.2F,
+            new BattleAxeItem(ModToolMaterials.STEEL,
                     new Item.Settings()
                             .rarity(Rarity.UNCOMMON)
+                            .attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.STEEL, 5.0F, -3.2F))
             ));
 
     public static final Item SPIKED_SHIELD = Registry.register(Registries.ITEM,

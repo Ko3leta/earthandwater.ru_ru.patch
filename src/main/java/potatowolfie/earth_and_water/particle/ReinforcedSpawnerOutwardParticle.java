@@ -7,7 +7,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 
 @Environment(EnvType.CLIENT)
 public class ReinforcedSpawnerOutwardParticle extends AnimatedParticle {
@@ -30,7 +30,7 @@ public class ReinforcedSpawnerOutwardParticle extends AnimatedParticle {
     }
 
     @Environment(EnvType.CLIENT)
-    public static class Factory implements ParticleFactory<DefaultParticleType> {
+        public static class Factory implements ParticleFactory<SimpleParticleType> {
         private final SpriteProvider spriteProvider;
         private int particleIndex = 0;
         private int totalParticles = 0;
@@ -40,7 +40,7 @@ public class ReinforcedSpawnerOutwardParticle extends AnimatedParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+        public Particle createParticle(SimpleParticleType simpleParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
             if (particleIndex == 0) {
                 totalParticles = 12 + clientWorld.random.nextInt(6);
             }

@@ -1,4 +1,4 @@
-// 1.20.3	2025-12-29T00:20:35.0683042	Earth & Water/Model Definitions
+// 1.20.5	2025-12-29T01:09:55.8520682	Earth & Water/Model Definitions
 491af52b1b04877442900860cacf7fe4ebe182c1 assets\earth-and-water\blockstates\limestone_slab.json
 0f01c288db1e2391bf890c89bf353dce66a2af52 assets\earth-and-water\models\block\dark_dripstone_bricks.json
 46c8c9588772fdf6706e43079de1d5cbc4be9c27 assets\earth-and-water\models\item\dark_prismarine_pillar.json
@@ -155,8 +155,8 @@ f4c6bb86c49e42676670014407c3fea760464f6f assets\earth-and-water\models\block\dri
 805dabacf9e2d8613e04c2eec44dba9200799c86 assets\earth-and-water\models\block\dripstone_brick_stairs_inner.json
 72ad379fce49ea205810e480b8e64bcfe848ecf8 assets\earth-and-water\models\item\block_armor_trim_smithing_template.json
 be9f67641126c106b4def2e8c5d1481ecff3618d assets\earth-and-water\models\block\dripstone_brick_slab_top.json
-9a454e9f75cd75ca0c0f455893323eebbce41d3b assets\earth-and-water\blockstates\limestone_brick_wall.json
 4d8bb47ce6ba8652ed848f97d2bdddb37a3e3136 assets\earth-and-water\blockstates\dark_dripstone_pillar.json
+9a454e9f75cd75ca0c0f455893323eebbce41d3b assets\earth-and-water\blockstates\limestone_brick_wall.json
 e73c71358e6bccf20b6ef1199d51eeedcad21ef1 assets\earth-and-water\blockstates\mixed_prismarine_tiles.json
 e94ad4190ca74b82433abb93133717a326a8404f assets\earth-and-water\models\block\polished_limestone_wall_post.json
 a4d63dcb324adb18cd7f860696653a1d03ea876d assets\earth-and-water\blockstates\polished_limestone_slab.json
