@@ -3,6 +3,7 @@ package potatowolfie.earth_and_water.block.entity.custom;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.spawner.MobSpawnerLogic;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -17,7 +18,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.world.MobSpawnerLogic;
 import net.minecraft.world.World;
 import potatowolfie.earth_and_water.EarthWater;
 import potatowolfie.earth_and_water.block.custom.ReinforcedSpawnerBlock;
@@ -129,7 +129,6 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     public static void clientTick(World world, BlockPos pos, BlockState state, ReinforcedSpawnerBlockEntity spawner) {
         if (world.isClient()) {
             spawner.updateDisplayRotation();
-            spawner.logic.clientTick(world, pos);
 
             if (state.get(ReinforcedSpawnerBlock.ACTIVE)) {
                 spawner.tickClient(world, pos);
@@ -447,16 +446,11 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     public void setEntityType(EntityType<?> entityType) {
         this.entityType = entityType;
         this.cachedDisplayEntity = null;
-
-        if (this.world != null) {
-            this.logic.setEntityId(entityType, this.world, this.world.getRandom(), this.pos);
-
-            if (!this.world.isClient()) {
-                this.world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
-            }
-        }
-
         markDirty();
+
+        if (world != null && !world.isClient()) {
+            world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+        }
     }
 
     public EntityType<?> getEntityType() {
@@ -506,8 +500,6 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
 
-        this.logic.readNbt(this.world, this.pos, nbt);
-
         if (nbt.contains("EntityType")) {
             String entityTypeId = nbt.getString("EntityType");
             this.entityType = Registries.ENTITY_TYPE.get(Identifier.tryParse(entityTypeId));
@@ -554,8 +546,6 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-
-        this.logic.writeNbt(nbt);
 
         if (this.entityType != null) {
             Identifier entityTypeId = Registries.ENTITY_TYPE.getId(this.entityType);

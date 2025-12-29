@@ -30,6 +30,5 @@
     "recipes": [
       "earth-and-water:dark_dripstone_brick_slab"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

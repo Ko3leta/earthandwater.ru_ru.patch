@@ -30,6 +30,5 @@
     "recipes": [
       "earth-and-water:limestone_pillar"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

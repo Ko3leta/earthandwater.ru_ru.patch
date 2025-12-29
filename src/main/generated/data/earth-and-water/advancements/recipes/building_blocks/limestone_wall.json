@@ -30,6 +30,5 @@
     "recipes": [
       "earth-and-water:limestone_wall"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

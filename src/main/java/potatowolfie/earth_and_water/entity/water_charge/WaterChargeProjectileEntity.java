@@ -64,14 +64,14 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
     private boolean isDirectHit = false;
 
     public WaterChargeProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
-        super(entityType, world);
+        super(entityType, world, ItemStack.EMPTY);
         this.setNoClip(false);
         this.setDamage(0);
         this.setNoGravity(false);
     }
 
     public WaterChargeProjectileEntity(World world, PlayerEntity player) {
-        super(ModEntities.WATER_CHARGE, player, world);
+        super(ModEntities.WATER_CHARGE, player, world, new ItemStack(ModItems.WATER_CHARGE));
 
         this.setPosition(player.getX(), player.getEyeY() - 0.3, player.getZ());
 
@@ -94,7 +94,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
     }
 
     public WaterChargeProjectileEntity(World world, double x, double y, double z, Vec3d vec3d) {
-        super(ModEntities.WATER_CHARGE, world);
+        super(ModEntities.WATER_CHARGE, world, ItemStack.EMPTY);
         this.setPosition(x, y - 0.2, z);
         if (vec3d != null) {
             this.setVelocity(vec3d);

@@ -20,7 +20,7 @@ public class ModTrimMaterials {
 
     public static void bootstrap(Registerable<ArmorTrimMaterial> registerable) {
         register(registerable, STEEL, Registries.ITEM.getEntry(ModItems.STEEL_INGOT),
-                Style.EMPTY.withColor(TextColor.parse("#afc9c9")),
+                Style.EMPTY.withColor(TextColor.parse("#afc9c9").result().orElseThrow()),
                 0.2f);
     }
 

@@ -30,6 +30,5 @@
     "recipes": [
       "earth-and-water:dark_prismarine_pillar"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

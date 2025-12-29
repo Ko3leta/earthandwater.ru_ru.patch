@@ -30,6 +30,5 @@
     "recipes": [
       "earth-and-water:dark_dripstone_stairs"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

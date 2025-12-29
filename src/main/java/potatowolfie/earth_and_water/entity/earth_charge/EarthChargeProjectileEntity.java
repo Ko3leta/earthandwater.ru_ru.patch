@@ -7,6 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
@@ -32,12 +33,12 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
     private static final float KNOCKBACK_MULTIPLIER = 0.2F;
 
     public EarthChargeProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
-        super(entityType, world);
+        super(entityType, world, ItemStack.EMPTY);
         this.setNoGravity(false);
     }
 
     public EarthChargeProjectileEntity(World world, PlayerEntity player) {
-        super(ModEntities.EARTH_CHARGE, world);
+        super(ModEntities.EARTH_CHARGE, player, world, new ItemStack(ModItems.EARTH_CHARGE));
         this.setOwner(player);
         this.setPosition(player.getX(), player.getEyeY() - 0.3, player.getZ());
         this.setPitch(0);
@@ -50,7 +51,7 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
     }
 
     public EarthChargeProjectileEntity(World world, double x, double y, double z, Vec3d vec3d) {
-        super(ModEntities.EARTH_CHARGE, world);
+        super(ModEntities.EARTH_CHARGE, world, ItemStack.EMPTY);
         this.setPosition(x, y - 0.2, z);
         if (vec3d != null) {
             this.setVelocity(vec3d);
@@ -59,7 +60,7 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
     }
 
     public EarthChargeProjectileEntity(World world, LivingEntity owner) {
-        super(ModEntities.EARTH_CHARGE, world);
+        super(ModEntities.EARTH_CHARGE, world, ItemStack.EMPTY);
         this.setVelocity(owner, owner.getPitch(), owner.getYaw(), 0.0f, 1.0f, 1.0f);
     }
 

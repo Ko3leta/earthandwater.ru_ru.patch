@@ -30,6 +30,5 @@
     "recipes": [
       "earth-and-water:dark_prismarine_wall"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

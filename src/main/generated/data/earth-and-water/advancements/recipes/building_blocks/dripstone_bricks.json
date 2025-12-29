@@ -30,6 +30,5 @@
     "recipes": [
       "earth-and-water:dripstone_bricks"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

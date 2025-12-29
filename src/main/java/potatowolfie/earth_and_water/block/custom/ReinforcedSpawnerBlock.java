@@ -1,5 +1,6 @@
 package potatowolfie.earth_and_water.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -25,7 +26,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
-import potatowolfie.earth_and_water.EarthWater;
 import potatowolfie.earth_and_water.advancement.MobLockHandler;
 import potatowolfie.earth_and_water.block.entity.ModBlockEntities;
 import potatowolfie.earth_and_water.block.entity.custom.ReinforcedSpawnerBlockEntity;
@@ -43,6 +43,11 @@ public class ReinforcedSpawnerBlock extends BlockWithEntity implements Waterlogg
                 .with(ACTIVE, false)
                 .with(KEYHOLE, false)
                 .with(WATERLOGGED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return null;
     }
 
     @Override

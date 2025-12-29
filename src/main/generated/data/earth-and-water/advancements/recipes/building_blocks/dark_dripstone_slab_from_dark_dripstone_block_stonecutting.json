@@ -30,6 +30,5 @@
     "recipes": [
       "minecraft:dark_dripstone_slab_from_dark_dripstone_block_stonecutting"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

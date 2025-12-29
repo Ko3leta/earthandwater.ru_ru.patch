@@ -30,6 +30,5 @@
     "recipes": [
       "earth-and-water:prismarine_tile_slab"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -30,6 +30,5 @@
     "recipes": [
       "earth-and-water:chiseled_dark_dripstone_bricks"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
