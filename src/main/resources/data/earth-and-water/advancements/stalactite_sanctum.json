@@ -1,5 +1,5 @@
 {
-  "": "minecraft:adventure/root",
+  "parent": "minecraft:adventure/root",
   "criteria": {
     "find_ancient_ruins": {
       "trigger": "minecraft:location",
