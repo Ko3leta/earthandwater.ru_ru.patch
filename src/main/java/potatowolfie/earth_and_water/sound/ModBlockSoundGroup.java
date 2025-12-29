@@ -24,14 +24,4 @@ public class ModBlockSoundGroup {
             ModSounds.BLOCK_TRIAL_SPAWNER_HIT,
             ModSounds.BLOCK_TRIAL_SPAWNER_FALL
     );
-
-    public static final BlockSoundGroup EMPTY = new BlockSoundGroup(
-            1.0F,
-            1.0F,
-            SoundEvents.INTENTIONALLY_EMPTY,
-            SoundEvents.INTENTIONALLY_EMPTY,
-            SoundEvents.INTENTIONALLY_EMPTY,
-            SoundEvents.INTENTIONALLY_EMPTY,
-            SoundEvents.INTENTIONALLY_EMPTY
-    );
 }

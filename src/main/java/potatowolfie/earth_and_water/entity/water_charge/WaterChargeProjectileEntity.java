@@ -798,12 +798,12 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
     }
 
     public static void registerDispenserBehavior() {
-        DispenserBlock.registerBehavior(ModItems.WATER_CHARGE, new ItemDispenserBehavior() {
+        DispenserBehavior behavior = new DispenserBehavior() {
             @Override
-            public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-                World world = pointer.getWorld();
-                BlockPos pos = pointer.getPos();
-                Direction direction = pointer.getBlockState().get(Properties.FACING);
+            public ItemStack dispense(BlockPointer pointer, ItemStack stack) {
+                World world = pointer.world();
+                BlockPos pos = pointer.pos();
+                Direction direction = pointer.state().get(Properties.FACING);
 
                 double x = pos.getX() + 0.5 + direction.getOffsetX() * 0.5;
                 double y = pos.getY() + 0.5 + direction.getOffsetY() * 0.5;
@@ -825,7 +825,9 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
                 stack.decrement(1);
                 return stack;
             }
-        });
+        };
+
+        DispenserBlock.registerBehavior(ModItems.WATER_CHARGE, behavior);
     }
 
     @Override

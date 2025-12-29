@@ -3,10 +3,7 @@ package potatowolfie.earth_and_water.datagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.SingleItemRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
@@ -26,8 +23,8 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
     }
 
     @Override
-    public void generate(Consumer<RecipeJsonProvider> consumer) {
-        offerReversibleCompactingRecipes(consumer, RecipeCategory.BUILDING_BLOCKS, ModItems.STEEL_INGOT, RecipeCategory.MISC, ModBlocks.STEEL_BLOCK);
+    public void generate(RecipeExporter exporter) {
+        offerReversibleCompactingRecipes(exporter, RecipeCategory.BUILDING_BLOCKS, ModItems.STEEL_INGOT, RecipeCategory.MISC, ModBlocks.STEEL_BLOCK);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STEEL_INGOT, 1)
                 .pattern("XXX")
@@ -35,26 +32,26 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .pattern("XXX")
                 .input('X', ModItems.STEEL_NUGGET)
                 .criterion(hasItem(ModItems.STEEL_NUGGET), conditionsFromItem(ModItems.STEEL_NUGGET))
-                .offerTo(consumer, Identifier.of(EarthWater.MOD_ID, "steel_ingot_from_nuggets"));
+                .offerTo(exporter, Identifier.of(EarthWater.MOD_ID, "steel_ingot_from_nuggets"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STEEL_NUGGET, 9)
                 .input(ModItems.STEEL_INGOT)
                 .criterion(hasItem(ModItems.STEEL_INGOT), conditionsFromItem(ModItems.STEEL_INGOT))
-                .offerTo(consumer);
+                .offerTo(exporter);
 
-        offerSmelting(consumer, List.of(ModItems.STEEL_INGOT), RecipeCategory.MISC, ModItems.STEEL_NUGGET, 0.1f, 200, "steel");
-        offerBlasting(consumer, List.of(ModItems.STEEL_INGOT), RecipeCategory.MISC, ModItems.STEEL_NUGGET, 0.1f, 100, "steel");
+        offerSmelting(exporter, List.of(ModItems.STEEL_INGOT), RecipeCategory.MISC, ModItems.STEEL_NUGGET, 0.1f, 200, "steel");
+        offerBlasting(exporter, List.of(ModItems.STEEL_INGOT), RecipeCategory.MISC, ModItems.STEEL_NUGGET, 0.1f, 100, "steel");
 
-        offerSmithingTrimRecipe(consumer, ModItems.BLOCK_ARMOR_TRIM_SMITHING_TEMPLATE, Identifier.of(EarthWater.MOD_ID, "block"));
-        offerSmithingTrimRecipe(consumer, ModItems.GUARD_ARMOR_TRIM_SMITHING_TEMPLATE, Identifier.of(EarthWater.MOD_ID, "guard"));
+        offerSmithingTrimRecipe(exporter, ModItems.BLOCK_ARMOR_TRIM_SMITHING_TEMPLATE, Identifier.of(EarthWater.MOD_ID, "block"));
+        offerSmithingTrimRecipe(exporter, ModItems.GUARD_ARMOR_TRIM_SMITHING_TEMPLATE, Identifier.of(EarthWater.MOD_ID, "guard"));
 
-        generateDripstoneRecipes(consumer);
-        generateDarkDripstoneRecipes(consumer);
-        generateLimestoneRecipes(consumer);
-        generatePrismarineRecipes(consumer);
+        generateDripstoneRecipes(exporter);
+        generateDarkDripstoneRecipes(exporter);
+        generateLimestoneRecipes(exporter);
+        generatePrismarineRecipes(exporter);
     }
 
-    private void generateDripstoneRecipes(Consumer<RecipeJsonProvider> consumer) {
+    private void generateDripstoneRecipes(RecipeExporter consumer) {
         offerStairsRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRIPSTONE_STAIRS, Blocks.DRIPSTONE_BLOCK);
         offerSlabRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRIPSTONE_SLAB, Blocks.DRIPSTONE_BLOCK);
         offerWallRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRIPSTONE_WALL, Blocks.DRIPSTONE_BLOCK);
@@ -102,7 +99,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         offerStonecuttingRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRIPSTONE_PILLAR, Blocks.DRIPSTONE_BLOCK);
     }
 
-    private void generateDarkDripstoneRecipes(Consumer<RecipeJsonProvider> consumer) {
+    private void generateDarkDripstoneRecipes(RecipeExporter consumer) {
         offerStairsRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARK_DRIPSTONE_STAIRS, ModBlocks.DARK_DRIPSTONE_BLOCK);
         offerSlabRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARK_DRIPSTONE_SLAB, ModBlocks.DARK_DRIPSTONE_BLOCK);
         offerWallRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARK_DRIPSTONE_WALL, ModBlocks.DARK_DRIPSTONE_BLOCK);
@@ -146,7 +143,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         offerStonecuttingRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARK_DRIPSTONE_BRICK_WALL, ModBlocks.DARK_DRIPSTONE_BLOCK);
     }
 
-    private void generateLimestoneRecipes(Consumer<RecipeJsonProvider> consumer) {
+    private void generateLimestoneRecipes(RecipeExporter consumer) {
         offerStairsRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.LIMESTONE_STAIRS, ModBlocks.LIMESTONE);
         offerSlabRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.LIMESTONE_SLAB, ModBlocks.LIMESTONE);
         offerWallRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.LIMESTONE_WALL, ModBlocks.LIMESTONE);
@@ -194,7 +191,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         offerStonecuttingRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.LIMESTONE_PILLAR, ModBlocks.LIMESTONE);
     }
 
-    private void generatePrismarineRecipes(Consumer<RecipeJsonProvider> consumer) {
+    private void generatePrismarineRecipes(RecipeExporter consumer) {
         offerSlabRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.PRISMARINE_TILE_SLAB, ModBlocks.PRISMARINE_TILES);
         offerWallRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.PRISMARINE_TILE_WALL, ModBlocks.PRISMARINE_TILES);
 
@@ -234,7 +231,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         offerStonecuttingRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_DRIPSTONE_TILES, Blocks.DRIPSTONE_BLOCK);
     }
 
-    private void offerStairsRecipe(Consumer<RecipeJsonProvider> consumer, RecipeCategory category, ItemConvertible output, ItemConvertible input) {
+    private void offerStairsRecipe(RecipeExporter consumer, RecipeCategory category, ItemConvertible output, ItemConvertible input) {
         ShapedRecipeJsonBuilder.create(category, output, 4)
                 .pattern("X  ")
                 .pattern("XX ")
@@ -244,14 +241,14 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .offerTo(consumer);
     }
 
-    public static void offerStonecuttingRecipe(Consumer<RecipeJsonProvider> consumer, RecipeCategory category, ItemConvertible output, ItemConvertible input) {
+    public static void offerStonecuttingRecipe(RecipeExporter consumer, RecipeCategory category, ItemConvertible output, ItemConvertible input) {
         offerStonecuttingRecipe(consumer, category, output, input, 1);
     }
 
-    public static void offerStonecuttingRecipe(Consumer<RecipeJsonProvider> consumer, RecipeCategory category, ItemConvertible output, ItemConvertible input, int count) {
+    public static void offerStonecuttingRecipe(RecipeExporter consumer, RecipeCategory category, ItemConvertible output, ItemConvertible input, int count) {
         SingleItemRecipeJsonBuilder.createStonecutting(Ingredient.ofItems(input), category, output, count)
                 .criterion(hasItem(input), conditionsFromItem(input))
-                .offerTo(consumer, getRecipeName(output) + "_from_" + getRecipeName(input) + "_stonecutting");
+                .offerTo(consumer, convertBetween(output, input) + "_stonecutting");
     }
 
     public static String convertBetween(ItemConvertible to, ItemConvertible from) {

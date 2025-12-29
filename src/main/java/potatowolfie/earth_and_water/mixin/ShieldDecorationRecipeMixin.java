@@ -23,8 +23,8 @@ import potatowolfie.earth_and_water.util.ModTags;
 @Mixin(ShieldDecorationRecipe.class)
 public abstract class ShieldDecorationRecipeMixin extends SpecialCraftingRecipe {
 
-    public ShieldDecorationRecipeMixin(Identifier id, CraftingRecipeCategory category) {
-        super(id, category);
+    public ShieldDecorationRecipeMixin(CraftingRecipeCategory craftingRecipeCategory) {
+        super(craftingRecipeCategory);
     }
 
     @Inject(method = "matches(Lnet/minecraft/inventory/RecipeInputInventory;Lnet/minecraft/world/World;)Z", at = @At("HEAD"), cancellable = true)

@@ -1,5 +1,6 @@
 {
   "asset_id": "earth-and-water:block",
+  "decal": false,
   "description": {
     "translate": "trim_pattern.earth-and-water.block"
   },

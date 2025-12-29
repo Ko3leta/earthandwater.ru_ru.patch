@@ -139,12 +139,11 @@ public class EarthWater implements ModInitializer {
 		DispenserBlock.registerBehavior(
 				item,
 				(pointer, stack) -> {
-					World world = pointer.getWorld();
+					World world = pointer.world();
 					Position position = DispenserBlock.getOutputLocation(pointer);
-					Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
+					Direction direction = pointer.state().get(DispenserBlock.FACING);
 
-					ProjectileItem projectileItem =
-							(ProjectileItem) stack.getItem();
+					ProjectileItem projectileItem = (ProjectileItem) stack.getItem();
 					ProjectileEntity projectileEntity = projectileItem.createEntity(world, position, stack, direction);
 
 					projectileEntity.setVelocity(
