@@ -53,10 +53,10 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 offerSmelting(List.of(ModItems.BATTLE_AXE), RecipeCategory.MISC, ModItems.STEEL_NUGGET, 0.1f, 200, "steel");
                 offerBlasting(List.of(ModItems.BATTLE_AXE), RecipeCategory.MISC, ModItems.STEEL_NUGGET, 0.1f, 100, "steel");
 
-                offerSmithingTrimRecipe(ModItems.BLOCK_ARMOR_TRIM_SMITHING_TEMPLATE,
-                        RegistryKey.of(RegistryKeys.RECIPE, ModTrimPatterns.BLOCK.getValue()));
-                offerSmithingTrimRecipe(ModItems.GUARD_ARMOR_TRIM_SMITHING_TEMPLATE,
-                        RegistryKey.of(RegistryKeys.RECIPE, ModTrimPatterns.GUARD.getValue()));
+                offerSmithingTrimRecipe(ModItems.BLOCK_ARMOR_TRIM_SMITHING_TEMPLATE, ModTrimPatterns.BLOCK,
+                        RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(EarthWater.MOD_ID, "block")));
+                offerSmithingTrimRecipe(ModItems.GUARD_ARMOR_TRIM_SMITHING_TEMPLATE, ModTrimPatterns.GUARD,
+                        RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(EarthWater.MOD_ID, "guard")));
 
                 generateDripstoneRecipes();
                 generateDarkDripstoneRecipes();

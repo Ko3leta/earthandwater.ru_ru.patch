@@ -1,4 +1,4 @@
-// 1.21.4	-999999999-01-01T00:00:00	Earth & Water/Model Definitions
+// 1.21.5	-999999999-01-01T00:00:00	Earth & Water/Model Definitions
 55d044b16771bc328a059d08d98c13f78cc6e2fc assets/earth-and-water/blockstates/chiseled_limestone_bricks.json
 15583ebc7e55860bdc17dfc6e9e38bf952116fa1 assets/earth-and-water/blockstates/dark_dripstone_block.json
 2bd3b47a53b60c15d263d41147fbd7f92fbc8cd5 assets/earth-and-water/blockstates/dark_dripstone_brick_slab.json
@@ -55,11 +55,7 @@ a83ecf93186891a5659d781e91482cf74001d186 assets/earth-and-water/blockstates/pris
 1169b088726b49c04a3b1b3af9ef136429614a0b assets/earth-and-water/items/bore_spawn_egg.json
 a9ce9d2a004855479f6f7c954e2cc12b5da921bf assets/earth-and-water/items/brine_rod.json
 f3b25ba0ef0112e0888409f5d6ab50b791c01802 assets/earth-and-water/items/brine_spawn_egg.json
-7be993b1e4c24b9d64878dded3ae2f64734a82d6 assets/earth-and-water/items/chiseled_dark_dripstone_bricks.json
-22b638b8675922803218e1dcf3a2e3b4fb80ab60 assets/earth-and-water/items/chiseled_dark_prismarine.json
-b26a52b6c461553a9ddd7d55ab88e05f089c01fd assets/earth-and-water/items/chiseled_dripstone_bricks.json
 8e86a12276939c1863096ddfc0cf40cb16d866a6 assets/earth-and-water/items/chiseled_limestone_bricks.json
-371fd8c8f320e3c27ace4a4dd638b256ef6fdc95 assets/earth-and-water/items/chiseled_prismarine_bricks.json
 c290df152ea993cfb2faca2fa60d4c74fec0ce1d assets/earth-and-water/items/dark_dripstone_block.json
 0a21979079c7520e57cffa84d4093eb7a5916be2 assets/earth-and-water/items/dark_dripstone_brick_slab.json
 94c445bae4adca77356bf19280d24dfa6801e076 assets/earth-and-water/items/dark_dripstone_brick_stairs.json
@@ -91,8 +87,6 @@ a92b8107aa22b0e801cf5fcb19e06f2124d1d3fb assets/earth-and-water/items/guard_armo
 85ad30cc375ef6868d0f1a78d28ff03ad608a8af assets/earth-and-water/items/limestone_wall.json
 885254cd2f120d9d8bd1e382461a0eebecd991e0 assets/earth-and-water/items/mixed_prismarine_tiles.json
 fcd4936bfc1c9fc7afbdda9266712854e7baff78 assets/earth-and-water/items/oxygen_block.json
-47d4e7ba6c5241bc88229643a0fbc5fbcc36b40a assets/earth-and-water/items/oxygen_bubble.json
-71908ec6c84d071a11713b503d8e8ba822fdd7c9 assets/earth-and-water/items/pointed_dark_dripstone.json
 1110895421fc68a71c9836a4e0365295388a1473 assets/earth-and-water/items/polished_dark_dripstone.json
 f6b27b2948869d74e3690a76eb74b4bc6c22d617 assets/earth-and-water/items/polished_dark_dripstone_slab.json
 bce226b5ab143a70f89b39ce1f1ec099e6cb40ad assets/earth-and-water/items/polished_dark_dripstone_stairs.json
@@ -112,7 +106,6 @@ b509fbd4591cf963f12428b9f1c19766d0ee0797 assets/earth-and-water/items/polished_l
 b5de732f9919b0027ac3fe13f684781ac4c577a4 assets/earth-and-water/items/prismarine_tile_wall.json
 13943e8e428f72892cf4b35bf440c5bb56e8c3de assets/earth-and-water/items/prismarine_tiles.json
 01fe97a0f0dcfbceebb7f61860057204f36bb1f5 assets/earth-and-water/items/reinforced_key.json
-44fcac55c2e02624bd55e1cd09f1413bc53535e7 assets/earth-and-water/items/reinforced_spawner.json
 22b88e829d937b338986b43561c152aa939eaa28 assets/earth-and-water/items/steel_block.json
 7d2f656d8830dcd2642548cc5cc3f4e32393e407 assets/earth-and-water/items/steel_ingot.json
 f9278ac67adb687360e1246d755337741f36c84a assets/earth-and-water/items/steel_nugget.json

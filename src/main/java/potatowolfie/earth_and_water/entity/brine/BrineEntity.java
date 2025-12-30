@@ -1114,7 +1114,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        String stateString = nbt.getString("BrineState");
+        String stateString = nbt.getString("BrineState").orElse("");
         if (!stateString.isEmpty() && !stateString.equals("UNDERWATER_IDLE")) {
             try {
                 BrineState loadedState = BrineState.valueOf(stateString);
@@ -1127,23 +1127,23 @@ public class BrineEntity extends HostileWaterCreatureEntity {
             }
         }
 
-        this.hasMovedEnoughToShoot = nbt.getBoolean("HasMovedEnoughToShoot");
-        this.shootingDelay = nbt.getInt("ShootingDelay");
-        this.shootCooldown = nbt.getInt("ShootCooldown");
+        this.hasMovedEnoughToShoot = nbt.getBoolean("HasMovedEnoughToShoot").orElse(false);
+        this.shootingDelay = nbt.getInt("ShootingDelay").orElse(0);
+        this.shootCooldown = nbt.getInt("ShootCooldown").orElse(0);
 
         if (nbt.contains("LastShootX")) {
             this.lastShootPosition = new Vec3d(
-                    nbt.getDouble("LastShootX"),
-                    nbt.getDouble("LastShootY"),
-                    nbt.getDouble("LastShootZ")
+                    nbt.getDouble("LastShootX").orElse(0.0),
+                    nbt.getDouble("LastShootY").orElse(0.0),
+                    nbt.getDouble("LastShootZ").orElse(0.0)
             );
         }
 
         if (nbt.contains("HomeX")) {
             this.homePos = new BlockPos(
-                    nbt.getInt("HomeX"),
-                    nbt.getInt("HomeY"),
-                    nbt.getInt("HomeZ")
+                    nbt.getInt("HomeX").orElse(0),
+                    nbt.getInt("HomeY").orElse(0),
+                    nbt.getInt("HomeZ").orElse(0)
             );
         }
     }

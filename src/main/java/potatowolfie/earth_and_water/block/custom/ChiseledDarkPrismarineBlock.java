@@ -40,8 +40,8 @@ public class ChiseledDarkPrismarineBlock extends Block {
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        super.onStateReplaced(state, world, pos, newState, moved);
+    public void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+        super.onStateReplaced(state, world, pos, moved);
     }
 
     @Override

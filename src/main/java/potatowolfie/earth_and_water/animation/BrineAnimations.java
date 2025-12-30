@@ -17,20 +17,20 @@ public class BrineAnimations {
 			new Keyframe(1.5833F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 2.5F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(-2.3727F, 0.0F, 0.4745F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("head", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("head", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.25F, 0.0F, 0.25F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(-0.25F, 0.0F, 0.25F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(-0.25F, 0.0F, -0.25F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.25F, 0.0F, -0.25F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.25F, 0.0F, 0.25F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("shell1", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("shell1", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-0.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(-0.5F, 0.25F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(-0.5F, -0.25F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(-0.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("shell2", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("shell2", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.5F, 0.25F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.5F, -0.25F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.5F, 0.25F, 0.0F), Transformation.Interpolations.CUBIC)
@@ -42,7 +42,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, 270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rods_top", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rods_top", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.25F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, -0.25F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -55,7 +55,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rod1", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod1", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -69,7 +69,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rod2", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod2", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -83,7 +83,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rod3", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod3", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -97,7 +97,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rod4", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod4", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -111,34 +111,34 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rods_bottom", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rods_bottom", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.5F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, -0.5F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("rod5", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod5", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("rod6", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod6", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("rod7", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod7", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("rod8", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod8", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -156,7 +156,7 @@ public class BrineAnimations {
 			new Keyframe(1.5833F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 2.5F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(-2.3727F, 0.0F, 0.4745F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("head", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("head", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.25F, 0.0F, 0.25F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(-0.25F, 0.0F, 0.25F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(-0.25F, 0.0F, -0.25F), Transformation.Interpolations.CUBIC),
@@ -168,7 +168,7 @@ public class BrineAnimations {
 			new Keyframe(1.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 2.5F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("shell1", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("shell1", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.25F, -0.25F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.13F, 0.25F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -179,7 +179,7 @@ public class BrineAnimations {
 			new Keyframe(1.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -2.5F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("shell2", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("shell2", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(-0.25F, 0.25F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(-0.12F, -0.25F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -192,7 +192,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(5.0F, 270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(5.0F, 360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rods_top", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rods_top", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.25F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, -0.25F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -205,7 +205,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rod1", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod1", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -219,7 +219,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rod2", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod2", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -233,7 +233,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rod3", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod3", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -247,7 +247,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rod4", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod4", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -261,34 +261,34 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(5.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(5.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rods_bottom", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rods_bottom", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.5F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, -0.5F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("rod5", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod5", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("rod6", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod6", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("rod7", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod7", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("rod8", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod8", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -305,7 +305,7 @@ public class BrineAnimations {
 			new Keyframe(1.0F, AnimationHelper.createRotationalVector(-15.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("head", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("head", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.25F, AnimationHelper.createTranslationalVector(0.0F, 0.5F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.75F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -319,7 +319,7 @@ public class BrineAnimations {
 			new Keyframe(1.0F, AnimationHelper.createRotationalVector(0.0F, -10.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("shell1", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("shell1", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.75F, AnimationHelper.createTranslationalVector(-0.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -332,7 +332,7 @@ public class BrineAnimations {
 			new Keyframe(1.0F, AnimationHelper.createRotationalVector(0.0F, 10.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("shell2", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("shell2", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.75F, AnimationHelper.createTranslationalVector(0.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(-0.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -345,7 +345,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(5.0F, 270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(5.0F, 360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rods_top", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rods_top", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.25F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.75F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -360,7 +360,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rod1", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod1", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -374,7 +374,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rod2", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod2", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -388,7 +388,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rod3", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod3", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -402,7 +402,7 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rod4", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod4", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -416,34 +416,34 @@ public class BrineAnimations {
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(5.0F, -270.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(5.0F, -360.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("rods_bottom", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rods_bottom", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.5F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, -0.5F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("rod5", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod5", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("rod6", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod6", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("rod7", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod7", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("rod8", new Transformation(Transformation.Targets.TRANSLATE,
+		.addBoneAnimation("rod8", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),

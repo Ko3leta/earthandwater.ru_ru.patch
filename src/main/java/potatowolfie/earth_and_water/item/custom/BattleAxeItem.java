@@ -1,5 +1,6 @@
 package potatowolfie.earth_and_water.item.custom;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +22,7 @@ import potatowolfie.earth_and_water.damage.ModDamageTypes;
 import potatowolfie.earth_and_water.sound.ModSounds;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class BattleAxeItem extends AxeItem {
     private static final int DASH_COOLDOWN = 45;
@@ -39,7 +41,7 @@ public class BattleAxeItem extends AxeItem {
     }
 
     @Override
-    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (target.isBlocking()) {
             boolean isCriticalHit = false;
 
@@ -70,7 +72,7 @@ public class BattleAxeItem extends AxeItem {
             }
         }
 
-        return super.postHit(stack, target, attacker);
+        super.postHit(stack, target, attacker);
     }
 
     private float calculateHorizontalAngleMultiplier(Vec3d lookVec) {
@@ -205,10 +207,10 @@ public class BattleAxeItem extends AxeItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        tooltip.add(Text.translatable("tooltip.earth-and-water.tooltipempty"));
-        tooltip.add(Text.translatable("tooltip.earth-and-water.battle_axe.tooltip1"));
-        tooltip.add(Text.translatable("tooltip.earth-and-water.battle_axe.tooltip2"));
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        textConsumer.accept(Text.translatable("tooltip.earth-and-water.tooltipempty"));
+        textConsumer.accept(Text.translatable("tooltip.earth-and-water.battle_axe.tooltip1"));
+        textConsumer.accept(Text.translatable("tooltip.earth-and-water.battle_axe.tooltip2"));
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 }

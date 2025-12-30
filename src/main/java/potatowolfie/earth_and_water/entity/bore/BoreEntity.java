@@ -1389,7 +1389,7 @@ public class BoreEntity extends HostileEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        String stateString = nbt.getString("BoreState");
+        String stateString = nbt.getString("BoreState").orElse("");
         if (!stateString.isEmpty() && !stateString.equals("IDLE")) {
             try {
                 BoreState loadedState = BoreState.valueOf(stateString);
@@ -1402,44 +1402,44 @@ public class BoreEntity extends HostileEntity {
             }
         }
 
-        this.stateTimer = nbt.getInt("StateTimer");
+        this.stateTimer = nbt.getInt("StateTimer").orElse(0);
         if (nbt.contains("Variant")) {
-            this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
+            this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant").orElse(0));
         }
-        this.hasMovedEnoughToShoot = nbt.getBoolean("HasMovedEnoughToShoot");
-        this.isInCombat = nbt.getBoolean("IsInCombat");
-        this.combatStartTime = nbt.getInt("CombatStartTime");
-        this.circlingAngle = nbt.getDouble("CirclingAngle");
-        this.circlingDirection = nbt.getInt("CirclingDirection");
-        this.shootingDelay = nbt.getInt("ShootingDelay");
-        this.stuckTimer = nbt.getInt("StuckTimer");
-        this.burrowCooldownTimer = nbt.getInt("BurrowCooldownTimer");
+        this.hasMovedEnoughToShoot = nbt.getBoolean("HasMovedEnoughToShoot").orElse(false);
+        this.isInCombat = nbt.getBoolean("IsInCombat").orElse(false);
+        this.combatStartTime = nbt.getInt("CombatStartTime").orElse(0);
+        this.circlingAngle = nbt.getDouble("CirclingAngle").orElse(0.0);
+        this.circlingDirection = nbt.getInt("CirclingDirection").orElse(1);
+        this.shootingDelay = nbt.getInt("ShootingDelay").orElse(0);
+        this.stuckTimer = nbt.getInt("StuckTimer").orElse(0);
+        this.burrowCooldownTimer = nbt.getInt("BurrowCooldownTimer").orElse(0);
 
         if (nbt.contains("StuckCheckX")) {
             this.stuckCheckPosition = new Vec3d(
-                    nbt.getDouble("StuckCheckX"),
-                    nbt.getDouble("StuckCheckY"),
-                    nbt.getDouble("StuckCheckZ")
+                    nbt.getDouble("StuckCheckX").orElse(0.0),
+                    nbt.getDouble("StuckCheckY").orElse(0.0),
+                    nbt.getDouble("StuckCheckZ").orElse(0.0)
             );
         }
 
         if (nbt.contains("RelocateTarget")) {
-            this.relocateTarget = BlockPos.fromLong(nbt.getLong("RelocateTarget"));
+            this.relocateTarget = BlockPos.fromLong(nbt.getLong("RelocateTarget").orElse(0L));
         }
 
         if (nbt.contains("LastShootX")) {
             this.lastShootPosition = new Vec3d(
-                    nbt.getDouble("LastShootX"),
-                    nbt.getDouble("LastShootY"),
-                    nbt.getDouble("LastShootZ")
+                    nbt.getDouble("LastShootX").orElse(0.0),
+                    nbt.getDouble("LastShootY").orElse(0.0),
+                    nbt.getDouble("LastShootZ").orElse(0.0)
             );
         }
 
         if (nbt.contains("CirclingCenterX")) {
             this.circlingCenter = new Vec3d(
-                    nbt.getDouble("CirclingCenterX"),
-                    nbt.getDouble("CirclingCenterY"),
-                    nbt.getDouble("CirclingCenterZ")
+                    nbt.getDouble("CirclingCenterX").orElse(0.0),
+                    nbt.getDouble("CirclingCenterY").orElse(0.0),
+                    nbt.getDouble("CirclingCenterZ").orElse(0.0)
             );
         }
     }
@@ -1762,7 +1762,7 @@ public class BoreEntity extends HostileEntity {
                     double d = this.getX() + (double)MathHelper.nextBetween(random, -0.3F, 0.3F);
                     double e = this.getY();
                     double f = this.getZ() + (double)MathHelper.nextBetween(random, -0.3F, 0.3F);
-                    this.getEntityWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
+                    this.getEntityWorld().addParticleClient(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), d, e, f, 0.0, 0.0, 0.0);
                 }
             }
         }

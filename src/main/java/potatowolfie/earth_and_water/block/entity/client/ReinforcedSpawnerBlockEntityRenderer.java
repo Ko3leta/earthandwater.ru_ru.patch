@@ -9,6 +9,7 @@ import net.minecraft.client.render.block.entity.MobSpawnerBlockEntityRenderer;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import potatowolfie.earth_and_water.block.entity.custom.ReinforcedSpawnerBlockEntity;
 
@@ -21,14 +22,14 @@ public class ReinforcedSpawnerBlockEntityRenderer implements BlockEntityRenderer
     }
 
     @Override
-    public void render(ReinforcedSpawnerBlockEntity blockEntity, float tickDelta, MatrixStack matrices,
-                       VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(ReinforcedSpawnerBlockEntity blockEntity, float tickProgress, MatrixStack matrices,
+                       VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
         World world = blockEntity.getWorld();
         if (world != null) {
             Entity entity = blockEntity.getDisplayEntity(world);
             if (entity != null) {
                 MobSpawnerBlockEntityRenderer.render(
-                        tickDelta,
+                        tickProgress,
                         matrices,
                         vertexConsumers,
                         light,

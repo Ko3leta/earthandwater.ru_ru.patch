@@ -249,7 +249,7 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
         }
 
         if (this.getEntityWorld().isClient() && !this.isInGround()) {
-            this.getEntityWorld().addParticle(
+            this.getEntityWorld().addParticleClient(
                     ParticleTypes.SMOKE,
                     this.getX(), this.getY(), this.getZ(),
                     0, 0, 0);

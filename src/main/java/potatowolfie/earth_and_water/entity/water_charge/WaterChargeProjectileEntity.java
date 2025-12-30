@@ -404,14 +404,14 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
                         double velZ = -Math.sin(angle) * 0.1 * rotationDirection;
 
                         if (i % 2 == 0) {
-                            world.addParticle(
+                            world.addParticleClient(
                                     ParticleTypes.BUBBLE,
                                     posX, posY, posZ,
                                     velX, velY, velZ);
                         }
 
                         if (this.random.nextInt(15) == 0) {
-                            world.addParticle(
+                            world.addParticleClient(
                                     ParticleTypes.BUBBLE_POP,
                                     posX, posY + 0.2, posZ,
                                     velX * 1.5, velY * 1.5, velZ * 1.5);
@@ -430,7 +430,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
                     double randZ = (this.random.nextDouble() - 0.5) * explosionProgress * 6.0;
 
                     if (this.random.nextInt(2) == 0) {
-                        world.addParticle(
+                        world.addParticleClient(
                                 ParticleTypes.BUBBLE_POP,
                                 pos.x + randX * 0.5,
                                 pos.y + randY * 0.5,
@@ -480,7 +480,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
                         double randZ = (this.random.nextDouble() - 0.5) * rand;
 
                         if (i % 2 == 0) {
-                            world.addParticle(
+                            world.addParticleClient(
                                     ParticleTypes.BUBBLE,
                                     pos.x + offsetX + randX,
                                     pos.y + offsetY + randY,
@@ -489,7 +489,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
                         }
 
                         if (this.random.nextInt(20) == 0) {
-                            world.addParticle(
+                            world.addParticleClient(
                                     ParticleTypes.BUBBLE_POP,
                                     pos.x + offsetX + randX,
                                     pos.y + offsetY + randY + 0.2,
@@ -625,7 +625,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
                     Vec3d pos = this.getPos();
                     double spreadFactor = 0.1;
 
-                    this.getEntityWorld().addParticle(
+                    this.getEntityWorld().addParticleClient(
                             ParticleTypes.BUBBLE,
                             pos.x + (this.random.nextDouble() - 0.5) * spreadFactor,
                             pos.y + (this.random.nextDouble() - 0.5) * spreadFactor,
@@ -664,7 +664,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
                     double spreadFactor = 0.05;
 
                     for (int i = 0; i < 2; i++) {
-                        this.getEntityWorld().addParticle(
+                        this.getEntityWorld().addParticleClient(
                                 ParticleTypes.BUBBLE,
                                 bubblePos.x + (this.random.nextDouble() - 0.5) * spreadFactor,
                                 bubblePos.y + (this.random.nextDouble() - 0.5) * spreadFactor,
@@ -726,34 +726,34 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
 
-        isStuck = nbt.getBoolean("IsStuck");
-        stuckTicks = nbt.getInt("StuckTicks");
+        isStuck = nbt.getBoolean("IsStuck").orElse(false);
+        stuckTicks = nbt.getInt("StuckTicks").orElse(0);
 
         if (nbt.contains("AttachedBlockX")) {
-            int blockX = nbt.getInt("AttachedBlockX");
-            int blockY = nbt.getInt("AttachedBlockY");
-            int blockZ = nbt.getInt("AttachedBlockZ");
+            int blockX = nbt.getInt("AttachedBlockX").orElse(0);
+            int blockY = nbt.getInt("AttachedBlockY").orElse(0);
+            int blockZ = nbt.getInt("AttachedBlockZ").orElse(0);
             attachedBlock = new BlockPos(blockX, blockY, blockZ);
         }
 
         if (nbt.contains("AttachedFace")) {
-            int faceId = nbt.getInt("AttachedFace");
+            int faceId = nbt.getInt("AttachedFace").orElse(0);
             if (faceId >= 0 && faceId < Direction.values().length) {
                 attachedFace = Direction.values()[faceId];
             }
         }
 
         if (nbt.contains("HitPosX")) {
-            double hitX = nbt.getDouble("HitPosX");
-            double hitY = nbt.getDouble("HitPosY");
-            double hitZ = nbt.getDouble("HitPosZ");
+            double hitX = nbt.getDouble("HitPosX").orElse(0.0);
+            double hitY = nbt.getDouble("HitPosY").orElse(0.0);
+            double hitZ = nbt.getDouble("HitPosZ").orElse(0.0);
             exactHitPosition = new Vec3d(hitX, hitY, hitZ);
         }
 
         if (nbt.contains("InitialDirX")) {
-            double dirX = nbt.getDouble("InitialDirX");
-            double dirY = nbt.getDouble("InitialDirY");
-            double dirZ = nbt.getDouble("InitialDirZ");
+            double dirX = nbt.getDouble("InitialDirX").orElse(0.0);
+            double dirY = nbt.getDouble("InitialDirY").orElse(0.0);
+            double dirZ = nbt.getDouble("InitialDirZ").orElse(0.0);
             initialDirection = new Vec3d(dirX, dirY, dirZ);
         }
 

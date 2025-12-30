@@ -32,29 +32,29 @@ public class BrineEntityModel extends EntityModel<BrineEntityRenderState> {
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData head = modelPartData.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 4.0F, 0.0F));
+		ModelPartData head = modelPartData.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 4.0F, 0.0F));
 
 		head.addChild("eyes", ModelPartBuilder.create()
 						.uv(32, 0).cuboid(-4.0F, -8.0F, -4.01F, 8.0F, 8.0F, 0.0F),
-				ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+				ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-		ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create().uv(0, 24).cuboid(-1.5F, -12.5F, -1.5F, 3.0F, 3.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 19.0F, 0.0F));
+		ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create().uv(0, 24).cuboid(-1.5F, -12.5F, -1.5F, 3.0F, 3.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 19.0F, 0.0F));
 
-		ModelPartData shell1 = body.addChild("shell1", ModelPartBuilder.create().uv(0, 16).cuboid(-1.0F, -2.0F, -2.0F, 2.0F, 4.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(1.5F, -11.0F, 0.0F));
+		ModelPartData shell1 = body.addChild("shell1", ModelPartBuilder.create().uv(0, 16).cuboid(-1.0F, -2.0F, -2.0F, 2.0F, 4.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(1.5F, -11.0F, 0.0F));
 
-		ModelPartData shell2 = body.addChild("shell2", ModelPartBuilder.create().uv(0, 16).mirrored().cuboid(-1.0F, -2.0F, -2.0F, 2.0F, 4.0F, 4.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(-1.5F, -11.0F, 0.0F));
+		ModelPartData shell2 = body.addChild("shell2", ModelPartBuilder.create().uv(0, 16).mirrored().cuboid(-1.0F, -2.0F, -2.0F, 2.0F, 4.0F, 4.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(-1.5F, -11.0F, 0.0F));
 
-		ModelPartData rods_top = body.addChild("rods_top", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -13.0F, 0.0F));
+		ModelPartData rods_top = body.addChild("rods_top", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -13.0F, 0.0F));
 
-		ModelPartData rod1 = rods_top.addChild("rod1", ModelPartBuilder.create().uv(12, 16).cuboid(-1.0F, -8.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(-6.0F, 4.0F, -6.0F));
+		ModelPartData rod1 = rods_top.addChild("rod1", ModelPartBuilder.create().uv(12, 16).cuboid(-1.0F, -8.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(-6.0F, 4.0F, -6.0F));
 
-		ModelPartData rod2 = rods_top.addChild("rod2", ModelPartBuilder.create().uv(12, 16).cuboid(-1.0F, -8.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(-6.0F, 4.0F, 6.0F));
+		ModelPartData rod2 = rods_top.addChild("rod2", ModelPartBuilder.create().uv(12, 16).cuboid(-1.0F, -8.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(-6.0F, 4.0F, 6.0F));
 
-		ModelPartData rod3 = rods_top.addChild("rod3", ModelPartBuilder.create().uv(12, 16).cuboid(-1.0F, -8.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(6.0F, 4.0F, 6.0F));
+		ModelPartData rod3 = rods_top.addChild("rod3", ModelPartBuilder.create().uv(12, 16).cuboid(-1.0F, -8.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(6.0F, 4.0F, 6.0F));
 
-		ModelPartData rod4 = rods_top.addChild("rod4", ModelPartBuilder.create().uv(12, 16).cuboid(-1.0F, -8.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(6.0F, 4.0F, -6.0F));
+		ModelPartData rod4 = rods_top.addChild("rod4", ModelPartBuilder.create().uv(12, 16).cuboid(-1.0F, -8.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(6.0F, 4.0F, -6.0F));
 
-		ModelPartData rods_bottom = body.addChild("rods_bottom", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -4.0F, 0.0F));
+		ModelPartData rods_bottom = body.addChild("rods_bottom", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -4.0F, 0.0F));
 
 		ModelPartData rod5 = rods_bottom.addChild("rod5", ModelPartBuilder.create().uv(20, 16).cuboid(-1.0F, -8.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 4.0F, -5.0F, -0.1309F, 0.0F, 0.0F));
 

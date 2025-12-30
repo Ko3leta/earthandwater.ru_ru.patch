@@ -18,7 +18,7 @@ public class WaterChargeProjectileModel extends EntityModel<WaterChargeProjectil
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
 		ModelPartData water_charge = modelPartData.addChild("water_charge", ModelPartBuilder.create().uv(0, 0).cuboid(-2.0F, -4.0F, -2.0F, 4.0F, 4.0F, 4.0F, new Dilation(0.0F))
-				.uv(0, 8).cuboid(-2.0F, -4.0F, -2.0F, 4.0F, 4.0F, 4.0F, new Dilation(0.25F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+				.uv(0, 8).cuboid(-2.0F, -4.0F, -2.0F, 4.0F, 4.0F, 4.0F, new Dilation(0.25F)), ModelTransform.origin(0.0F, 24.0F, 0.0F));
 
 		ModelPartData cube_r1 = water_charge.addChild("cube_r1", ModelPartBuilder.create().uv(9, 0).cuboid(-1.0F, 3.2321F, -1.4019F, 2.0F, 0.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 1.5708F, -2.0944F));
 

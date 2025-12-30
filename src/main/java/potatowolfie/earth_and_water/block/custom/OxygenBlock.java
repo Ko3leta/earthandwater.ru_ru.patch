@@ -50,13 +50,13 @@ public class OxygenBlock extends Block {
                 for (int i = 0; i < 2; i++) {
                     double offsetX = random.nextDouble() * 0.6 - 0.3;
                     double offsetZ = random.nextDouble() * 0.6 - 0.3;
-                    world.addParticle(ParticleTypes.BUBBLE_COLUMN_UP,
+                    world.addParticleClient(ParticleTypes.BUBBLE_COLUMN_UP,
                         xPos + offsetX, yPos, zPos + offsetZ, 
                         0.0, upwardSpeed, 0.0);
                 }
 
                 if (y == PARTICLE_HEIGHT && random.nextInt(5) == 0) {
-                    world.addParticle(ParticleTypes.BUBBLE_POP,
+                    world.addParticleClient(ParticleTypes.BUBBLE_POP,
                         xPos + (random.nextDouble() - 0.5) * 0.6,
                         yPos + 0.5,
                         zPos + (random.nextDouble() - 0.5) * 0.6,

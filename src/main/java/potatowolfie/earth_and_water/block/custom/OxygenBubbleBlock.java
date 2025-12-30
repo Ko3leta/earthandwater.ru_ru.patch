@@ -3,6 +3,7 @@ package potatowolfie.earth_and_water.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -62,7 +63,7 @@ public class OxygenBubbleBlock extends Block implements Waterloggable {
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
         if (!world.isClient && entity instanceof LivingEntity living && state.get(WATERLOGGED)) {
             if (living.isSubmergedInWater()) {
                 int currentAir = living.getAir();

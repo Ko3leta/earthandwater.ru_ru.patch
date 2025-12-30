@@ -20,7 +20,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -40,7 +39,7 @@ import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 import potatowolfie.earth_and_water.block.ModBlocks;
 
-public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Waterloggable {
+public class PointedDarkDripstoneBlock extends Block implements Falling, Waterloggable {
     public static final MapCodec<PointedDarkDripstoneBlock> CODEC = createCodec(potatowolfie.earth_and_water.block.custom.PointedDarkDripstoneBlock::new);
     public static final EnumProperty<Direction> VERTICAL_DIRECTION = Properties.VERTICAL_DIRECTION;
     public static final EnumProperty<Thickness> THICKNESS = Properties.THICKNESS;
@@ -137,9 +136,9 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     @Override
-    public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+    public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
         if (state.get(VERTICAL_DIRECTION) == Direction.UP && state.get(THICKNESS) == Thickness.TIP) {
-            entity.handleFallDamage(fallDistance + 2.0F, 2.0F, world.getDamageSources().stalagmite());
+            entity.handleFallDamage(fallDistance + 2.5, 2.0F, world.getDamageSources().stalagmite());
         } else {
             super.onLandedUpon(world, state, pos, entity, fallDistance);
         }
@@ -397,7 +396,7 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
         double g = (double)pos.getZ() + 0.5 + vec3d.z;
         Fluid fluid2 = getDripFluid(world, fluid);
         ParticleEffect particleEffect = fluid2.matchesType(Fluids.LAVA) ? ParticleTypes.DRIPPING_DRIPSTONE_LAVA : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
-        world.addParticle(particleEffect, e, f, g, 0.0, 0.0, 0.0);
+        world.addParticleClient(particleEffect, e, f, g, 0.0, 0.0, 0.0);
     }
 
     @Nullable

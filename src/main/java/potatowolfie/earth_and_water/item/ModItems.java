@@ -4,17 +4,25 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BannerPatternsComponent;
+import net.minecraft.component.type.BlocksAttacksComponent;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import potatowolfie.earth_and_water.EarthWater;
 import potatowolfie.earth_and_water.entity.ModEntities;
 import potatowolfie.earth_and_water.item.custom.*;
+
+import java.util.List;
+import java.util.Optional;
 
 public class ModItems {
     public static final Item BORE_ROD = registerItem("bore_rod",
@@ -61,6 +69,7 @@ public class ModItems {
     public static final Item WHIP = registerItem("whip",
             new WhipItem(ModToolMaterials.PRISMARINE,
                     new Item.Settings()
+                            .sword(ModToolMaterials.PRISMARINE, 4, -2.8F)
                             .rarity(Rarity.UNCOMMON)
                             .registryKey(createItemRegistryKey("whip"))
             )
@@ -74,13 +83,19 @@ public class ModItems {
             ));
 
     public static final Item SPIKED_SHIELD = Registry.register(Registries.ITEM,
-            Identifier.of(EarthWater.MOD_ID, "spiked_shield"),
+            createItemRegistryKey("spiked_shield"),
             new SpikedShieldItem(new Item.Settings()
-                    .maxCount(1)
                     .maxDamage(556)
                     .component(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT)
-                    .registryKey(createItemRegistryKey("spiked_shield")))
-    );
+                    .repairable(ItemTags.WOODEN_TOOL_MATERIALS)
+                    .equippableUnswappable(EquipmentSlot.OFFHAND)
+                    .component(DataComponentTypes.BLOCKS_ATTACKS, new BlocksAttacksComponent(0.25F, 1.0F,
+                            List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                            new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F), Optional.of(DamageTypeTags.BYPASSES_SHIELD),
+                            Optional.of(SoundEvents.ITEM_SHIELD_BLOCK), Optional.of(SoundEvents.ITEM_SHIELD_BREAK)))
+                    .component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK)
+                    .registryKey(createItemRegistryKey("spiked_shield"))
+            ));
 
     private static RegistryKey<Item> createItemRegistryKey(String name) {
         return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(EarthWater.MOD_ID, name));

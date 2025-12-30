@@ -201,13 +201,12 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
             double d = (double)pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.6;
             double e = (double)pos.getY() + 0.5 + (random.nextDouble() - 0.5) * 0.6;
             double f = (double)pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.6;
-            world.addParticle(ParticleTypes.FLAME, d, e, f, 0.0, 0.0, 0.0);
+            world.addParticleClient(ParticleTypes.FLAME, d, e, f, 0.0, 0.0, 0.0);
         }
 
         if (random.nextFloat() <= 0.02F) {
-            world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-                    SoundEvents.BLOCK_TRIAL_SPAWNER_AMBIENT, SoundCategory.BLOCKS,
-                    1.0f, 1.0f, false);
+            world.playSound(null, pos, SoundEvents.BLOCK_TRIAL_SPAWNER_AMBIENT,
+                    SoundCategory.BLOCKS, 1.0f, 1.0f);
         }
     }
 
@@ -216,7 +215,7 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
             double d = (double)pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.5;
             double e = (double)pos.getY() + 0.5 + (random.nextDouble() - 0.5) * 0.5;
             double f = (double)pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.5;
-            world.addParticle(ParticleTypes.SMALL_FLAME, d, e, f, 0.0, 0.0, 0.0);
+            world.addParticleClient(ParticleTypes.SMALL_FLAME, d, e, f, 0.0, 0.0, 0.0);
         }
     }
 
@@ -507,41 +506,41 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
         super.readNbt(nbt, registries);
 
         if (nbt.contains("EntityType")) {
-            String entityTypeId = nbt.getString("EntityType");
+            String entityTypeId = nbt.getString("EntityType").orElse("");
             this.entityType = Registries.ENTITY_TYPE.get(Identifier.tryParse(entityTypeId));
         }
 
-        this.isActive = nbt.getBoolean("Active");
-        this.spawnDelay = nbt.getInt("SpawnDelay");
-        this.rotation = nbt.getDouble("Rotation");
-        this.lastRotation = nbt.getDouble("LastRotation");
+        this.isActive = nbt.getBoolean("Active").orElse(false);
+        this.spawnDelay = nbt.getInt("SpawnDelay").orElse(0);
+        this.rotation = nbt.getDouble("Rotation").orElse(0.0);
+        this.lastRotation = nbt.getDouble("LastRotation").orElse(0.0);
 
         this.lastKeyUsageTime = 0;
 
-        this.wasInCooldown = nbt.getBoolean("WasInCooldown");
+        this.wasInCooldown = nbt.getBoolean("WasInCooldown").orElse(false);
 
-        this.isWaveActive = nbt.getBoolean("IsWaveActive");
-        this.currentWaveSize = nbt.getInt("CurrentWaveSize");
-        this.waveDelayCounter = nbt.getInt("WaveDelayCounter");
-        this.currentWaveNumber = nbt.getInt("CurrentWaveNumber");
+        this.isWaveActive = nbt.getBoolean("IsWaveActive").orElse(false);
+        this.currentWaveSize = nbt.getInt("CurrentWaveSize").orElse(0);
+        this.waveDelayCounter = nbt.getInt("WaveDelayCounter").orElse(0);
+        this.currentWaveNumber = nbt.getInt("CurrentWaveNumber").orElse(1);
 
-        this.pendingSpawns = nbt.getInt("PendingSpawns");
-        this.nextSpawnDelay = nbt.getInt("NextSpawnDelay");
+        this.pendingSpawns = nbt.getInt("PendingSpawns").orElse(0);
+        this.nextSpawnDelay = nbt.getInt("NextSpawnDelay").orElse(0);
 
-        this.activationParticleTimer = nbt.getInt("ActivationParticleTimer");
-        this.isActivating = nbt.getBoolean("IsActivating");
-        this.waveParticleTimer = nbt.getInt("WaveParticleTimer");
-        this.isSpawningWave = nbt.getBoolean("IsSpawningWave");
-        this.deactivationParticleTimer = nbt.getInt("DeactivationParticleTimer");
-        this.isDeactivating = nbt.getBoolean("IsDeactivating");
+        this.activationParticleTimer = nbt.getInt("ActivationParticleTimer").orElse(0);
+        this.isActivating = nbt.getBoolean("IsActivating").orElse(false);
+        this.waveParticleTimer = nbt.getInt("WaveParticleTimer").orElse(0);
+        this.isSpawningWave = nbt.getBoolean("IsSpawningWave").orElse(false);
+        this.deactivationParticleTimer = nbt.getInt("DeactivationParticleTimer").orElse(0);
+        this.isDeactivating = nbt.getBoolean("IsDeactivating").orElse(false);
 
         this.currentWaveMobs.clear();
-        int mobCount = nbt.getInt("CurrentWaveMobsCount");
+        int mobCount = nbt.getInt("CurrentWaveMobsCount").orElse(0);
         for (int i = 0; i < mobCount; i++) {
             String key = "CurrentWaveMob_" + i;
             if (nbt.contains(key)) {
                 try {
-                    UUID uuid = UUID.fromString(nbt.getString(key));
+                    UUID uuid = UUID.fromString(nbt.getString(key).orElse(""));
                     this.currentWaveMobs.add(uuid);
                 } catch (IllegalArgumentException e) {
                 }

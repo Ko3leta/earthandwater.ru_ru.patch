@@ -516,9 +516,9 @@ public class AncientRuinsGenerator {
                             BlockRotation.CODEC.parse(NbtOps.INSTANCE, nbt.get("Rot")).result().orElse(BlockRotation.NONE)
                     )
             );
-            this.centerIndex = nbt.getInt("CenterIndex");
-            this.statueIndex = nbt.getInt("StatueIndex");
-            this.pieceType = PieceType.valueOf(nbt.getString("PieceType"));
+            this.centerIndex = nbt.getInt("CenterIndex").orElse(-1);
+            this.statueIndex = nbt.getInt("StatueIndex").orElse(-1);
+            this.pieceType = PieceType.valueOf(nbt.getString("PieceType", "RUIN"));
         }
 
         private static StructurePlacementData createPlacementData(BlockRotation rotation) {
@@ -660,7 +660,7 @@ public class AncientRuinsGenerator {
             this.template.getInfosForBlock(this.pos, this.placementData, Blocks.STRUCTURE_BLOCK)
                     .forEach(structureBlockInfo -> {
                         if (structureBlockInfo.nbt() != null) {
-                            String metadata = structureBlockInfo.nbt().getString("metadata");
+                            String metadata = structureBlockInfo.nbt().getString("metadata", "");
                             if (!metadata.isEmpty()) {
                                 this.handleMetadata(
                                         metadata,

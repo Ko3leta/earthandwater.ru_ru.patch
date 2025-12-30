@@ -191,7 +191,7 @@ public class ConduitMonumentGenerator {
                             BlockRotation.CODEC.parse(NbtOps.INSTANCE, nbt.get("Rot")).result().orElse(BlockRotation.NONE)
                     )
             );
-            this.centerIndex = nbt.getInt("CenterIndex");
+            this.centerIndex = nbt.getInt("CenterIndex").orElse(-1);
         }
 
         private static StructurePlacementData createPlacementData(BlockRotation rotation) {
@@ -528,7 +528,7 @@ public class ConduitMonumentGenerator {
             this.template.getInfosForBlock(this.pos, this.placementData, Blocks.STRUCTURE_BLOCK)
                     .forEach(structureBlockInfo -> {
                         if (structureBlockInfo.nbt() != null) {
-                            String metadata = structureBlockInfo.nbt().getString("metadata");
+                            String metadata = structureBlockInfo.nbt().getString("metadata", "");
                             if (!metadata.isEmpty()) {
                                 this.handleMetadata(
                                         metadata,

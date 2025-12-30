@@ -1,5 +1,7 @@
 {
+  "replace": false,
   "values": [
+    "minecraft:shield",
     "earth-and-water:spiked_shield"
   ]
 }

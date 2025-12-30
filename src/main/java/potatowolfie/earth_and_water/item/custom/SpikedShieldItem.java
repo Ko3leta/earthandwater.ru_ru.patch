@@ -4,6 +4,7 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.*;
+import net.minecraft.item.consume.UseAction;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
@@ -20,7 +21,7 @@ public class SpikedShieldItem extends ShieldItem {
         DyeColor dyeColor = (DyeColor)stack.get(DataComponentTypes.BASE_COLOR);
         if (dyeColor != null) {
             String var10000 = this.translationKey;
-            return Text.translatable(var10000 + "." + dyeColor.getName());
+            return Text.translatable(var10000 + "." + dyeColor.getId());
         } else {
             return super.getName(stack);
         }
@@ -89,5 +90,15 @@ public class SpikedShieldItem extends ShieldItem {
         }
 
         return null;
+    }
+
+    @Override
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.BLOCK;
+    }
+
+    @Override
+    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
+        return 72000;
     }
 }

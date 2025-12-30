@@ -5,7 +5,6 @@ import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -22,9 +21,7 @@ public class ModTrimPatterns {
     }
 
     private static void register(Registerable<ArmorTrimPattern> context, Item item, RegistryKey<ArmorTrimPattern> key) {
-        RegistryEntry<Item> itemEntry = context.getRegistryLookup(RegistryKeys.ITEM).getOrThrow(item.getRegistryEntry().getKey().get());
-
-        ArmorTrimPattern trimPattern = new ArmorTrimPattern(key.getValue(), itemEntry,
+        ArmorTrimPattern trimPattern = new ArmorTrimPattern(key.getValue(),
                 Text.translatable(Util.createTranslationKey("trim_pattern", key.getValue())), false);
 
         context.register(key, trimPattern);

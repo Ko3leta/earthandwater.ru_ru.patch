@@ -1,7 +1,7 @@
-// 1.21.4	-999999999-01-01T00:00:00	Earth & Water/
-6be444b46b27feb2ad11a78e394f5a90342b84cb data/earth-and-water/trim_material/steel.json
-5dedabee9859068d3ba147a9a650c846e00cf005 data/earth-and-water/trim_pattern/block.json
-c46ff0e3bd2db492b525a7fb51134e6dd48a3e22 data/earth-and-water/trim_pattern/guard.json
+// 1.21.5	-999999999-01-01T00:00:00	Earth & Water/
+5e7c4fe670fcad5a2229203de597ef12ef007016 data/earth-and-water/trim_material/steel.json
+d3f61640cb1c3a9450b5d7153caab6471186783f data/earth-and-water/trim_pattern/block.json
+8ed80e9a7d661990bc6e8b5ae5a421cf59bef1ce data/earth-and-water/trim_pattern/guard.json
 1a5182fc6e744fcfb9b5c6d5d3a7ddf418a57c88 data/earth-and-water/worldgen/configured_feature/dark_dripstone_cluster.json
 1082fa99ebb1723b669b0c38f167273288c31c70 data/earth-and-water/worldgen/configured_feature/large_dark_dripstone.json
 dd7b482c69887020dccc7663a54fe04ee1dffc00 data/earth-and-water/worldgen/configured_feature/limestone_rock.json

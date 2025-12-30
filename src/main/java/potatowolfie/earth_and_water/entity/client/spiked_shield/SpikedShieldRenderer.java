@@ -13,8 +13,8 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BannerPatternsComponent;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.util.DyeColor;
 import org.jetbrains.annotations.Nullable;
 import potatowolfie.earth_and_water.EarthWaterClient;
@@ -31,8 +31,7 @@ public class SpikedShieldRenderer implements SpecialModelRenderer {
     }
 
     @Override
-    public void render(@Nullable Object data, ModelTransformationMode mode, MatrixStack matrices,
-                       VertexConsumerProvider vertexConsumers, int light, int overlay, boolean glint) {
+    public void render(@Nullable Object data, ItemDisplayContext displayContext, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, boolean glint) {
         if (!(data instanceof ItemStack stack)) return;
 
         BannerPatternsComponent bannerPatternsComponent = stack.getOrDefault(

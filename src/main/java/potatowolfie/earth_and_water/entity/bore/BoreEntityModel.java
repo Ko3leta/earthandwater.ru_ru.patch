@@ -32,12 +32,12 @@ public class BoreEntityModel extends EntityModel<BoreEntityRenderState> {
 		ModelPartData head = modelPartData.addChild("head",
 				ModelPartBuilder.create().uv(0, 0)
 						.cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.0F)),
-				ModelTransform.pivot(0.0F, 4.0F, 0.0F));
+				ModelTransform.origin(0.0F, 4.0F, 0.0F));
 
 		head.addChild("eyes",
 				ModelPartBuilder.create().uv(0, 0)
 						.cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.0F)),
-				ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+				ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
 		ModelPartData cube_r1 = head.addChild("cube_r1",
 				ModelPartBuilder.create().uv(0, 9).cuboid(0.0F, -6.0F, -3.5F, 0.0F, 6.0F, 7.0F, new Dilation(0.0F)),
@@ -48,30 +48,30 @@ public class BoreEntityModel extends EntityModel<BoreEntityRenderState> {
 				ModelTransform.of(0.0F, -8.0F, 0.0F, 0.0F, -0.7854F, 0.0F));
 
 		ModelPartData rods_top = modelPartData.addChild("rods_top",
-				ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 7.0F, 0.0F));
+				ModelPartBuilder.create(), ModelTransform.origin(0.0F, 7.0F, 0.0F));
 
 		rods_top.addChild("rod1",
 				ModelPartBuilder.create().uv(14, 16)
 						.cuboid(-1.0F, -4.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)),
-				ModelTransform.pivot(-5.0F, 0.0F, -5.0F));
+				ModelTransform.origin(-5.0F, 0.0F, -5.0F));
 
 		rods_top.addChild("rod2",
 				ModelPartBuilder.create().uv(14, 16)
 						.cuboid(-1.0F, -4.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)),
-				ModelTransform.pivot(5.0F, 0.0F, -5.0F));
+				ModelTransform.origin(5.0F, 0.0F, -5.0F));
 
 		rods_top.addChild("rod3",
 				ModelPartBuilder.create().uv(14, 16)
 						.cuboid(-1.0F, -4.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)),
-				ModelTransform.pivot(5.0F, 0.0F, 5.0F));
+				ModelTransform.origin(5.0F, 0.0F, 5.0F));
 
 		rods_top.addChild("rod4",
 				ModelPartBuilder.create().uv(14, 16)
 						.cuboid(-1.0F, -4.0F, -1.0F, 2.0F, 8.0F, 2.0F, new Dilation(0.0F)),
-				ModelTransform.pivot(-5.0F, 0.0F, 5.0F));
+				ModelTransform.origin(-5.0F, 0.0F, 5.0F));
 
 		ModelPartData rods_bottom = modelPartData.addChild("rods_bottom",
-				ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 11.0F, 0.0F));
+				ModelPartBuilder.create(), ModelTransform.origin(0.0F, 11.0F, 0.0F));
 
 		rods_bottom.addChild("rod_bottom1",
 				ModelPartBuilder.create().uv(0, 0)
