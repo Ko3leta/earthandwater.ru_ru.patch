@@ -76,8 +76,8 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
     }
 
     private void applyDirectHitDamage(Entity hitEntity) {
-        if (hitEntity instanceof LivingEntity livingEntity && !this.getEntityWorld().isClient()) {
-            if (this.getEntityWorld() instanceof ServerWorld serverWorld) {
+        if (hitEntity instanceof LivingEntity livingEntity && !this.getWorld().isClient()) {
+            if (this.getWorld() instanceof ServerWorld serverWorld) {
                 DamageSource earthChargeDamage = new DamageSource(
                         serverWorld.getRegistryManager()
                                 .getOrThrow(RegistryKeys.DAMAGE_TYPE)
@@ -103,7 +103,7 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
     }
 
     private void applyAreaDamageExcluding(Entity excludedEntity) {
-        World world = this.getEntityWorld();
+        World world = this.getWorld();
         Vec3d pos = this.getPos();
 
         if (!world.isClient()) {
@@ -131,7 +131,7 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
     }
 
     private void createExplosionEffects() {
-        World world = this.getEntityWorld();
+        World world = this.getWorld();
         Vec3d pos = this.getPos();
 
         world.playSound(null, pos.x, pos.y, pos.z,
@@ -194,9 +194,9 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
         applyDirectHitDamage(hitEntity);
         applyAreaDamageExcluding(hitEntity);
 
-        if (!this.getEntityWorld().isClient()) {
+        if (!this.getWorld().isClient()) {
             createExplosionEffects();
-            this.getEntityWorld().sendEntityStatus(this, (byte)3);
+            this.getWorld().sendEntityStatus(this, (byte)3);
             this.discard();
         }
     }
@@ -214,16 +214,16 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
 
         applyAreaDamageExcluding(null);
 
-        if (!this.getEntityWorld().isClient()) {
+        if (!this.getWorld().isClient()) {
             createExplosionEffects();
-            this.getEntityWorld().sendEntityStatus(this, (byte)3);
+            this.getWorld().sendEntityStatus(this, (byte)3);
             this.discard();
         }
     }
 
     @Override
     public void tick() {
-        if (!this.getEntityWorld().isClient() && !this.isRemoved()) {
+        if (!this.getWorld().isClient() && !this.isRemoved()) {
             if (this.isTouchingWater()) {
                 Vec3d currentVelocity = this.getVelocity();
                 this.setVelocity(currentVelocity.multiply(0.9));
@@ -248,8 +248,8 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
             }
         }
 
-        if (this.getEntityWorld().isClient() && !this.isInGround()) {
-            this.getEntityWorld().addParticleClient(
+        if (this.getWorld().isClient() && !this.isInGround()) {
+            this.getWorld().addParticleClient(
                     ParticleTypes.SMOKE,
                     this.getX(), this.getY(), this.getZ(),
                     0, 0, 0);
@@ -258,7 +258,7 @@ public class EarthChargeProjectileEntity extends PersistentProjectileEntity {
 
     @Override
     public boolean isTouchingWater() {
-        return this.getEntityWorld().isWater(this.getBlockPos());
+        return this.getWorld().isWater(this.getBlockPos());
     }
 
     @Override

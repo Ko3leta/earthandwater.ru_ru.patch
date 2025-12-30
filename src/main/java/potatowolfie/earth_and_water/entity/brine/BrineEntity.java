@@ -15,6 +15,8 @@ import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -228,7 +230,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
                     continue;
                 }
 
-                if (this.brine.getEntityWorld().getFluidState(checkPos).isIn(FluidTags.WATER)) {
+                if (this.brine.getWorld().getFluidState(checkPos).isIn(FluidTags.WATER)) {
                     this.targetX = potentialX;
                     this.targetY = potentialY;
                     this.targetZ = potentialZ;
@@ -314,7 +316,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
         }
 
         private boolean isDeepWater(BlockPos pos) {
-            World world = this.brine.getEntityWorld();
+            World world = this.brine.getWorld();
             return world.getFluidState(pos).isIn(FluidTags.WATER) &&
                     world.getFluidState(pos.up()).isIn(FluidTags.WATER);
         }
@@ -408,7 +410,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
     }
 
     private void updateAnimations() {
-        if (this.getEntityWorld().isClient()) {
+        if (this.getWorld().isClient()) {
             if (this.brineState == BrineState.SHOOTING) {
                 if (!isAttackAnimationRunning) {
                     this.attackAnimationState.start(this.age);
@@ -469,7 +471,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
             this.previousState = this.brineState;
             this.brineState = newState;
 
-            if (!this.getEntityWorld().isClient()) {
+            if (!this.getWorld().isClient()) {
                 this.dataTracker.set(DATA_ID_STATE, newState.ordinal());
             } else {
                 startStateAnimation(newState);
@@ -480,7 +482,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
     }
 
     private void startStateAnimation(BrineState state) {
-        if (!this.getEntityWorld().isClient() || animationStartedThisTick) return;
+        if (!this.getWorld().isClient() || animationStartedThisTick) return;
 
         animationStartedThisTick = true;
 
@@ -511,7 +513,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
     }
 
     private void stopAllAnimations() {
-        if (this.getEntityWorld().isClient()) {
+        if (this.getWorld().isClient()) {
             idleAnimationState.stop();
             underwaterAnimationState.stop();
             attackAnimationState.stop();
@@ -520,7 +522,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
 
     @Override
     public void onTrackedDataSet(TrackedData<?> data) {
-        if (DATA_ID_STATE.equals(data) && this.getEntityWorld().isClient()) {
+        if (DATA_ID_STATE.equals(data) && this.getWorld().isClient()) {
             BrineState newState = BrineState.values()[this.dataTracker.get(DATA_ID_STATE)];
             if (this.brineState != newState && !isChangingState) {
                 isChangingState = true;
@@ -593,7 +595,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
 
     @Override
     public void tick() {
-        if (this.isRemoved() || this.getEntityWorld() == null) {
+        if (this.isRemoved() || this.getWorld() == null) {
             return;
         }
 
@@ -611,7 +613,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
         if (this.getBrineState() == BrineState.SHOOTING) {
             shootingStateTimer++;
 
-            if (shootingStateTimer == 20 && !this.getEntityWorld().isClient()) {
+            if (shootingStateTimer == 20 && !this.getWorld().isClient()) {
                 fireWaterCharge();
             }
 
@@ -825,7 +827,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
 
                 if (!this.brine.isWithinHomeBounds(testPos)) continue;
 
-                if (this.brine.getEntityWorld().getFluidState(testPos).isIn(FluidTags.WATER)) {
+                if (this.brine.getWorld().getFluidState(testPos).isIn(FluidTags.WATER)) {
                     this.targetX = px;
                     this.targetY = py;
                     this.targetZ = pz;
@@ -867,10 +869,10 @@ public class BrineEntity extends HostileWaterCreatureEntity {
     }
 
     private boolean isNearbyProjectileDangerous() {
-        if (this.getEntityWorld() == null) return false;
+        if (this.getWorld() == null) return false;
 
         try {
-            List<WaterChargeProjectileEntity> projectiles = this.getEntityWorld().getEntitiesByClass(
+            List<WaterChargeProjectileEntity> projectiles = this.getWorld().getEntitiesByClass(
                     WaterChargeProjectileEntity.class,
                     this.getBoundingBox().expand(PROJECTILE_DANGER_RADIUS),
                     projectile -> projectile != null && projectile.getOwner() != this
@@ -883,10 +885,10 @@ public class BrineEntity extends HostileWaterCreatureEntity {
     }
 
     private boolean isNearFriendlyProjectile() {
-        if (this.getEntityWorld() == null) return false;
+        if (this.getWorld() == null) return false;
 
         try {
-            List<WaterChargeProjectileEntity> friendlyProjectiles = this.getEntityWorld().getEntitiesByClass(
+            List<WaterChargeProjectileEntity> friendlyProjectiles = this.getWorld().getEntitiesByClass(
                     WaterChargeProjectileEntity.class,
                     this.getBoundingBox().expand(FRIENDLY_PROJECTILE_AVOIDANCE_RADIUS),
                     projectile -> projectile != null && projectile.getOwner() instanceof BrineEntity && projectile.getOwner() != this
@@ -899,10 +901,10 @@ public class BrineEntity extends HostileWaterCreatureEntity {
     }
 
     private Vec3d getProjectileAvoidanceDirection() {
-        if (this.getEntityWorld() == null) return null;
+        if (this.getWorld() == null) return null;
 
         try {
-            List<WaterChargeProjectileEntity> projectiles = this.getEntityWorld().getEntitiesByClass(
+            List<WaterChargeProjectileEntity> projectiles = this.getWorld().getEntitiesByClass(
                     WaterChargeProjectileEntity.class,
                     this.getBoundingBox().expand(Math.max(PROJECTILE_DANGER_RADIUS, FRIENDLY_PROJECTILE_AVOIDANCE_RADIUS)),
                     projectile -> projectile != null && projectile.getOwner() != this
@@ -966,11 +968,11 @@ public class BrineEntity extends HostileWaterCreatureEntity {
         Vec3d direction = targetPos.subtract(this.getPos()).normalize();
 
         try {
-            WaterChargeProjectileEntity charge = new WaterChargeProjectileEntity(ModEntities.WATER_CHARGE, this.getEntityWorld());
+            WaterChargeProjectileEntity charge = new WaterChargeProjectileEntity(ModEntities.WATER_CHARGE, this.getWorld());
             charge.setOwner(this);
             charge.setPosition(this.getX(), this.getEyeY(), this.getZ());
             charge.setVelocity(direction.x, direction.y, direction.z, 1.2f, 0.05f);
-            this.getEntityWorld().spawnEntity(charge);
+            this.getWorld().spawnEntity(charge);
         } catch (Exception e) {
         }
     }
@@ -1091,8 +1093,8 @@ public class BrineEntity extends HostileWaterCreatureEntity {
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
+    public void writeCustomData(WriteView nbt) {
+        super.writeCustomData(nbt);
         nbt.putString("BrineState", brineState.name());
         nbt.putBoolean("HasMovedEnoughToShoot", hasMovedEnoughToShoot);
         nbt.putInt("ShootingDelay", shootingDelay);
@@ -1112,10 +1114,10 @@ public class BrineEntity extends HostileWaterCreatureEntity {
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        String stateString = nbt.getString("BrineState").orElse("");
-        if (!stateString.isEmpty() && !stateString.equals("UNDERWATER_IDLE")) {
+    public void readCustomData(ReadView nbt) {
+        super.readCustomData(nbt);
+        String stateString = nbt.getString("BrineState", "UNDERWATER_IDLE");
+        if (!stateString.equals("UNDERWATER_IDLE")) {
             try {
                 BrineState loadedState = BrineState.valueOf(stateString);
                 this.brineState = loadedState;
@@ -1127,23 +1129,24 @@ public class BrineEntity extends HostileWaterCreatureEntity {
             }
         }
 
-        this.hasMovedEnoughToShoot = nbt.getBoolean("HasMovedEnoughToShoot").orElse(false);
-        this.shootingDelay = nbt.getInt("ShootingDelay").orElse(0);
-        this.shootCooldown = nbt.getInt("ShootCooldown").orElse(0);
+        this.hasMovedEnoughToShoot = nbt.getBoolean("HasMovedEnoughToShoot", false);
+        this.shootingDelay = nbt.getInt("ShootingDelay", 0);
+        this.shootCooldown = nbt.getInt("ShootCooldown", 0);
 
-        if (nbt.contains("LastShootX")) {
+        double lastShootX = nbt.getDouble("LastShootX", Double.NaN);
+        if (!Double.isNaN(lastShootX)) {
             this.lastShootPosition = new Vec3d(
-                    nbt.getDouble("LastShootX").orElse(0.0),
-                    nbt.getDouble("LastShootY").orElse(0.0),
-                    nbt.getDouble("LastShootZ").orElse(0.0)
+                    lastShootX,
+                    nbt.getDouble("LastShootY", 0.0),
+                    nbt.getDouble("LastShootZ", 0.0)
             );
         }
 
         if (nbt.contains("HomeX")) {
             this.homePos = new BlockPos(
-                    nbt.getInt("HomeX").orElse(0),
-                    nbt.getInt("HomeY").orElse(0),
-                    nbt.getInt("HomeZ").orElse(0)
+                    nbt.getInt("HomeX", 0),
+                    nbt.getInt("HomeY", 0),
+                    nbt.getInt("HomeZ", 0)
             );
         }
     }

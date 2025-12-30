@@ -36,7 +36,7 @@ public abstract class HostileWaterCreatureEntity extends HostileEntity {
     }
 
     protected int getXpToDrop() {
-        return 1 + this.getEntityWorld().random.nextInt(3);
+        return 1 + this.getWorld().random.nextInt(3);
     }
 
     @Override
@@ -119,7 +119,7 @@ public abstract class HostileWaterCreatureEntity extends HostileEntity {
                     for (int y = -8; y <= 8; y += 2) {
                         for (int z = -range; z <= range; z += 2) {
                             BlockPos checkPos = entityPos.add(x, y, z);
-                            if (this.entity.getEntityWorld().getFluidState(checkPos).isIn(FluidTags.WATER)) {
+                            if (this.entity.getWorld().getFluidState(checkPos).isIn(FluidTags.WATER)) {
                                 return checkPos;
                             }
                         }
@@ -205,7 +205,7 @@ public abstract class HostileWaterCreatureEntity extends HostileEntity {
 
                 BlockPos checkPos = new BlockPos((int)potentialX, (int)potentialY, (int)potentialZ);
 
-                if (this.entity.getEntityWorld().getFluidState(checkPos).isIn(FluidTags.WATER)) {
+                if (this.entity.getWorld().getFluidState(checkPos).isIn(FluidTags.WATER)) {
                     this.targetX = potentialX;
                     this.targetY = potentialY;
                     this.targetZ = potentialZ;
@@ -231,7 +231,7 @@ public abstract class HostileWaterCreatureEntity extends HostileEntity {
     }
 
     private boolean hasAI() {
-        return !this.isAiDisabled() && this.getEntityWorld().getDifficulty() != Difficulty.PEACEFUL;
+        return !this.isAiDisabled() && this.getWorld().getDifficulty() != Difficulty.PEACEFUL;
     }
 
     @Override
@@ -259,9 +259,9 @@ public abstract class HostileWaterCreatureEntity extends HostileEntity {
         double entityHeight = this.getHeight();
         Vec3d pos = this.getPos();
 
-        boolean bottomSubmerged = this.getEntityWorld().getFluidState(new BlockPos((int)pos.x, (int)pos.y, (int)pos.z)).isIn(FluidTags.WATER);
-        boolean middleSubmerged = this.getEntityWorld().getFluidState(new BlockPos((int)pos.x, (int)(pos.y + entityHeight * 0.5), (int)pos.z)).isIn(FluidTags.WATER);
-        boolean topSubmerged = this.getEntityWorld().getFluidState(new BlockPos((int)pos.x, (int)(pos.y + entityHeight), (int)pos.z)).isIn(FluidTags.WATER);
+        boolean bottomSubmerged = this.getWorld().getFluidState(new BlockPos((int)pos.x, (int)pos.y, (int)pos.z)).isIn(FluidTags.WATER);
+        boolean middleSubmerged = this.getWorld().getFluidState(new BlockPos((int)pos.x, (int)(pos.y + entityHeight * 0.5), (int)pos.z)).isIn(FluidTags.WATER);
+        boolean topSubmerged = this.getWorld().getFluidState(new BlockPos((int)pos.x, (int)(pos.y + entityHeight), (int)pos.z)).isIn(FluidTags.WATER);
 
         return bottomSubmerged && middleSubmerged && topSubmerged;
     }
@@ -334,9 +334,9 @@ public abstract class HostileWaterCreatureEntity extends HostileEntity {
         }
 
         private boolean isDeepWater(BlockPos pos) {
-            return this.entity.getEntityWorld().getFluidState(pos).isIn(FluidTags.WATER) &&
-                    this.entity.getEntityWorld().getFluidState(pos.up()).isIn(FluidTags.WATER) &&
-                    this.entity.getEntityWorld().getFluidState(pos.up(2)).isIn(FluidTags.WATER);
+            return this.entity.getWorld().getFluidState(pos).isIn(FluidTags.WATER) &&
+                    this.entity.getWorld().getFluidState(pos.up()).isIn(FluidTags.WATER) &&
+                    this.entity.getWorld().getFluidState(pos.up(2)).isIn(FluidTags.WATER);
         }
 
         private BlockPos findNearbyWater() {
@@ -347,7 +347,7 @@ public abstract class HostileWaterCreatureEntity extends HostileEntity {
                     for (int y = -8; y <= 8; y += 2) {
                         for (int z = -range; z <= range; z += 2) {
                             BlockPos testPos = entityPos.add(x, y, z);
-                            if (this.entity.getEntityWorld().getFluidState(testPos).isIn(FluidTags.WATER)) {
+                            if (this.entity.getWorld().getFluidState(testPos).isIn(FluidTags.WATER)) {
                                 return testPos;
                             }
                         }

@@ -162,7 +162,7 @@ public class ExplosionUtil {
                     double pointZ = MathHelper.lerp(z, box.minZ, box.maxZ);
                     Vec3d point = new Vec3d(pointX + offsetX, pointY, pointZ + offsetZ);
 
-                    if (entity.getEntityWorld().raycast(new RaycastContext(
+                    if (entity.getWorld().raycast(new RaycastContext(
                             point, source,
                             RaycastContext.ShapeType.COLLIDER,
                             RaycastContext.FluidHandling.NONE,

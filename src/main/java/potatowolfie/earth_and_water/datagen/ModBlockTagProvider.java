@@ -15,7 +15,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(
                         ModBlocks.DRIPSTONE_STAIRS,
                         ModBlocks.DRIPSTONE_SLAB,
@@ -72,7 +72,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         ModBlocks.CHISELED_LIMESTONE_BRICKS
                 );
 
-        getOrCreateTagBuilder(BlockTags.WALLS)
+        valueLookupBuilder(BlockTags.WALLS)
                 .add(ModBlocks.POLISHED_DRIPSTONE_WALL,
                         ModBlocks.DRIPSTONE_WALL,
                         ModBlocks.PRISMARINE_TILE_WALL,
@@ -85,7 +85,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         ModBlocks.LIMESTONE_BRICK_WALL
                 );
 
-        getOrCreateTagBuilder(BlockTags.SLABS)
+        valueLookupBuilder(BlockTags.SLABS)
                 .add(ModBlocks.DRIPSTONE_SLAB,
                         ModBlocks.DRIPSTONE_BRICK_SLAB,
                         ModBlocks.POLISHED_DRIPSTONE_SLAB,
@@ -98,7 +98,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         ModBlocks.LIMESTONE_BRICK_SLAB
                 );
 
-        getOrCreateTagBuilder(BlockTags.STAIRS)
+        valueLookupBuilder(BlockTags.STAIRS)
                 .add(ModBlocks.DRIPSTONE_STAIRS,
                         ModBlocks.DRIPSTONE_BRICK_STAIRS,
                         ModBlocks.POLISHED_DRIPSTONE_STAIRS,
@@ -111,7 +111,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         ModBlocks.LIMESTONE_BRICK_STAIRS
                 );
 
-        getOrCreateTagBuilder(BlockTags.REPLACEABLE)
+        valueLookupBuilder(BlockTags.REPLACEABLE)
                 .add(ModBlocks.OXYGEN_BUBBLE
                 );
     }

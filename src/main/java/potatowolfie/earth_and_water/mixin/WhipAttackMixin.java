@@ -28,17 +28,17 @@ public abstract class WhipAttackMixin {
         if (!(target instanceof LivingEntity livingTarget)) {
             return;
         }
-        if (player.getEntityWorld().isClient()) {
+        if (player.getWorld().isClient()) {
             return;
         }
         ci.cancel();
         DamageSource damageSource = player.getDamageSources().playerAttack(player);
         float damage = player.isSubmergedIn(FluidTags.WATER) ? 7.0f : 3.5f;
-        livingTarget.damage((ServerWorld) player.getEntityWorld(), damageSource, damage);
+        livingTarget.damage((ServerWorld) player.getWorld(), damageSource, damage);
         stack.damage(1, player, player.getPreferredEquipmentSlot(stack));
         stack.getItem().postHit(stack, livingTarget, player);
         player.getLastAttackedTime();
-        player.getEntityWorld().playSound(null, player.getX(), player.getY(), player.getZ(),
+        player.getWorld().playSound(null, player.getX(), player.getY(), player.getZ(),
                 SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP,
                 player.getSoundCategory(), 1.0F, 1.0F);
     }

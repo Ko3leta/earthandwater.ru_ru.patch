@@ -36,7 +36,7 @@ public class SpikedShieldItem extends ShieldItem {
             LivingEntity attacker = getActualAttacker(damageSource);
 
             if (attacker != null && attacker != user) {
-                if (user.getEntityWorld() instanceof ServerWorld serverWorld) {
+                if (user.getWorld() instanceof ServerWorld serverWorld) {
                     DamageSource spikedShieldDamage = new DamageSource(
                             serverWorld.getRegistryManager()
                                     .getOrThrow(RegistryKeys.DAMAGE_TYPE)

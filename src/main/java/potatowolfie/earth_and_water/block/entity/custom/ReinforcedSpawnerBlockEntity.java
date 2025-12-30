@@ -15,6 +15,8 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -502,89 +504,85 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    public void readData(ReadView readView) {
+        super.readData(readView);
 
-        if (nbt.contains("EntityType")) {
-            String entityTypeId = nbt.getString("EntityType").orElse("");
-            this.entityType = Registries.ENTITY_TYPE.get(Identifier.tryParse(entityTypeId));
-        }
+        readView.getOptionalString("EntityType").ifPresent(entityTypeId -> {
+            this.entityType = Registries.ENTITY_TYPE.get(Identifier.of(entityTypeId));
+        });
 
-        this.isActive = nbt.getBoolean("Active").orElse(false);
-        this.spawnDelay = nbt.getInt("SpawnDelay").orElse(0);
-        this.rotation = nbt.getDouble("Rotation").orElse(0.0);
-        this.lastRotation = nbt.getDouble("LastRotation").orElse(0.0);
-
+        this.isActive = readView.getBoolean("Active", false);
+        this.spawnDelay = readView.getInt("SpawnDelay", 0);
+        this.rotation = readView.getDouble("Rotation", 0.0);
+        this.lastRotation = readView.getDouble("LastRotation", 0.0);
         this.lastKeyUsageTime = 0;
+        this.wasInCooldown = readView.getBoolean("WasInCooldown", false);
 
-        this.wasInCooldown = nbt.getBoolean("WasInCooldown").orElse(false);
+        this.isWaveActive = readView.getBoolean("IsWaveActive", false);
+        this.currentWaveSize = readView.getInt("CurrentWaveSize", 0);
+        this.waveDelayCounter = readView.getInt("WaveDelayCounter", 0);
+        this.currentWaveNumber = readView.getInt("CurrentWaveNumber", 1);
 
-        this.isWaveActive = nbt.getBoolean("IsWaveActive").orElse(false);
-        this.currentWaveSize = nbt.getInt("CurrentWaveSize").orElse(0);
-        this.waveDelayCounter = nbt.getInt("WaveDelayCounter").orElse(0);
-        this.currentWaveNumber = nbt.getInt("CurrentWaveNumber").orElse(1);
+        this.pendingSpawns = readView.getInt("PendingSpawns", 0);
+        this.nextSpawnDelay = readView.getInt("NextSpawnDelay", 0);
 
-        this.pendingSpawns = nbt.getInt("PendingSpawns").orElse(0);
-        this.nextSpawnDelay = nbt.getInt("NextSpawnDelay").orElse(0);
-
-        this.activationParticleTimer = nbt.getInt("ActivationParticleTimer").orElse(0);
-        this.isActivating = nbt.getBoolean("IsActivating").orElse(false);
-        this.waveParticleTimer = nbt.getInt("WaveParticleTimer").orElse(0);
-        this.isSpawningWave = nbt.getBoolean("IsSpawningWave").orElse(false);
-        this.deactivationParticleTimer = nbt.getInt("DeactivationParticleTimer").orElse(0);
-        this.isDeactivating = nbt.getBoolean("IsDeactivating").orElse(false);
+        this.activationParticleTimer = readView.getInt("ActivationParticleTimer", 0);
+        this.isActivating = readView.getBoolean("IsActivating", false);
+        this.waveParticleTimer = readView.getInt("WaveParticleTimer", 0);
+        this.isSpawningWave = readView.getBoolean("IsSpawningWave", false);
+        this.deactivationParticleTimer = readView.getInt("DeactivationParticleTimer", 0);
+        this.isDeactivating = readView.getBoolean("IsDeactivating", false);
 
         this.currentWaveMobs.clear();
-        int mobCount = nbt.getInt("CurrentWaveMobsCount").orElse(0);
+        int mobCount = readView.getInt("CurrentWaveMobsCount", 0);
         for (int i = 0; i < mobCount; i++) {
-            String key = "CurrentWaveMob_" + i;
-            if (nbt.contains(key)) {
+            readView.getOptionalString("CurrentWaveMob_" + i).ifPresent(uuidString -> {
                 try {
-                    UUID uuid = UUID.fromString(nbt.getString(key).orElse(""));
+                    UUID uuid = UUID.fromString(uuidString);
                     this.currentWaveMobs.add(uuid);
                 } catch (IllegalArgumentException e) {
                 }
-            }
+            });
         }
 
         this.cachedDisplayEntity = null;
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    public void writeData(WriteView writeView) {
+        super.writeData(writeView);
 
         if (this.entityType != null) {
             Identifier entityTypeId = Registries.ENTITY_TYPE.getId(this.entityType);
-            nbt.putString("EntityType", entityTypeId.toString());
+            writeView.putString("EntityType", entityTypeId.toString());
         }
 
-        nbt.putBoolean("Active", this.isActive);
-        nbt.putInt("SpawnDelay", this.spawnDelay);
-        nbt.putDouble("Rotation", this.rotation);
-        nbt.putDouble("LastRotation", this.lastRotation);
-        nbt.putLong("LastKeyUsageTime", this.lastKeyUsageTime);
-        nbt.putBoolean("WasInCooldown", this.wasInCooldown);
+        writeView.putBoolean("Active", this.isActive);
+        writeView.putInt("SpawnDelay", this.spawnDelay);
+        writeView.putDouble("Rotation", this.rotation);
+        writeView.putDouble("LastRotation", this.lastRotation);
+        writeView.putLong("LastKeyUsageTime", this.lastKeyUsageTime);
+        writeView.putBoolean("WasInCooldown", this.wasInCooldown);
 
-        nbt.putBoolean("IsWaveActive", this.isWaveActive);
-        nbt.putInt("CurrentWaveSize", this.currentWaveSize);
-        nbt.putInt("WaveDelayCounter", this.waveDelayCounter);
-        nbt.putInt("CurrentWaveNumber", this.currentWaveNumber);
+        writeView.putBoolean("IsWaveActive", this.isWaveActive);
+        writeView.putInt("CurrentWaveSize", this.currentWaveSize);
+        writeView.putInt("WaveDelayCounter", this.waveDelayCounter);
+        writeView.putInt("CurrentWaveNumber", this.currentWaveNumber);
 
-        nbt.putInt("PendingSpawns", this.pendingSpawns);
-        nbt.putInt("NextSpawnDelay", this.nextSpawnDelay);
+        writeView.putInt("PendingSpawns", this.pendingSpawns);
+        writeView.putInt("NextSpawnDelay", this.nextSpawnDelay);
 
-        nbt.putInt("ActivationParticleTimer", this.activationParticleTimer);
-        nbt.putBoolean("IsActivating", this.isActivating);
-        nbt.putInt("WaveParticleTimer", this.waveParticleTimer);
-        nbt.putBoolean("IsSpawningWave", this.isSpawningWave);
-        nbt.putInt("DeactivationParticleTimer", this.deactivationParticleTimer);
-        nbt.putBoolean("IsDeactivating", this.isDeactivating);
+        writeView.putInt("ActivationParticleTimer", this.activationParticleTimer);
+        writeView.putBoolean("IsActivating", this.isActivating);
+        writeView.putInt("WaveParticleTimer", this.waveParticleTimer);
+        writeView.putBoolean("IsSpawningWave", this.isSpawningWave);
+        writeView.putInt("DeactivationParticleTimer", this.deactivationParticleTimer);
+        writeView.putBoolean("IsDeactivating", this.isDeactivating);
 
-        nbt.putInt("CurrentWaveMobsCount", this.currentWaveMobs.size());
+        writeView.putInt("CurrentWaveMobsCount", this.currentWaveMobs.size());
         int index = 0;
         for (UUID uuid : this.currentWaveMobs) {
-            nbt.putString("CurrentWaveMob_" + index, uuid.toString());
+            writeView.putString("CurrentWaveMob_" + index, uuid.toString());
             index++;
         }
     }

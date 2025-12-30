@@ -8,7 +8,7 @@ import net.minecraft.client.render.entity.animation.*;
  * @author Demidiant
  */
 public class BrineAnimations {
-	public static final Animation BRINE_IDLE = Animation.Builder.create(2.0F).looping()
+	public static final AnimationDefinition BRINE_IDLE = AnimationDefinition.Builder.create(2.0F).looping()
 		.addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE, 
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(-2.3727F, 0.0F, 0.4745F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.0833F, AnimationHelper.createRotationalVector(-2.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -147,7 +147,7 @@ public class BrineAnimations {
 		))
 		.build();
 
-	public static final Animation BRINE_UNDERWATER = Animation.Builder.create(2.0F).looping()
+	public static final AnimationDefinition BRINE_UNDERWATER = AnimationDefinition.Builder.create(2.0F).looping()
 		.addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE, 
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(-2.3727F, 0.0F, 0.4745F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.0833F, AnimationHelper.createRotationalVector(-2.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -297,7 +297,7 @@ public class BrineAnimations {
 		))
 		.build();
 
-	public static final Animation BRINE_SHOOTING = Animation.Builder.create(2.0F)
+	public static final AnimationDefinition BRINE_SHOOTING = AnimationDefinition.Builder.create(2.0F)
 		.addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE, 
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.25F, AnimationHelper.createRotationalVector(-5.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),

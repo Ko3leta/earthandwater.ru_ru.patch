@@ -8,7 +8,7 @@ import net.minecraft.client.render.entity.animation.*;
  * @author Demidiant
  */
 public class BoreAnimations {
-	public static final Animation BORE_IDLE = Animation.Builder.create(2.0F).looping()
+	public static final AnimationDefinition BORE_IDLE = AnimationDefinition.Builder.create(2.0F).looping()
 		.addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE, 
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -2.5F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createRotationalVector(-2.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -113,7 +113,7 @@ public class BoreAnimations {
 		))
 		.build();
 
-	public static final Animation BORE_BURROWING = Animation.Builder.create(1.5F)
+	public static final AnimationDefinition BORE_BURROWING = AnimationDefinition.Builder.create(1.5F)
 		.addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE, 
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -2.5F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.125F, AnimationHelper.createRotationalVector(-5.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -197,7 +197,7 @@ public class BoreAnimations {
 		))
 		.build();
 
-	public static final Animation BORE_UNBURROWING = Animation.Builder.create(2.0F)
+	public static final AnimationDefinition BORE_UNBURROWING = AnimationDefinition.Builder.create(2.0F)
 		.addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE, 
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -2.5F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.125F, AnimationHelper.createRotationalVector(10.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -310,7 +310,7 @@ public class BoreAnimations {
 		))
 		.build();
 
-	public static final Animation BORE_SHOOTING = Animation.Builder.create(2.0F)
+	public static final AnimationDefinition BORE_SHOOTING = AnimationDefinition.Builder.create(2.0F)
 		.addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE, 
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -2.5F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createRotationalVector(17.4825F, -0.8548F, 1.5161F), Transformation.Interpolations.CUBIC),
@@ -419,7 +419,7 @@ public class BoreAnimations {
 		))
 		.build();
 
-	public static final Animation BURROWING = Animation.Builder.create(0.0F).looping()
+	public static final AnimationDefinition BURROWING = AnimationDefinition.Builder.create(0.0F).looping()
 			.addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(2.5F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
 			))

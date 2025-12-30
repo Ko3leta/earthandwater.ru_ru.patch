@@ -28,7 +28,7 @@ public class WhipItem extends Item {
         if (target.isSubmergedIn(FluidTags.WATER)) {
             target.addStatusEffect(new StatusEffectInstance(ModEffects.STUN, 40, 1));
 
-            if (attacker.getEntityWorld() instanceof ServerWorld serverWorld) {
+            if (attacker.getWorld() instanceof ServerWorld serverWorld) {
                 DamageSource whipDamage = new DamageSource(
                         serverWorld.getRegistryManager()
                                 .getOrThrow(RegistryKeys.DAMAGE_TYPE)

@@ -107,4 +107,9 @@ public class BrineNavigation extends EntityNavigation {
     @Override
     public void setCanSwim(boolean canSwim) {
     }
+
+    @Override
+    public boolean canControlOpeningDoors() {
+        return false;
+    }
 }

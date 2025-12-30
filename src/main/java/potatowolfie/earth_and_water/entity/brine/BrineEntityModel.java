@@ -3,6 +3,7 @@ package potatowolfie.earth_and_water.entity.brine;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import potatowolfie.earth_and_water.animation.BrineAnimations;
 
@@ -17,6 +18,9 @@ public class BrineEntityModel extends EntityModel<BrineEntityRenderState> {
 	private final ModelPart rods_top;
 	private final ModelPart rods_bottom;
 	private final ModelPart eyes;
+	private final Animation idlingAnimation;
+	private final Animation underwateridlingAnimation;
+	private final Animation shootingAnimation;
 
 	public BrineEntityModel(ModelPart modelPart) {
 		super(modelPart);
@@ -27,6 +31,9 @@ public class BrineEntityModel extends EntityModel<BrineEntityRenderState> {
 		this.rods_top = this.body.getChild("rods_top");
 		this.rods_bottom = this.body.getChild("rods_bottom");
 		this.eyes = this.head.getChild("eyes");
+		this.idlingAnimation = BrineAnimations.BRINE_IDLE.createAnimation(modelPart);
+		this.underwateridlingAnimation = BrineAnimations.BRINE_UNDERWATER.createAnimation(modelPart);
+		this.shootingAnimation = BrineAnimations.BRINE_SHOOTING.createAnimation(modelPart);
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -69,9 +76,9 @@ public class BrineEntityModel extends EntityModel<BrineEntityRenderState> {
 	public void setAngles(BrineEntityRenderState brineEntityRenderState) {
 		super.setAngles(brineEntityRenderState);
 
-		this.animate(brineEntityRenderState.idleAnimationState, BrineAnimations.BRINE_IDLE, brineEntityRenderState.age);
-		this.animate(brineEntityRenderState.attackAnimationState, BrineAnimations.BRINE_SHOOTING, brineEntityRenderState.age);
-		this.animate(brineEntityRenderState.underwaterAnimationState, BrineAnimations.BRINE_UNDERWATER, brineEntityRenderState.age);
+		this.idlingAnimation.apply(brineEntityRenderState.idleAnimationState, brineEntityRenderState.age);
+		this.shootingAnimation.apply(brineEntityRenderState.attackAnimationState, brineEntityRenderState.age);
+		this.underwateridlingAnimation.apply(brineEntityRenderState.underwaterAnimationState, brineEntityRenderState.age);
 	}
 
 	public ModelPart getHead() {

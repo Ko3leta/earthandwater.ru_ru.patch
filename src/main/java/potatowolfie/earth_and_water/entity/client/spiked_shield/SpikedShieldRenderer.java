@@ -17,10 +17,13 @@ import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3fc;
 import potatowolfie.earth_and_water.EarthWaterClient;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
 public class SpikedShieldRenderer implements SpecialModelRenderer {
@@ -88,6 +91,13 @@ public class SpikedShieldRenderer implements SpecialModelRenderer {
         this.model.getSpikes().render(matrices, vertexConsumer, light, overlay);
 
         matrices.pop();
+    }
+
+    @Override
+    public void collectVertices(Set vertices) {
+        MatrixStack matrixStack = new MatrixStack();
+        matrixStack.scale(1.0F, -1.0F, -1.0F);
+        this.model.getRootPart().collectVertices(matrixStack, vertices);
     }
 
     @Nullable

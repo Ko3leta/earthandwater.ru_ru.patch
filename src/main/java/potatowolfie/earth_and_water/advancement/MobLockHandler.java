@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 public class MobLockHandler {
 
     public static void grantDeactivateSpawnerAdvancement(ServerPlayerEntity player) {
-        MinecraftServer server = player.getEntityWorld().getServer();
+        MinecraftServer server = player.getWorld().getServer();
         if (server == null) return;
 
         Identifier advId = Identifier.of("earth-and-water", "mob_lock");

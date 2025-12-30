@@ -16,6 +16,12 @@ public class BoreEntityModel extends EntityModel<BoreEntityRenderState> {
 	private final ModelPart eyes;
 	private final ModelPart rods_top;
 	private final ModelPart rods_bottom;
+	private final Animation idleAnimation;
+	private final Animation shootingAnimation;
+	private final Animation burrowingAnimation;
+	private final Animation unburrowingAnimation;
+	private final Animation whileburrowingAnimation;
+
 
 	public BoreEntityModel(ModelPart modelPart) {
 		super(modelPart);
@@ -23,6 +29,11 @@ public class BoreEntityModel extends EntityModel<BoreEntityRenderState> {
 		this.eyes = this.head.getChild("eyes");
 		this.rods_top = modelPart.getChild("rods_top");
 		this.rods_bottom = modelPart.getChild("rods_bottom");
+		this.idleAnimation = BoreAnimations.BORE_IDLE.createAnimation(modelPart);
+		this.shootingAnimation = BoreAnimations.BORE_SHOOTING.createAnimation(modelPart);
+		this.burrowingAnimation = BoreAnimations.BORE_BURROWING.createAnimation(modelPart);
+		this.unburrowingAnimation = BoreAnimations.BORE_UNBURROWING.createAnimation(modelPart);
+		this.whileburrowingAnimation = BoreAnimations.BURROWING.createAnimation(modelPart);
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -93,11 +104,11 @@ public class BoreEntityModel extends EntityModel<BoreEntityRenderState> {
 	public void setAngles(BoreEntityRenderState boreEntityRenderState) {
 		super.setAngles(boreEntityRenderState);
 
-		this.animate(boreEntityRenderState.idleAnimationState, BoreAnimations.BORE_IDLE, boreEntityRenderState.age);
-		this.animate(boreEntityRenderState.shootingAnimationState, BoreAnimations.BORE_SHOOTING, boreEntityRenderState.age);
-		this.animate(boreEntityRenderState.burrowingAnimationState, BoreAnimations.BORE_BURROWING, boreEntityRenderState.age);
-		this.animate(boreEntityRenderState.unburrowingAnimationState, BoreAnimations.BORE_UNBURROWING, boreEntityRenderState.age);
-		this.animate(boreEntityRenderState.whileburrowingAnimationState, BoreAnimations.BURROWING, boreEntityRenderState.age);
+		this.idleAnimation.apply(boreEntityRenderState.idleAnimationState, boreEntityRenderState.age);
+		this.shootingAnimation.apply(boreEntityRenderState.shootingAnimationState, boreEntityRenderState.age);
+		this.burrowingAnimation.apply(boreEntityRenderState.burrowingAnimationState, boreEntityRenderState.age);
+		this.unburrowingAnimation.apply(boreEntityRenderState.unburrowingAnimationState, boreEntityRenderState.age);
+		this.whileburrowingAnimation.apply(boreEntityRenderState.whileburrowingAnimationState, boreEntityRenderState.age);
 	}
 
 	public ModelPart getHead() {
