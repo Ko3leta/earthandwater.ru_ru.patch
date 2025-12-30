@@ -65,7 +65,7 @@ public class OxygenBubbleBlock extends Block implements Waterloggable {
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
         if (!world.isClient() && entity instanceof LivingEntity living && state.get(WATERLOGGED)) {
             if (living.isSubmergedInWater()) {
                 int currentAir = living.getAir();
