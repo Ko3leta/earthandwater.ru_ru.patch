@@ -45,6 +45,7 @@
       "permutations": {
         "quartz": "trims/color_palettes/quartz",
         "iron": "trims/color_palettes/iron",
+        "copper": "minecraft:trims/color_palettes/copper",
         "gold": "trims/color_palettes/gold",
         "diamond": "trims/color_palettes/diamond",
         "netherite": "trims/color_palettes/netherite",
