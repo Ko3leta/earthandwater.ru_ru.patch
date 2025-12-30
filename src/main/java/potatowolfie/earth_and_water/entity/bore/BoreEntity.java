@@ -137,11 +137,11 @@ public class BoreEntity extends HostileEntity {
 
     public static DefaultAttributeContainer.Builder createBoreAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8.0)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
-                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 0.42);
+                .add(EntityAttributes.MAX_HEALTH, 30.0)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.23)
+                .add(EntityAttributes.ATTACK_DAMAGE, 8.0)
+                .add(EntityAttributes.FOLLOW_RANGE, 32.0)
+                .add(EntityAttributes.JUMP_STRENGTH, 0.42);
     }
 
     @Override
@@ -373,19 +373,19 @@ public class BoreEntity extends HostileEntity {
             case BURROWING:
                 if (isWalkingWhileBurrowed) {
                     if (isInCombat && this.getTarget() != null) {
-                        Objects.requireNonNull(this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.35);
+                        Objects.requireNonNull(this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED)).setBaseValue(0.35);
                     } else {
-                        Objects.requireNonNull(this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.6);
+                        Objects.requireNonNull(this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED)).setBaseValue(0.6);
                     }
                 } else {
-                    Objects.requireNonNull(this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)).setBaseValue(baseSpeed * 0.1);
+                    Objects.requireNonNull(this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED)).setBaseValue(baseSpeed * 0.1);
                 }
                 break;
             case UNBURROWING:
-                Objects.requireNonNull(this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)).setBaseValue(baseSpeed * 0.1);
+                Objects.requireNonNull(this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED)).setBaseValue(baseSpeed * 0.1);
                 break;
             default:
-                Objects.requireNonNull(this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)).setBaseValue(baseSpeed);
+                Objects.requireNonNull(this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED)).setBaseValue(baseSpeed);
                 break;
         }
     }
@@ -395,7 +395,7 @@ public class BoreEntity extends HostileEntity {
     }
 
     @Override
-    public boolean damage(DamageSource damageSource, float amount) {
+    public boolean damage(ServerWorld world, DamageSource damageSource, float amount) {
         if (damageSource.isOf(DamageTypes.FALL) && boreState == BoreState.BURROWING) {
             return false;
         }
@@ -403,7 +403,7 @@ public class BoreEntity extends HostileEntity {
         if (this.getBoreState() == BoreState.BURROWING) {
             if (damageSource.isOf(DamageTypes.OUT_OF_WORLD) ||
                     damageSource.isOf(DamageTypes.GENERIC_KILL)) {
-                return super.damage(damageSource, amount);
+                return super.damage(world, damageSource, amount);
             }
 
             Entity attacker = damageSource.getAttacker();
@@ -412,12 +412,12 @@ public class BoreEntity extends HostileEntity {
                 if (weapon.getItem().toString().contains("pickaxe")) {
                     this.forceUnburrow();
                     this.burrowCooldownTimer = 80;
-                    return super.damage(damageSource, amount);
+                    return super.damage(world, damageSource, amount);
                 }
             }
             return false;
         }
-        return super.damage(damageSource, amount);
+        return super.damage(world, damageSource, amount);
     }
 
 

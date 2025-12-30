@@ -3,14 +3,10 @@
   "category": "equipment",
   "key": {
     "#": [
-      {
-        "item": "minecraft:string"
-      }
+      "minecraft:string"
     ],
     "X": [
-      {
-        "item": "earth-and-water:brine_rod"
-      }
+      "earth-and-water:brine_rod"
     ]
   },
   "pattern": [

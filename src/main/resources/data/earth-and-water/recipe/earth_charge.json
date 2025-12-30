@@ -3,9 +3,7 @@
   "category": "equipment",
   "ingredients": [
     [
-      {
-        "item": "earth-and-water:bore_rod"
-      }
+      "earth-and-water:bore_rod"
     ]
   ],
   "result": {

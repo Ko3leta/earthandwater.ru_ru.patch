@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "earth-and-water:dripstone_brick_wall_from_dripstone_bricks_stonecutting"
+        "recipe": "minecraft:dripstone_brick_wall_from_dripstone_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "earth-and-water:dripstone_brick_wall_from_dripstone_bricks_stonecutting"
+      "minecraft:dripstone_brick_wall_from_dripstone_bricks_stonecutting"
     ]
   }
 }

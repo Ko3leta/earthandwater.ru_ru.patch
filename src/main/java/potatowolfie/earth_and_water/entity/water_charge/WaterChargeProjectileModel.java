@@ -4,15 +4,16 @@ package potatowolfie.earth_and_water.entity.water_charge;
 // Exported for Minecraft version 1.17+ for Yarn
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.util.math.MatrixStack;
 
-public class WaterChargeProjectileModel extends EntityModel<WaterChargeProjectileEntity> {
+public class WaterChargeProjectileModel extends EntityModel<WaterChargeProjectileRenderState> {
 	private final ModelPart water_charge;
+
 	public WaterChargeProjectileModel(ModelPart root) {
-		this.water_charge = root.getChild("water_charge");
+        super(root);
+        this.water_charge = root.getChild("water_charge");
 	}
+
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
@@ -29,11 +30,8 @@ public class WaterChargeProjectileModel extends EntityModel<WaterChargeProjectil
 
 		return TexturedModelData.of(modelData, 32, 32);
 	}
-	@Override
-	public void setAngles(WaterChargeProjectileEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-	}
-	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-		water_charge.render(matrices, vertexConsumer, light, overlay, color);
+
+	public void setAngles(WaterChargeProjectileRenderState waterChargeProjectileRenderState) {
+		super.setAngles(waterChargeProjectileRenderState);
 	}
 }

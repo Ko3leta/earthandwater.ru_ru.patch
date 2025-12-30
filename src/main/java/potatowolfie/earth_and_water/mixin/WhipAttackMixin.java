@@ -6,6 +6,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,17 +28,17 @@ public abstract class WhipAttackMixin {
         if (!(target instanceof LivingEntity livingTarget)) {
             return;
         }
-        if (player.getWorld().isClient()) {
+        if (player.getEntityWorld().isClient()) {
             return;
         }
         ci.cancel();
         DamageSource damageSource = player.getDamageSources().playerAttack(player);
         float damage = player.isSubmergedIn(FluidTags.WATER) ? 7.0f : 3.5f;
-        livingTarget.damage(damageSource, damage);
+        livingTarget.damage((ServerWorld) player.getEntityWorld(), damageSource, damage);
         stack.damage(1, player, player.getPreferredEquipmentSlot(stack));
         stack.getItem().postHit(stack, livingTarget, player);
         player.getLastAttackedTime();
-        player.getWorld().playSound(null, player.getX(), player.getY(), player.getZ(),
+        player.getEntityWorld().playSound(null, player.getX(), player.getY(), player.getZ(),
                 SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP,
                 player.getSoundCategory(), 1.0F, 1.0F);
     }

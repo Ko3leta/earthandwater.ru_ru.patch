@@ -43,7 +43,7 @@ public class LivingEntityMixin {
                 if (activeItem.getItem() instanceof SpikedShieldItem) {
                     return new DamageSource(
                             serverWorld.getRegistryManager()
-                                    .get(RegistryKeys.DAMAGE_TYPE)
+                                    .getOrThrow(RegistryKeys.DAMAGE_TYPE)
                                     .getEntry(ModDamageTypes.SPIKED_SHIELD.getValue()).get(),
                             player
                     );
@@ -53,7 +53,7 @@ public class LivingEntityMixin {
             if (player.getMainHandStack().isOf(ModItems.WHIP)) {
                 return new DamageSource(
                         serverWorld.getRegistryManager()
-                                .get(RegistryKeys.DAMAGE_TYPE)
+                                .getOrThrow(RegistryKeys.DAMAGE_TYPE)
                                 .getEntry(ModDamageTypes.WHIP.getValue()).get(),
                         player
                 );
@@ -62,7 +62,7 @@ public class LivingEntityMixin {
             if (player.getMainHandStack().isOf(ModItems.BATTLE_AXE)) {
                 return new DamageSource(
                         serverWorld.getRegistryManager()
-                                .get(RegistryKeys.DAMAGE_TYPE)
+                                .getOrThrow(RegistryKeys.DAMAGE_TYPE)
                                 .getEntry(ModDamageTypes.BATTLE_AXE.getValue()).get(),
                         player
                 );
@@ -73,7 +73,7 @@ public class LivingEntityMixin {
     }
 
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
-    private void onDamage(DamageSource damageSource, float amount, CallbackInfoReturnable<Boolean> cir) {
+    private void onDamage(ServerWorld world, DamageSource damageSource, float amount, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity self = (LivingEntity) (Object) this;
 
         if (damageSource.getAttacker() instanceof LivingEntity attacker) {
@@ -85,25 +85,25 @@ public class LivingEntityMixin {
                     Item shieldItem = shieldStack.getItem();
 
                     if (shieldItem instanceof ShieldItem || shieldItem instanceof SpikedShieldItem) {
-                        self.getWorld().playSound(null,
+                        self.getEntityWorld().playSound(null,
                                 self.getX(), self.getY(), self.getZ(),
                                 SoundEvents.ITEM_SHIELD_BREAK,
                                 SoundCategory.PLAYERS,
                                 0.8F,
-                                0.8F + self.getWorld().getRandom().nextFloat() * 0.4F);
+                                0.8F + self.getEntityWorld().getRandom().nextFloat() * 0.4F);
 
                         if (self instanceof PlayerEntity playerTarget) {
-                            playerTarget.getItemCooldownManager().set(Items.SHIELD, SHIELD_DISABLE_DURATION);
+                            playerTarget.getItemCooldownManager().set(new ItemStack(Items.SHIELD), SHIELD_DISABLE_DURATION);
 
                             if (ModItems.SPIKED_SHIELD != null) {
-                                playerTarget.getItemCooldownManager().set(ModItems.SPIKED_SHIELD, SHIELD_DISABLE_DURATION);
+                                playerTarget.getItemCooldownManager().set(new ItemStack(ModItems.SPIKED_SHIELD), SHIELD_DISABLE_DURATION);
                             }
 
                             playerTarget.clearActiveItem();
-                            playerTarget.getWorld().sendEntityStatus(playerTarget, (byte)30);
+                            playerTarget.getEntityWorld().sendEntityStatus(playerTarget, (byte)30);
                         } else {
                             self.clearActiveItem();
-                            self.getWorld().sendEntityStatus(self, (byte)30);
+                            self.getEntityWorld().sendEntityStatus(self, (byte)30);
                         }
 
                         return;

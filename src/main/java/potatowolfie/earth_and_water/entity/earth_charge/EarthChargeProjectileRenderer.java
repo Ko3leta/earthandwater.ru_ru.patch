@@ -13,7 +13,7 @@ import net.minecraft.util.math.RotationAxis;
 import potatowolfie.earth_and_water.EarthWater;
 import potatowolfie.earth_and_water.entity.client.ModEntityModelLayers;
 
-public class EarthChargeProjectileRenderer extends EntityRenderer <EarthChargeProjectileEntity> {
+public class EarthChargeProjectileRenderer extends EntityRenderer<EarthChargeProjectileEntity, EarthChargeProjectileRenderState> {
     private static final float field_52258 = MathHelper.square(3.5F);
     public static final Identifier TEXTURE = Identifier.of(EarthWater.MOD_ID, "textures/entity/earth_charge/earth_charge.png");
     protected EarthChargeProjectileModel model;
@@ -23,24 +23,29 @@ public class EarthChargeProjectileRenderer extends EntityRenderer <EarthChargePr
         model = new EarthChargeProjectileModel(ctx.getPart(ModEntityModelLayers.EARTH_CHARGE));
     }
 
+    @Override
+    public EarthChargeProjectileRenderState createRenderState() {
+        return new EarthChargeProjectileRenderState();
+    }
+
     public void render(
-            EarthChargeProjectileEntity earthChargeProjectileEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i
+            EarthChargeProjectileRenderState earthChargeProjectileRenderState, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i
     ) {
-        if (earthChargeProjectileEntity.age >= 2 || !(this.dispatcher.camera.getFocusedEntity().squaredDistanceTo(earthChargeProjectileEntity) < (double)field_52258)) {
+        if (earthChargeProjectileRenderState.age >= 2 || !(this.dispatcher.camera.getFocusedEntity().squaredDistanceTo(earthChargeProjectileRenderState.x, earthChargeProjectileRenderState.y, earthChargeProjectileRenderState.z) < (double)field_52258)) {
             matrixStack.push();
 
             matrixStack.translate(0, 1.525, 0);
 
             matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
 
-            matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(earthChargeProjectileEntity.getRenderingRotation()));
+            matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(earthChargeProjectileRenderState.renderingRotation));
 
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutout(TEXTURE));
-            this.model.setAngles(earthChargeProjectileEntity, 0.0F, 0.0F, 0, 0.0F, 0.0F);
+            this.model.setAngles(earthChargeProjectileRenderState);
             this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
 
             matrixStack.pop();
-            super.render(earthChargeProjectileEntity, f, g, matrixStack, vertexConsumerProvider, i);
+            super.render(earthChargeProjectileRenderState, matrixStack, vertexConsumerProvider, i);
         }
     }
 
@@ -48,8 +53,7 @@ public class EarthChargeProjectileRenderer extends EntityRenderer <EarthChargePr
         return tickDelta * 0.03F;
     }
 
-    @Override
-    public Identifier getTexture(EarthChargeProjectileEntity entity) {
+    public Identifier getTexture(EarthChargeProjectileRenderState earthChargeProjectileRenderState) {
         return TEXTURE;
     }
 }

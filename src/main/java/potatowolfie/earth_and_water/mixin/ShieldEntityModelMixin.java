@@ -16,9 +16,9 @@ public class ShieldEntityModelMixin {
             method = "<init>",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/model/Model;<init>(Ljava/util/function/Function;)V"
+                    target = "Lnet/minecraft/client/model/Model;<init>(Lnet/minecraft/client/model/ModelPart;Ljava/util/function/Function;)V"
             ),
-            index = 0
+            index = 1
     )
     private static Function<Identifier, RenderLayer> useEntityCutoutForSpikedShield(Function<Identifier, RenderLayer> layerFactory) {
         return RenderLayer::getEntityCutoutNoCull;

@@ -3,19 +3,13 @@
   "category": "misc",
   "key": {
     "#": [
-      {
-        "item": "earth-and-water:steel_ingot"
-      }
+      "earth-and-water:steel_ingot"
     ],
     "C": [
-      {
-        "item": "earth-and-water:steel_nugget"
-      }
+      "earth-and-water:steel_nugget"
     ],
     "S": [
-      {
-        "item": "earth-and-water:reinforced_key"
-      }
+      "earth-and-water:reinforced_key"
     ]
   },
   "pattern": [

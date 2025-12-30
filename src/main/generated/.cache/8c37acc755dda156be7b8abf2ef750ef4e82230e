@@ -1,9 +1,9 @@
-// 1.21.1	2025-12-26T22:06:18.2487081	Earth & Water/Model Definitions
+// 1.21.2	2025-12-29T17:09:45.6214852	Earth & Water/Model Definitions
 fa9daa0f0757819414c94f436d00457935e341d6 assets\earth-and-water\models\item\dark_dripstone_wall.json
 805dabacf9e2d8613e04c2eec44dba9200799c86 assets\earth-and-water\models\block\dripstone_brick_stairs_inner.json
+6f4cfbd0bf99da00a536fabf33fce2e3fa45b5a6 assets\earth-and-water\blockstates\prismarine_tiles.json
 2b6e4c1226b5fecf36741dd1918a77ccf34c4aba assets\earth-and-water\blockstates\prismarine_tile_slab.json
 04f0f36cf83eb537fb361494686709c95d439b15 assets\earth-and-water\blockstates\dark_dripstone_brick_stairs.json
-6f4cfbd0bf99da00a536fabf33fce2e3fa45b5a6 assets\earth-and-water\blockstates\prismarine_tiles.json
 ced9fffa8fb1a991f39594264eed845fe4a147f1 assets\earth-and-water\models\block\dark_dripstone_slab_top.json
 bb993247d94bd5267cd22c5909a69edd4f95ca63 assets\earth-and-water\models\block\limestone_brick_slab.json
 348e4bd931c2f01dc7cb5921ddfb018584d45404 assets\earth-and-water\models\block\prismarine_tile_wall_post.json

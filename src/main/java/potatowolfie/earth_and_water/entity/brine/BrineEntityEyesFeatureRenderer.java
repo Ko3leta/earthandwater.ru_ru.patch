@@ -9,10 +9,10 @@ import net.minecraft.util.Identifier;
 import potatowolfie.earth_and_water.EarthWater;
 
 @Environment(EnvType.CLIENT)
-public class BrineEntityEyesFeatureRenderer<T extends BrineEntity> extends EyesFeatureRenderer<T, BrineEntityModel<T>> {
+public class BrineEntityEyesFeatureRenderer extends EyesFeatureRenderer<BrineEntityRenderState, BrineEntityModel> {
     private static final RenderLayer SKIN = RenderLayer.getEyes(Identifier.of(EarthWater.MOD_ID, "textures/entity/brine/brine_eyes.png"));
 
-    public BrineEntityEyesFeatureRenderer(FeatureRendererContext<T, BrineEntityModel<T>> featureRendererContext) {
+    public BrineEntityEyesFeatureRenderer(FeatureRendererContext<BrineEntityRenderState, BrineEntityModel> featureRendererContext) {
         super(featureRendererContext);
     }
 

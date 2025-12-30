@@ -22,8 +22,11 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.tick.ScheduledTickView;
 import potatowolfie.earth_and_water.advancement.MobLockHandler;
 import potatowolfie.earth_and_water.block.entity.ModBlockEntities;
 import potatowolfie.earth_and_water.block.entity.custom.ReinforcedSpawnerBlockEntity;
@@ -62,16 +65,18 @@ public class ReinforcedSpawnerBlock extends BlockWithEntity implements Waterlogg
     @Override
     public BlockState getStateForNeighborUpdate(
             BlockState state,
-            Direction direction,
-            BlockState neighborState,
-            WorldAccess world,
+            WorldView world,
+            ScheduledTickView tickView,
             BlockPos pos,
-            BlockPos neighborPos
+            Direction direction,
+            BlockPos neighborPos,
+            BlockState neighborState,
+            Random random
     ) {
         if (state.get(WATERLOGGED)) {
-            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override

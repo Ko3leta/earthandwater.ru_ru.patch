@@ -20,6 +20,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.tick.ScheduledTickView;
 
 public class OxygenBubbleBlock extends Block implements Waterloggable {
     public static final MapCodec<OxygenBubbleBlock> CODEC = createCodec(OxygenBubbleBlock::new);
@@ -104,17 +105,13 @@ public class OxygenBubbleBlock extends Block implements Waterloggable {
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state,
-                                                Direction direction,
-                                                BlockState neighborState,
-                                                WorldAccess world,
-                                                BlockPos pos,
-                                                BlockPos neighborPos) {
+    public BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView,
+                                                BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         if (state.get(WATERLOGGED)) {
-            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
-        world.scheduleBlockTick(pos, this, SCHEDULED_TICK_DELAY);
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        tickView.scheduleBlockTick(pos, this, SCHEDULED_TICK_DELAY);
+        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override

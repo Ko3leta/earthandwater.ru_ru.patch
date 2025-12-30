@@ -5,6 +5,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.RegistryKeys;
@@ -16,10 +17,10 @@ import potatowolfie.earth_and_water.effect.ModEffects;
 
 import java.util.List;
 
-public class WhipItem extends Item {
+public class WhipItem extends SwordItem {
 
     public WhipItem(ToolMaterial toolMaterial, Item.Settings settings) {
-        super(settings);
+        super(toolMaterial, 4, -2.8F, settings);
     }
 
     @Override
@@ -30,11 +31,11 @@ public class WhipItem extends Item {
             if (attacker.getEntityWorld() instanceof ServerWorld serverWorld) {
                 DamageSource whipDamage = new DamageSource(
                         serverWorld.getRegistryManager()
-                                .get(RegistryKeys.DAMAGE_TYPE)
-                                .entryOf(ModDamageTypes.WHIP),
+                                .getOrThrow(RegistryKeys.DAMAGE_TYPE)
+                                .getEntry(ModDamageTypes.WHIP.getValue()).get(),
                         attacker
                 );
-                target.damage(whipDamage, 1.0f);
+                target.damage(serverWorld, whipDamage, 1.0f);
             }
         }
         return super.postHit(stack, target, attacker);

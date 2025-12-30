@@ -10,11 +10,14 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.particle.EndRodParticle;
 import net.minecraft.client.render.*;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import potatowolfie.earth_and_water.block.ModBlocks;
+import potatowolfie.earth_and_water.block.entity.ModBlockEntities;
+import potatowolfie.earth_and_water.block.entity.client.ReinforcedSpawnerBlockEntityRenderer;
 import potatowolfie.earth_and_water.entity.ModEntities;
 import potatowolfie.earth_and_water.entity.bore.BoreEntityModel;
 import potatowolfie.earth_and_water.entity.bore.BoreEntityRenderer;
@@ -76,6 +79,11 @@ public class EarthWaterClient implements ClientModInitializer {
                 Identifier.of("minecraft", "blocking"),
                 (stack, world, entity, seed) -> entity instanceof LivingEntity && entity.isUsingItem() &&
                         entity.getActiveItem() == stack ? 1.0F : 0.0F
+        );
+
+        BlockEntityRendererFactories.register(
+                ModBlockEntities.REINFORCED_SPAWNER_BLOCK_ENTITY,
+                ReinforcedSpawnerBlockEntityRenderer::new
         );
 
         EntityModelLayerRegistry.registerModelLayer(SPIKED_SHIELD_MODEL_LAYER, SpikedShieldEntityModel::getTexturedModelData);

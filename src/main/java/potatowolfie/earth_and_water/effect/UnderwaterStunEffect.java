@@ -16,14 +16,14 @@ public class UnderwaterStunEffect extends StatusEffect {
         super(category, color);
 
         this.addAttributeModifier(
-            EntityAttributes.GENERIC_MOVEMENT_SPEED,
+            EntityAttributes.MOVEMENT_SPEED,
                 Identifier.of(MOVEMENT_SPEED_MODIFIER_ID.toString()),
             -0.8,
             EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
         );
 
         this.addAttributeModifier(
-            EntityAttributes.GENERIC_MOVEMENT_SPEED,
+            EntityAttributes.MOVEMENT_SPEED,
                 Identifier.of(ATTACK_DAMAGE_MODIFIER_ID.toString()),
             -0.65,
             EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL

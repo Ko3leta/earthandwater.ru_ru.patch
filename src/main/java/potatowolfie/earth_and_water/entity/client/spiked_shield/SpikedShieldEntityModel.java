@@ -3,22 +3,19 @@ package potatowolfie.earth_and_water.entity.client.spiked_shield;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.model.ShieldEntityModel;
 
 // Made with Blockbench 4.12.4
 
 @Environment(EnvType.CLIENT)
-public class SpikedShieldEntityModel extends Model {
+public class SpikedShieldEntityModel extends ShieldEntityModel {
 	private final ModelPart plate;
 	private final ModelPart handle;
 	private final ModelPart spikes;
-	private final ModelPart root;
+
 
 	public SpikedShieldEntityModel(ModelPart root) {
-		super(RenderLayer::getEntityCutoutNoCull);
-		this.root = root;
+		super(root);
 		this.plate = root.getChild("plate");
 		this.handle = root.getChild("handle");
 		this.spikes = root.getChild("spikes");
@@ -56,13 +53,6 @@ public class SpikedShieldEntityModel extends Model {
 				ModelTransform.of(0.0F, 1.0F, 0.0F, 3.1416F, 0.0F, 3.1416F));
 
 		return TexturedModelData.of(modelData, 64, 64);
-	}
-
-	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-		this.plate.render(matrices, vertices, light, overlay, color);
-		this.handle.render(matrices, vertices, light, overlay, color);
-		this.spikes.render(matrices, vertices, light, overlay, color);
 	}
 
 	public ModelPart getPlate() {

@@ -74,9 +74,9 @@ public class BrineEntity extends HostileWaterCreatureEntity {
 
     public static DefaultAttributeContainer.Builder createBrineAttributes() {
         return WaterCreatureEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23000000417232513);
+                .add(EntityAttributes.MAX_HEALTH, 30.0D)
+                .add(EntityAttributes.ATTACK_DAMAGE, 6.0D)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.23000000417232513);
     }
 
     @Override
@@ -349,7 +349,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
                 this.brine.setYaw(this.wrapDegrees(this.brine.getYaw(), h, 90.0F));
                 this.brine.bodyYaw = this.brine.getYaw();
 
-                float i = (float)(this.speed * this.brine.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
+                float i = (float)(this.speed * this.brine.getAttributeValue(EntityAttributes.MOVEMENT_SPEED));
                 float j = MathHelper.lerp(0.125F, this.brine.getMovementSpeed(), i);
                 this.brine.setMovementSpeed(j);
 
@@ -718,7 +718,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
             this.brine.setYaw(this.wrapDegrees(this.brine.getYaw(), targetYaw, 90.0F));
             this.brine.bodyYaw = this.brine.getYaw();
 
-            float baseSpeed = (float)(this.speed * this.brine.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
+            float baseSpeed = (float)(this.speed * this.brine.getAttributeValue(EntityAttributes.MOVEMENT_SPEED));
             float lerpedSpeed = MathHelper.lerp(0.125F, this.brine.getMovementSpeed(), baseSpeed);
             this.brine.setMovementSpeed(lerpedSpeed);
 

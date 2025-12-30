@@ -19,59 +19,68 @@ import potatowolfie.earth_and_water.item.custom.*;
 
 public class ModItems {
     public static final Item BORE_ROD = registerItem("bore_rod",
-            new Item(new Item.Settings()));
+            new Item(new Item.Settings().registryKey(createItemRegistryKey("bore_rod"))));
 
     public static final Item BORE_SPAWN_EGG = registerItem("bore_spawn_egg",
             new SpawnEggItem(ModEntities.BORE, 0xffffff, 0xffffff,
-                    new Item.Settings()));
+                    new Item.Settings().registryKey(createItemRegistryKey("bore_spawn_egg"))));
 
     public static final Item BRINE_ROD = registerItem("brine_rod",
-            new Item(new Item.Settings()));
+            new Item(new Item.Settings().registryKey(createItemRegistryKey("brine_rod"))));
 
     public static final Item BRINE_SPAWN_EGG = registerItem("brine_spawn_egg",
             new SpawnEggItem(ModEntities.BRINE, 0xffffff, 0xffffff,
-                    new Item.Settings()));
+                    new Item.Settings().registryKey(createItemRegistryKey("brine_spawn_egg"))));
 
     public static final Item STEEL_INGOT = registerItem("steel_ingot",
-            new Item(new Item.Settings()));
+            new Item(new Item.Settings().registryKey(createItemRegistryKey("steel_ingot"))));
 
     public static final Item STEEL_NUGGET = registerItem("steel_nugget",
-            new Item(new Item.Settings()));
+            new Item(new Item.Settings().registryKey(createItemRegistryKey("steel_nugget"))));
 
     public static final Item EARTH_CHARGE = registerItem("earth_charge",
-            new EarthChargeItem(new Item.Settings()));
+            new EarthChargeItem(new Item.Settings().registryKey(createItemRegistryKey("earth_charge"))));
 
     public static final Item WATER_CHARGE = registerItem("water_charge",
-            new WaterChargeItem(new Item.Settings()));
+            new WaterChargeItem(new Item.Settings().registryKey(createItemRegistryKey("water_charge"))));
 
     public static final Item REINFORCED_KEY = registerItem("reinforced_key",
-            new ReinforcedKeyItem(new Item.Settings()));
+            new ReinforcedKeyItem(new Item.Settings().registryKey(createItemRegistryKey("reinforced_key"))));
 
     public static final Item STEEL_UPGRADE_SMITHING_TEMPLATE = registerItem("steel_upgrade_smithing_template",
-            SmithingTemplateItem.of(Identifier.of(EarthWater.MOD_ID, "steel"), FeatureFlags.VANILLA));
+            SmithingTemplateItem.of(new Item.Settings().rarity(Rarity.UNCOMMON)
+                    .registryKey(createItemRegistryKey("steel_upgrade_smithing_template"))));
+
     public static final Item BLOCK_ARMOR_TRIM_SMITHING_TEMPLATE = registerItem("block_armor_trim_smithing_template",
-            SmithingTemplateItem.of(Identifier.of(EarthWater.MOD_ID, "dripstone"), FeatureFlags.VANILLA));
+            SmithingTemplateItem.of(new Item.Settings().rarity(Rarity.UNCOMMON)
+                    .registryKey(createItemRegistryKey("block_armor_trim_smithing_template"))));
+
     public static final Item GUARD_ARMOR_TRIM_SMITHING_TEMPLATE = registerItem("guard_armor_trim_smithing_template",
-            SmithingTemplateItem.of(Identifier.of(EarthWater.MOD_ID, "prismarine"), FeatureFlags.VANILLA));
+            SmithingTemplateItem.of(new Item.Settings().rarity(Rarity.UNCOMMON)
+                    .registryKey(createItemRegistryKey("guard_armor_trim_smithing_template"))));
 
     public static final Item WHIP = registerItem("whip",
             new WhipItem(ModToolMaterials.PRISMARINE,
                     new Item.Settings()
-                            .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.PRISMARINE, 4, -2.8F))
                             .rarity(Rarity.UNCOMMON)
+                            .registryKey(createItemRegistryKey("whip"))
             )
     );
 
     public static final Item BATTLE_AXE = registerItem("battle_axe",
-            new BattleAxeItem(ModToolMaterials.STEEL,
+            new BattleAxeItem(ModToolMaterials.STEEL, 5.0F, -3.2F,
                     new Item.Settings()
-                            .attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.STEEL, 5.0F, -3.2F))
                             .rarity(Rarity.UNCOMMON)
+                            .registryKey(createItemRegistryKey("battle_axe"))
             ));
 
     public static final Item SPIKED_SHIELD = Registry.register(Registries.ITEM,
             Identifier.of(EarthWater.MOD_ID, "spiked_shield"),
-            new SpikedShieldItem(new Item.Settings().maxCount(1).maxDamage(556).component(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT))
+            new SpikedShieldItem(new Item.Settings()
+                    .maxCount(1)
+                    .maxDamage(556)
+                    .component(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT)
+                    .registryKey(createItemRegistryKey("spiked_shield")))
     );
 
     private static RegistryKey<Item> createItemRegistryKey(String name) {

@@ -20,10 +20,10 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.function.BooleanBiFunction;
@@ -36,12 +36,13 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 import potatowolfie.earth_and_water.block.ModBlocks;
 
 public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Waterloggable {
     public static final MapCodec<PointedDarkDripstoneBlock> CODEC = createCodec(potatowolfie.earth_and_water.block.custom.PointedDarkDripstoneBlock::new);
-    public static final DirectionProperty VERTICAL_DIRECTION = Properties.VERTICAL_DIRECTION;
+    public static final EnumProperty<Direction> VERTICAL_DIRECTION = Properties.VERTICAL_DIRECTION;
     public static final EnumProperty<Thickness> THICKNESS = Properties.THICKNESS;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     private static final int field_31205 = 11;
@@ -76,11 +77,12 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
         return CODEC;
     }
 
-    public PointedDarkDripstoneBlock(AbstractBlock.Settings settings) {
+    public PointedDarkDripstoneBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(
-                this.stateManager.getDefaultState().with(VERTICAL_DIRECTION, Direction.UP).with(THICKNESS, Thickness.TIP).with(WATERLOGGED, Boolean.valueOf(false))
-        );
+        this.setDefaultState(this.stateManager.getDefaultState()
+                .with(VERTICAL_DIRECTION, Direction.UP)
+                .with(THICKNESS, Thickness.TIP)
+                .with(WATERLOGGED, false));
     }
 
     @Override
@@ -94,44 +96,42 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     @Override
-    protected BlockState getStateForNeighborUpdate(
-            BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos
-    ) {
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         if ((Boolean)state.get(WATERLOGGED)) {
-            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
 
         if (direction != Direction.UP && direction != Direction.DOWN) {
             return state;
         } else {
-            Direction direction2 = state.get(VERTICAL_DIRECTION);
-            if (direction2 == Direction.DOWN && world.getBlockTickScheduler().isQueued(pos, this)) {
+            Direction direction2 = (Direction)state.get(VERTICAL_DIRECTION);
+            if (direction2 == Direction.DOWN && tickView.getBlockTickScheduler().isQueued(pos, this)) {
                 return state;
             } else if (direction == direction2.getOpposite() && !this.canPlaceAt(state, world, pos)) {
                 if (direction2 == Direction.DOWN) {
-                    world.scheduleBlockTick(pos, this, 2);
+                    tickView.scheduleBlockTick(pos, this, 2);
                 } else {
-                    world.scheduleBlockTick(pos, this, 1);
+                    tickView.scheduleBlockTick(pos, this, 1);
                 }
 
                 return state;
             } else {
                 boolean bl = state.get(THICKNESS) == Thickness.TIP_MERGE;
                 Thickness thickness = getThickness(world, pos, direction2, bl);
-                return state.with(THICKNESS, thickness);
+                return (BlockState)state.with(THICKNESS, thickness);
             }
         }
     }
 
     @Override
     protected void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
-        if (!world.isClient) {
+        if (!world.isClient()) {
             BlockPos blockPos = hit.getBlockPos();
-            if (projectile.canModifyAt(world, blockPos)
-                    && projectile.canBreakBlocks(world)
-                    && projectile instanceof TridentEntity
-                    && projectile.getVelocity().length() > 0.6) {
-                world.breakBlock(blockPos, true);
+            if (world instanceof ServerWorld) {
+                ServerWorld serverWorld = (ServerWorld)world;
+                if (projectile.canModifyAt(serverWorld, blockPos) && projectile.canBreakBlocks(serverWorld) && projectile instanceof TridentEntity && projectile.getVelocity().length() > 0.6) {
+                    world.breakBlock(blockPos, true);
+                }
             }
         }
     }
@@ -245,32 +245,23 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     @Override
-    protected VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
+    protected VoxelShape getCullingShape(BlockState state) {
         return VoxelShapes.empty();
     }
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Thickness thickness = state.get(THICKNESS);
         VoxelShape voxelShape;
-        if (thickness == Thickness.TIP_MERGE) {
-            voxelShape = TIP_MERGE_SHAPE;
-        } else if (thickness == Thickness.TIP) {
-            if (state.get(VERTICAL_DIRECTION) == Direction.DOWN) {
-                voxelShape = DOWN_TIP_SHAPE;
-            } else {
-                voxelShape = UP_TIP_SHAPE;
-            }
-        } else if (thickness == Thickness.FRUSTUM) {
-            voxelShape = BASE_SHAPE;
-        } else if (thickness == Thickness.MIDDLE) {
-            voxelShape = FRUSTUM_SHAPE;
-        } else {
-            voxelShape = MIDDLE_SHAPE;
+        switch ((Thickness)state.get(THICKNESS)) {
+            case TIP_MERGE -> voxelShape = TIP_MERGE_SHAPE;
+            case TIP -> voxelShape = state.get(VERTICAL_DIRECTION) == Direction.DOWN ? DOWN_TIP_SHAPE : UP_TIP_SHAPE;
+            case FRUSTUM -> voxelShape = BASE_SHAPE;
+            case MIDDLE -> voxelShape = FRUSTUM_SHAPE;
+            case BASE -> voxelShape = MIDDLE_SHAPE;
+            default -> throw new RuntimeException("Unknown thickness: " + state.get(THICKNESS));
         }
 
-        Vec3d vec3d = state.getModelOffset(world, pos);
-        return voxelShape.offset(vec3d.x, 0.0, vec3d.z);
+        return voxelShape.offset(state.getModelOffset(pos));
     }
 
     @Override
@@ -393,11 +384,13 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     }
 
     public static void createParticle(World world, BlockPos pos, BlockState state) {
-        getFluid(world, pos, state).ifPresent(fluid -> createParticle(world, pos, state, fluid.fluid));
+        getFluid(world, pos, state).ifPresent((fluid) -> {
+            createParticle(world, pos, state, fluid.fluid);
+        });
     }
 
     private static void createParticle(World world, BlockPos pos, BlockState state, Fluid fluid) {
-        Vec3d vec3d = state.getModelOffset(world, pos);
+        Vec3d vec3d = state.getModelOffset(pos);
         double d = 0.0625;
         double e = (double)pos.getX() + 0.5 + vec3d.x;
         double f = (double)((float)(pos.getY() + 1) - 0.6875F) - 0.0625;
@@ -599,7 +592,7 @@ public class PointedDarkDripstoneBlock extends Block implements LandingBlock, Wa
     private static boolean canDripThrough(BlockView world, BlockPos pos, BlockState state) {
         if (state.isAir()) {
             return true;
-        } else if (state.isOpaqueFullCube(world, pos)) {
+        } else if (state.isOpaqueFullCube()) {
             return false;
         } else if (!state.getFluidState().isEmpty()) {
             return false;

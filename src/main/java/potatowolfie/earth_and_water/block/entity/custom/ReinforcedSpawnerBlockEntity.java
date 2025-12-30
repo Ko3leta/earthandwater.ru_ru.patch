@@ -130,7 +130,7 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
         if (entityType == null) return null;
 
         if (cachedDisplayEntity == null || cachedDisplayEntity.getType() != entityType) {
-            cachedDisplayEntity = entityType.create(world);
+            cachedDisplayEntity = entityType.create(world, SpawnReason.SPAWNER);
         }
         return cachedDisplayEntity;
     }
@@ -393,7 +393,7 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
             BlockPos spawnPos = BlockPos.ofFloored(x, y, z);
 
             if (world.isSpaceEmpty(new Box(spawnPos).expand(0.5))) {
-                Entity entity = entityType.create(world);
+                Entity entity = entityType.create(world, SpawnReason.SPAWNER);
                 if (entity instanceof MobEntity mob) {
                     mob.refreshPositionAndAngles(x, y, z, random.nextFloat() * 360, 0);
                     mob.initialize(world, world.getLocalDifficulty(spawnPos),
@@ -462,7 +462,14 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
     }
 
     public boolean canUseKey(World world) {
-        return (world.getTime() - lastKeyUsageTime) >= KEY_USAGE_COOLDOWN;
+        long timeSinceLastUse = world.getTime() - lastKeyUsageTime;
+
+        if (timeSinceLastUse < 0) {
+            lastKeyUsageTime = 0;
+            return true;
+        }
+
+        return timeSinceLastUse >= KEY_USAGE_COOLDOWN;
     }
 
     public int getCurrentWaveNumber() {
@@ -508,7 +515,9 @@ public class ReinforcedSpawnerBlockEntity extends BlockEntity {
         this.spawnDelay = nbt.getInt("SpawnDelay");
         this.rotation = nbt.getDouble("Rotation");
         this.lastRotation = nbt.getDouble("LastRotation");
-        this.lastKeyUsageTime = nbt.getLong("LastKeyUsageTime");
+
+        this.lastKeyUsageTime = 0;
+
         this.wasInCooldown = nbt.getBoolean("WasInCooldown");
 
         this.isWaveActive = nbt.getBoolean("IsWaveActive");

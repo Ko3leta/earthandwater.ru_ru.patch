@@ -3,19 +3,13 @@
   "category": "misc",
   "key": {
     "#": [
-      {
-        "item": "minecraft:diamond"
-      }
+      "minecraft:diamond"
     ],
     "C": [
-      {
-        "item": "earth-and-water:steel_block"
-      }
+      "earth-and-water:steel_block"
     ],
     "S": [
-      {
-        "item": "earth-and-water:steel_upgrade_smithing_template"
-      }
+      "earth-and-water:steel_upgrade_smithing_template"
     ]
   },
   "pattern": [

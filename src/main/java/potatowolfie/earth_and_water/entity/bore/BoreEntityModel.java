@@ -3,25 +3,26 @@ package potatowolfie.earth_and_water.entity.bore;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
+import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.animation.SnifferAnimations;
+import net.minecraft.client.render.entity.model.EntityModel;
 import potatowolfie.earth_and_water.animation.BoreAnimations;
 
 // Made with Blockbench 4.12.4
 
 @Environment(EnvType.CLIENT)
-public class BoreEntityModel<T extends BoreEntity> extends SinglePartEntityModel<T> {
-	private final ModelPart root;
+public class BoreEntityModel extends EntityModel<BoreEntityRenderState> {
 	private final ModelPart head;
 	private final ModelPart eyes;
 	private final ModelPart rods_top;
 	private final ModelPart rods_bottom;
 
-	public BoreEntityModel(ModelPart root) {
-		this.root = root;
-		this.head = root.getChild("head");
+	public BoreEntityModel(ModelPart modelPart) {
+		super(modelPart);
+		this.head = modelPart.getChild("head");
 		this.eyes = this.head.getChild("eyes");
-		this.rods_top = root.getChild("rods_top");
-		this.rods_bottom = root.getChild("rods_bottom");
+		this.rods_top = modelPart.getChild("rods_top");
+		this.rods_bottom = modelPart.getChild("rods_bottom");
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -89,20 +90,14 @@ public class BoreEntityModel<T extends BoreEntity> extends SinglePartEntityModel
 		return TexturedModelData.of(modelData, 32, 32);
 	}
 
-	@Override
-	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		this.getPart().traverse().forEach(ModelPart::resetTransform);
+	public void setAngles(BoreEntityRenderState boreEntityRenderState) {
+		super.setAngles(boreEntityRenderState);
 
-		this.updateAnimation(entity.idleAnimationState, BoreAnimations.BORE_IDLE, animationProgress);
-		this.updateAnimation(entity.shootingAnimationState, BoreAnimations.BORE_SHOOTING, animationProgress);
-		this.updateAnimation(entity.burrowingAnimationState, BoreAnimations.BORE_BURROWING, animationProgress);
-		this.updateAnimation(entity.unburrowingAnimationState, BoreAnimations.BORE_UNBURROWING, animationProgress);
-		this.updateAnimation(entity.whileburrowingAnimationState, BoreAnimations.BURROWING, animationProgress);
-	}
-
-	@Override
-	public ModelPart getPart() {
-		return this.root;
+		this.animate(boreEntityRenderState.idleAnimationState, BoreAnimations.BORE_IDLE, boreEntityRenderState.age);
+		this.animate(boreEntityRenderState.shootingAnimationState, BoreAnimations.BORE_SHOOTING, boreEntityRenderState.age);
+		this.animate(boreEntityRenderState.burrowingAnimationState, BoreAnimations.BORE_BURROWING, boreEntityRenderState.age);
+		this.animate(boreEntityRenderState.unburrowingAnimationState, BoreAnimations.BORE_UNBURROWING, boreEntityRenderState.age);
+		this.animate(boreEntityRenderState.whileburrowingAnimationState, BoreAnimations.BURROWING, boreEntityRenderState.age);
 	}
 
 	public ModelPart getHead() {

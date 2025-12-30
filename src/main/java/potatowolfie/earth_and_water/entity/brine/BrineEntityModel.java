@@ -3,14 +3,13 @@ package potatowolfie.earth_and_water.entity.brine;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
+import net.minecraft.client.render.entity.model.EntityModel;
 import potatowolfie.earth_and_water.animation.BrineAnimations;
 
 // Made with Blockbench 4.12.4
 
 @Environment(EnvType.CLIENT)
-public class BrineEntityModel<T extends BrineEntity> extends SinglePartEntityModel<T> {
-	private final ModelPart root;
+public class BrineEntityModel extends EntityModel<BrineEntityRenderState> {
 	private final ModelPart head;
 	private final ModelPart body;
 	private final ModelPart shell1;
@@ -19,10 +18,10 @@ public class BrineEntityModel<T extends BrineEntity> extends SinglePartEntityMod
 	private final ModelPart rods_bottom;
 	private final ModelPart eyes;
 
-	public BrineEntityModel(ModelPart root) {
-		this.root = root;
-		this.head = root.getChild("head");
-		this.body = root.getChild("body");
+	public BrineEntityModel(ModelPart modelPart) {
+		super(modelPart);
+		this.head = modelPart.getChild("head");
+		this.body = modelPart.getChild("body");
 		this.shell1 = this.body.getChild("shell1");
 		this.shell2 = this.body.getChild("shell2");
 		this.rods_top = this.body.getChild("rods_top");
@@ -67,18 +66,12 @@ public class BrineEntityModel<T extends BrineEntity> extends SinglePartEntityMod
 		return TexturedModelData.of(modelData, 32, 32);
 	}
 
-	@Override
-	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		this.getPart().traverse().forEach(ModelPart::resetTransform);
+	public void setAngles(BrineEntityRenderState brineEntityRenderState) {
+		super.setAngles(brineEntityRenderState);
 
-		this.updateAnimation(entity.idleAnimationState, BrineAnimations.BRINE_IDLE, animationProgress);
-		this.updateAnimation(entity.attackAnimationState, BrineAnimations.BRINE_SHOOTING, animationProgress);
-		this.updateAnimation(entity.underwaterAnimationState, BrineAnimations.BRINE_UNDERWATER, animationProgress);
-	}
-
-	@Override
-	public ModelPart getPart() {
-		return this.root;
+		this.animate(brineEntityRenderState.idleAnimationState, BrineAnimations.BRINE_IDLE, brineEntityRenderState.age);
+		this.animate(brineEntityRenderState.attackAnimationState, BrineAnimations.BRINE_SHOOTING, brineEntityRenderState.age);
+		this.animate(brineEntityRenderState.underwaterAnimationState, BrineAnimations.BRINE_UNDERWATER, brineEntityRenderState.age);
 	}
 
 	public ModelPart getHead() {

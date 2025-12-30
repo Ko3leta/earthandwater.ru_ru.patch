@@ -116,7 +116,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
     }
 
     public boolean isGrounded() {
-        return this.inGround;
+        return this.isInGround();
     }
 
     private boolean isReallyInWater() {
@@ -163,7 +163,7 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
         if (!world.isClient() && world instanceof ServerWorld serverWorld) {
             DamageSource waterChargeDamage = new DamageSource(
                     serverWorld.getRegistryManager()
-                            .get(RegistryKeys.DAMAGE_TYPE)
+                            .getOrThrow(RegistryKeys.DAMAGE_TYPE)
                             .getEntry(ModDamageTypes.WATER_CHARGE.getValue()).get(),
                     this,
                     this.getOwner()
@@ -276,12 +276,12 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
                         if (damage > 0.5f && world instanceof ServerWorld) {
                             new DamageSource(
                                     serverWorld.getRegistryManager()
-                                            .get(RegistryKeys.DAMAGE_TYPE)
+                                            .getOrThrow(RegistryKeys.DAMAGE_TYPE)
                                             .getEntry(ModDamageTypes.WATER_CHARGE.getValue()).get(),
                                     this,
                                     this.getOwner()
                             );
-                            livingEntity.damage(waterChargeDamage, damage);
+                            livingEntity.damage(serverWorld, waterChargeDamage, damage);
                             restoreOxygen(livingEntity);
                         }
                     }
@@ -313,12 +313,12 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
             if (world instanceof ServerWorld serverWorld) {
                 DamageSource waterChargeDamage = new DamageSource(
                         serverWorld.getRegistryManager()
-                                .get(RegistryKeys.DAMAGE_TYPE)
+                                .getOrThrow(RegistryKeys.DAMAGE_TYPE)
                                 .getEntry(ModDamageTypes.WATER_CHARGE.getValue()).get(),
                         this,
                         this.getOwner()
                 );
-                livingEntity.damage(waterChargeDamage, damage);
+                livingEntity.damage(serverWorld, waterChargeDamage, damage);
             }
 
             int durationTicks = (int)(WATER_BREATHING_DURATION * 20);
@@ -521,12 +521,12 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
             if (getEntityWorld() instanceof ServerWorld serverWorld) {
                 DamageSource waterChargeDamage = new DamageSource(
                         serverWorld.getRegistryManager()
-                                .get(RegistryKeys.DAMAGE_TYPE)
+                                .getOrThrow(RegistryKeys.DAMAGE_TYPE)
                                 .getEntry(ModDamageTypes.WATER_CHARGE.getValue()).get(),
                         this,
                         this.getOwner()
                 );
-                livingEntity.damage(waterChargeDamage, DIRECT_DAMAGE);
+                livingEntity.damage(serverWorld, waterChargeDamage, DIRECT_DAMAGE);
             }
 
             int durationTicks = (int)(WATER_BREATHING_DURATION * 20);
@@ -829,17 +829,17 @@ public class WaterChargeProjectileEntity extends PersistentProjectileEntity {
     }
 
     @Override
-    public void kill() {
+    public void kill(ServerWorld serverWorld) {
         if (!isPerformingBubbleEffect && !getEntityWorld().isClient()) {
             Vec3d pos = this.getPos();
 
-            ((ServerWorld)getEntityWorld()).spawnParticles(
+            serverWorld.spawnParticles(
                     ParticleTypes.BUBBLE_COLUMN_UP,
                     pos.x, pos.y, pos.z,
                     20, 1.0, 1.0, 1.0, 0.2
             );
         }
-        super.kill();
+        super.kill(serverWorld);
     }
 
     public boolean isStuckToEntity() {
