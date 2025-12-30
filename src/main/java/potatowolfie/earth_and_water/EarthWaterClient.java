@@ -3,15 +3,14 @@ package potatowolfie.earth_and_water;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.particle.EndRodParticle;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.item.model.special.SpecialModelTypes;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
@@ -25,18 +24,19 @@ import potatowolfie.earth_and_water.entity.brine.BrineEntityModel;
 import potatowolfie.earth_and_water.entity.brine.BrineEntityRenderer;
 import potatowolfie.earth_and_water.entity.client.*;
 import potatowolfie.earth_and_water.entity.client.spiked_shield.SpikedShieldEntityModel;
-import potatowolfie.earth_and_water.entity.client.spiked_shield.SpikedShieldItemRenderer;
 import potatowolfie.earth_and_water.entity.client.spiked_shield.SpikedShieldRenderer;
 import potatowolfie.earth_and_water.entity.earth_charge.EarthChargeProjectileModel;
 import potatowolfie.earth_and_water.entity.earth_charge.EarthChargeProjectileRenderer;
 import potatowolfie.earth_and_water.entity.water_charge.WaterChargeProjectileModel;
 import potatowolfie.earth_and_water.entity.water_charge.WaterChargeProjectileRenderer;
-import potatowolfie.earth_and_water.item.ModItems;
 import potatowolfie.earth_and_water.particle.ReinforcedSpawnerDetectionParticle;
 import potatowolfie.earth_and_water.particle.ReinforcedSpawnerDetectionParticleInner;
 import potatowolfie.earth_and_water.particle.ReinforcedSpawnerOutwardParticle;
 
 public class EarthWaterClient implements ClientModInitializer {
+
+    public static final Identifier SPIKED_BANNER_SHIELD_TYPE =
+            Identifier.of(EarthWater.MOD_ID, "spiked_banner_shield");
 
     public static final EntityModelLayer SPIKED_SHIELD_MODEL_LAYER = new EntityModelLayer(
             Identifier.of(EarthWater.MOD_ID, "spiked_shield"), "main"
@@ -74,34 +74,23 @@ public class EarthWaterClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.BRINE, BrineEntityModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.BRINE, BrineEntityRenderer::new);
 
-        ModelPredicateProviderRegistry.register(
-                ModItems.SPIKED_SHIELD,
-                Identifier.of("minecraft", "blocking"),
-                (stack, world, entity, seed) -> entity instanceof LivingEntity && entity.isUsingItem() &&
-                        entity.getActiveItem() == stack ? 1.0F : 0.0F
-        );
-
         BlockEntityRendererFactories.register(
                 ModBlockEntities.REINFORCED_SPAWNER_BLOCK_ENTITY,
                 ReinforcedSpawnerBlockEntityRenderer::new
         );
 
-        EntityModelLayerRegistry.registerModelLayer(SPIKED_SHIELD_MODEL_LAYER, SpikedShieldEntityModel::getTexturedModelData);
-
-        BuiltinItemRendererRegistry.INSTANCE.register(
-                ModItems.SPIKED_SHIELD,
-                (stack, mode, matrices, vertexConsumers, light, overlay) -> {
-                    SpikedShieldRenderer renderer = new SpikedShieldRenderer(EarthWaterClient.getSpikedShieldModel());
-                    SpikedShieldItemRenderer itemRenderer = new SpikedShieldItemRenderer(renderer);
-                    itemRenderer.render(stack, mode, matrices, vertexConsumers, light, overlay);
-                }
+        SpecialModelTypes.ID_MAPPER.put(
+                Identifier.of(EarthWater.MOD_ID, "spiked_banner_shield"),
+                SpikedShieldRenderer.Unbaked.CODEC
         );
+
+        EntityModelLayerRegistry.registerModelLayer(SPIKED_SHIELD_MODEL_LAYER, SpikedShieldEntityModel::getTexturedModelData);
     }
 
     public static SpikedShieldEntityModel getSpikedShieldModel() {
         if (spikedShieldModel == null) {
             spikedShieldModel = new SpikedShieldEntityModel(MinecraftClient.getInstance()
-                    .getEntityModelLoader()
+                    .getLoadedEntityModels()
                     .getModelPart(SPIKED_SHIELD_MODEL_LAYER));
         }
         return spikedShieldModel;

@@ -98,7 +98,7 @@ public class ReinforcedSpawnerBlock extends BlockWithEntity implements Waterlogg
 
         if (world.getBlockEntity(pos) instanceof ReinforcedSpawnerBlockEntity spawner) {
             if (stack.getItem() instanceof SpawnEggItem spawnEggItem) {
-                EntityType<?> entityType = spawnEggItem.getEntityType(stack);
+                EntityType<?> entityType = spawnEggItem.getEntityType(world.getRegistryManager(), stack);
 
                 spawner.setEntityType(entityType);
 

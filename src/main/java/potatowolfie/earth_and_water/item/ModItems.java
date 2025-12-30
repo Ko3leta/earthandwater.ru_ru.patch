@@ -16,20 +16,19 @@ import potatowolfie.earth_and_water.EarthWater;
 import potatowolfie.earth_and_water.entity.ModEntities;
 import potatowolfie.earth_and_water.item.custom.*;
 
-
 public class ModItems {
     public static final Item BORE_ROD = registerItem("bore_rod",
             new Item(new Item.Settings().registryKey(createItemRegistryKey("bore_rod"))));
 
     public static final Item BORE_SPAWN_EGG = registerItem("bore_spawn_egg",
-            new SpawnEggItem(ModEntities.BORE, 0xffffff, 0xffffff,
+            new SpawnEggItem(ModEntities.BORE,
                     new Item.Settings().registryKey(createItemRegistryKey("bore_spawn_egg"))));
 
     public static final Item BRINE_ROD = registerItem("brine_rod",
             new Item(new Item.Settings().registryKey(createItemRegistryKey("brine_rod"))));
 
     public static final Item BRINE_SPAWN_EGG = registerItem("brine_spawn_egg",
-            new SpawnEggItem(ModEntities.BRINE, 0xffffff, 0xffffff,
+            new SpawnEggItem(ModEntities.BRINE,
                     new Item.Settings().registryKey(createItemRegistryKey("brine_spawn_egg"))));
 
     public static final Item STEEL_INGOT = registerItem("steel_ingot",
