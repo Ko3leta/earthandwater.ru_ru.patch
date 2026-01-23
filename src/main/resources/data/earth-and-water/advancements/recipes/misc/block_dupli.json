@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "earth-and-water:block_armor_trim_smithing_template"
+            "items": ["earth-and-water:block_armor_trim_smithing_template"]
           }
         ]
       },
