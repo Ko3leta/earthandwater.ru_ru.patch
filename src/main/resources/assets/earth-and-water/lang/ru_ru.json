@@ -74,11 +74,12 @@
   "block.earth-and-water.dark_dripstone_brick_slab": "Плита из тёмного натёчного кирпича",
   "block.earth-and-water.dark_dripstone_brick_wall": "Ограда из тёмного натёчного кирпича",
 
-  "block.earth-and-water.dark_dripstone_pillar": "Натёчная колонна",
+  "block.earth-and-water.dripstone_pillar": "Натёчная колонна",
+
+  "block.earth-and-water.dark_dripstone_pillar": "Тёмная натёчная колонна",
 
   "block.earth-and-water.chiseled_dripstone_bricks": "Резные натёчные кирпичи",
   "block.earth-and-water.chiseled_dark_dripstone_bricks": "Резные тёмные натёчные кирпичи",
-  "block.earth-and-water.dripstone_pillar": "Тёмная натёчная колонна",
 
   "block.earth-and-water.polished_dripstone": "Полированный натёчный камень",
   "block.earth-and-water.polished_dripstone_stairs": "Ступеньки из полированного натёчного камня",
@@ -110,7 +111,7 @@
 
   "tag.item.earth-and-water.incorrect_for_prismarine_tool": "Не подходит для призмаринового инструмента",
   "tag.item.earth-and-water.incorrect_for_steel_tool": "Не подходит для стального инструмента",
-  "tag.item.earth-and-water.needs_prismarine_tool": "Требует стальной инструмент",
+  "tag.item.earth-and-water.needs_prismarine_tool": "Требует призмариновый инструмент",
   "tag.item.earth-and-water.needs_steel_tool": "Требует стальной инструмент",
   "tag.item.earth-and-water.e_w_conduit_frame_blocks": "Блоки для рамки источника",
   "tag.item.earth-and-water.has_steel": "Имеет сталь",
@@ -160,9 +161,11 @@
   "sounds.earth-and-water.bore_hurt": "Ополз ранен",
   "sounds.earth-and-water.bore_death": "Ополз погибает",
   "sounds.earth-and-water.brine_ambient": "Усол бормочет",
-  "sounds.earth-and-water.brine_death": "Усол ранен",
+  "sounds.earth-and-water.brine_hurt": "Усол ранен",
+  "sounds.earth-and-water.brine_death": "Усол погибает",
   "sounds.earth-and-water.brine_underwater_ambient": "Усол бормочет",
-  "sounds.earth-and-water.brine_underwater_death": "Усол ранен",
+  "sounds.earth-and-water.brine_underwater_hurt": "Усол ранен",
+  "sounds.earth-and-water.brine_underwater_death": "Усол погибает",
 
   "death.attack.battle_axe": "%1$s был рассечён %2$s",
   "death.attack.battle_axe.item": "%1$s был рассечён %2$s с помощью %3$s",
@@ -184,10 +187,6 @@
   "advancement.earth-and-water.long_ago.title": "Давным-давно...",
   "advancement.earth-and-water.long_ago.description": "Заполучите все стержни всех стихий: ополза, усола, вихря и всполоха",
 
-  "modmenu.descriptionTranslation.earth-and-water": "Зачем останавливаться на всполохе и вихре, когда можно завершить набор: Вода, Земля, Огонь, и Воздух?",
-  "modmenu.nameTranslation.earth-and-water": "Earth & Water",
-  "modmenu.planet_minecraft": "Planet Minecraft",
-
   "splash.earth-and-water.sticks_stone": "Sticks and stones may break my bones, but more stones will shatter them probably.",
   "splash.earth-and-water.herobrine": "You were supposed to be a hero, Brine!",
   "splash.earth-and-water.september": "Earth, Wind & Fire!",
@@ -200,5 +199,10 @@
   "splash.earth-and-water.bore_you": "I don’t mean to Bore you.",
   "splash.earth-and-water.sweet_carobrine": "SWEEEEET CARO-BRINE!",
   "splash.earth-and-water.sun_tzu": "Bore-dom is meant to be weaponized. -Sun Tzu, the Art of Bore",
-  "splash.earth-and-water.bore_d": "I was Bore-d."
+  "splash.earth-and-water.bore_d": "I was Bore-d.",
+
+  "modmenu.nameTranslation.earth-and-water": "Earth & Water",
+  "modmenu.planet_minecraft": "Planet Minecraft",
+
+  "modmenu.descriptionTranslation.earth-and-water": "Зачем останавливаться на всполохе и вихре, когда можно завершить набор: вода, земля, огонь и воздух?"
 }

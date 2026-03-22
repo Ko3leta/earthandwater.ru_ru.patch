@@ -12,8 +12,10 @@ public class ModSounds {
     public static final SoundEvent BORE_HURT = registerSoundEvent("bore_hurt");
     public static final SoundEvent BORE_DEATH = registerSoundEvent("bore_death");
     public static final SoundEvent BRINE_AMBIENT = registerSoundEvent("brine_ambient");
-    public static final SoundEvent BRINE_UNDERWATER_AMBIENT = registerSoundEvent("brine_underwater_ambient");
+    public static final SoundEvent BRINE_HURT = registerSoundEvent("brine_hurt");
     public static final SoundEvent BRINE_DEATH = registerSoundEvent("brine_death");
+    public static final SoundEvent BRINE_UNDERWATER_AMBIENT = registerSoundEvent("brine_underwater_ambient");
+    public static final SoundEvent BRINE_UNDERWATER_HURT = registerSoundEvent("brine_underwater_hurt");
     public static final SoundEvent BRINE_UNDERWATER_DEATH = registerSoundEvent("brine_underwater_death");
 
     private static SoundEvent registerSoundEvent(String name) {

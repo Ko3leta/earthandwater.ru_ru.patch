@@ -33,10 +33,16 @@
       "earth-and-water:brine_ambient"
     ]
   },
+  "brine_hurt": {
+    "subtitle": "sounds.earth-and-water.brine_hurt",
+    "sounds": [
+      "earth-and-water:brine_hurt"
+    ]
+  },
   "brine_death": {
     "subtitle": "sounds.earth-and-water.brine_death",
     "sounds": [
-      "earth-and-water:brine_hurt"
+      "earth-and-water:brine_death"
     ]
   },
   "brine_underwater_ambient": {
@@ -45,10 +51,16 @@
       "earth-and-water:brine_underwater_ambient"
     ]
   },
+  "brine_underwater_hurt": {
+    "subtitle": "sounds.earth-and-water.brine_underwater_hurt",
+    "sounds": [
+      "earth-and-water:brine_underwater_hurt"
+    ]
+  },
   "brine_underwater_death": {
     "subtitle": "sounds.earth-and-water.brine_underwater_death",
     "sounds": [
-      "earth-and-water:brine_underwater_hurt"
+      "earth-and-water:brine_underwater_death"
     ]
   }
 }

@@ -101,7 +101,7 @@ public class BrineEntity extends HostileWaterCreatureEntity {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return this.touchingWater ? ModSounds.BRINE_UNDERWATER_DEATH : ModSounds.BRINE_DEATH;
+        return this.touchingWater ? ModSounds.BRINE_UNDERWATER_HURT : ModSounds.BRINE_HURT;
     }
 
     @Override
